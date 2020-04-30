@@ -4,3 +4,5 @@ norminette
 /srcs/libft
 /src/get_next_line
 .vscode/
+*.o
+srcs/mandatory/cub3d.h.gch
