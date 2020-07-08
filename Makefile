@@ -6,7 +6,7 @@
 #    By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/15 14:41:36 by mvaldes           #+#    #+#              #
-#    Updated: 2020/04/30 15:14:01 by mvaldes          ###   ########.fr        #
+#    Updated: 2020/07/08 13:42:59 by mvaldes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@
 
 SRCS = ./srcs/mandatory/utils_lst.c\
 	   ./srcs/mandatory/utils_general.c\
+	   ./srcs/mandatory/init_scene.c\
 	   ./srcs/mandatory/parse_scene.c\
 	   ./srcs/mandatory/parse_params.c\
 	   ./srcs/mandatory/parse_map.c\

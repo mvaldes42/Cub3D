@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:51:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/04/30 15:21:14 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/08 15:49:10 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,63 @@
 # include "../libft/libft.h"
 # include "../minilibx/mlx.h"
 
-typedef struct	data_s
+# define X_EVENT_EXIT			17
+# define X_EVENT_KEY_PRESS		2
+# define X_EVENT_KEY_RELEASE	3
+# define KEY_Q					12
+# define KEY_E					14
+# define KEY_LEFT				123
+# define KEY_RIGHT				124
+# define KEY_ESC				53
+
+
+typedef struct	s_env
 {
 	void		*mlx_ptr;
 	void		*mlx_win;
-}				data_t;
+}				t_env;
+
+typedef struct  s_data
+{
+	void		*img;
+	char		*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+}				t_data;
 
 typedef struct	s_map
 {
 	char			*line;
 	struct s_map	*next;
 }				t_map;
+
+typedef	struct s_camera
+{
+	int			planeX;
+	double		planeY;
+	int			planeLength;
+	int			dirLength;
+	int			cameraFov;
+}				t_camera;
+
+typedef struct s_point
+{
+	int			x;
+	int			y;
+}			t_point;
+
+typedef struct s_vector
+{
+	t_point		start;
+	t_point		end;
+}				t_vector;
+
+typedef	struct	s_player
+{
+	t_point		pos;
+	int			orient;
+}				t_player;
 
 typedef	struct	s_screen
 {
@@ -46,13 +92,6 @@ typedef	struct	s_rgb
 	int			b;
 }				t_rgb;
 
-typedef	struct	s_player
-{
-	int			x;
-	int			y;
-	char		orientation;
-}				t_player;
-
 typedef struct	s_scene
 {
 	t_screen	screen;
@@ -66,6 +105,7 @@ typedef struct	s_scene
 	t_map		*map;
 	char		**map_a;
 	t_player	player;
+	t_camera	camera;
 
 }				t_scene;
 
@@ -110,12 +150,13 @@ void			ft_lstadd_back_map(t_map **alst, t_map *new);
 void			ft_lstclear_map(t_map **lst);
 int				ft_lstsize_map(t_map *lst);
 
-char			**convert_lst_to_array(t_map *map);
-t_map			*create_map_lst(t_scene scene, char *f_line, int fd, int ret);
+void			cvt_lst_to_array(t_scene *scene_ptr, char *f_line, int fd, int ret);
 
 int				parse_map(char **map);
 int				is_map_closed(char **map_a);
-t_scene			parse_scene(t_scene scene, int fd);
-t_scene			parse_env_params(char *f_line, t_scene scn);
+void			parse_scene(t_scene *scene_ptr, int fd);
+void			parse_env_params(char *f_line, t_scene *scn);
+
+void			init_scene(char **argv, t_scene *scene_ptr);
 
 #endif
