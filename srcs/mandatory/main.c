@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 18:11:43 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/08 13:47:24 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/13 18:34:34 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ int		main(int argc, char *argv[])
 	(void)argc;
 	ft_bzero(&scene, sizeof(scene));
 	init_scene(argv, &scene);
-
-	printf("%d\n", scene.player.orient);
 /*
 ** 	printf("screen x = %d && screen y = %d\n", scene.screen.x, scene.screen.y);
 ** 	printf("north text = %s\n", scene.n_tex);
@@ -67,7 +65,7 @@ int		main(int argc, char *argv[])
 */
 	if ((env.mlx_ptr = mlx_init()) == NULL)
 		return (EXIT_FAILURE);
-	if ((env.mlx_win = mlx_new_window(env.mlx_ptr, 1920, 1080, "Loulou's Awesome Game")) == NULL)
+	if ((env.mlx_win = mlx_new_window(env.mlx_ptr, scene.screen.x, scene.screen.y, "Loulou's Awesome Game")) == NULL)
 		return (EXIT_FAILURE);
 	// img.img = mlx_new_image(env.mlx_ptr, 1920, 1080);
 	// img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
@@ -78,6 +76,7 @@ int		main(int argc, char *argv[])
 	// mlx_loop(env.mlx_ptr);
 	// mlx_pixel_put(env.mlx_ptr, env.mlx_win, 1920/2, 1080/2, 0xFFCCCC);
 	// mlx_string_put(env.mlx_ptr, env.mlx_win, 1920/2, 1080/2, 0xFFCCCC, "HELLO WORLD");
-	// mlx_loop(env.mlx_ptr);
+	calc_closest_wall(&scene);
+	mlx_loop(env.mlx_ptr);
 	return (0);
 }

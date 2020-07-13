@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:51:10 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/08 15:33:30 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/13 18:43:41 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ static void	parse_player_pos(t_scene *scene_p)
 		{
 			if (ft_strrchr("NSEW", scene_p->map_a[i][j]))
 			{
-				scene_p->player.pos.x = j;
-				scene_p->player.pos.y = i;
+				scene_p->player.pos.x = j * 64 + 64 / 2;
+				scene_p->player.pos.y = i * 64 + 64 / 2;
 				scene_p->player.orient =
 				cvt_player_orient(scene_p->map_a[i][j]);
 			}

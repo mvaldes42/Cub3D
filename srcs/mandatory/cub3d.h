@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:51:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/08 15:49:10 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/13 18:42:53 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <string.h>
 # include <stdlib.h>
+# include <float.h>
 # include "../get_next_line/get_next_line.h"
 # include "../libft/libft.h"
 # include "../minilibx/mlx.h"
@@ -37,6 +38,12 @@ typedef struct	s_env
 	void		*mlx_win;
 }				t_env;
 
+typedef struct s_point
+{
+	double			x;
+	double			y;
+}			t_point;
+
 typedef struct  s_data
 {
 	void		*img;
@@ -54,18 +61,12 @@ typedef struct	s_map
 
 typedef	struct s_camera
 {
-	int			planeX;
-	double		planeY;
 	int			planeLength;
+	t_point		planeCenter;
 	int			dirLength;
-	int			cameraFov;
+	float		cameraFov;
+	float		angleRays;
 }				t_camera;
-
-typedef struct s_point
-{
-	int			x;
-	int			y;
-}			t_point;
 
 typedef struct s_vector
 {
@@ -158,5 +159,6 @@ void			parse_scene(t_scene *scene_ptr, int fd);
 void			parse_env_params(char *f_line, t_scene *scn);
 
 void			init_scene(char **argv, t_scene *scene_ptr);
+void			calc_closest_wall(t_scene *scene_p);
 
 #endif
