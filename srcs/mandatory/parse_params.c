@@ -6,20 +6,20 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:53:19 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/08 15:43:06 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/20 12:20:48 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void		cvt_screen_res(t_scene *scn_p, char *f_line)
+static void		cvt_screen_res(t_scene *scene_p, char *f_line)
 {
 	char		**str_array;
 
 	str_array = (char **)malloc(sizeof(char *) * 3 + 1);
 	str_array = ft_split(f_line, ' ');
-	scn_p->screen.x = ft_atoi(str_array[1]);
-	scn_p->screen.y = ft_atoi(str_array[2]);
+	scene_p->screen.x = ft_atoi(str_array[1]);
+	scene_p->screen.y = ft_atoi(str_array[2]);
 	free(str_array);
 }
 
@@ -79,22 +79,22 @@ static void cvt_text_path(char **text_path, char *f_line)
 	}
 }
 
-void			parse_env_params(char *f_line, t_scene *scn)
+void			parse_env_params(char *f_line, t_scene *scene_p)
 {
 	if (f_line[0] == 'R')
-		cvt_screen_res(scn, f_line);
+		cvt_screen_res(scene_p, f_line);
 	else if (f_line[0] == 'N' && f_line[1] == 'O')
-		cvt_text_path(&(scn->n_tex), f_line);
+		cvt_text_path(&(scene_p->n_tex), f_line);
 	else if (f_line[0] == 'S' && f_line[1] == 'O')
-		cvt_text_path(&(scn->s_tex), f_line);
+		cvt_text_path(&(scene_p->s_tex), f_line);
 	else if (f_line[0] == 'E' && f_line[1] == 'A')
-		cvt_text_path(&(scn->e_tex), f_line);
+		cvt_text_path(&(scene_p->e_tex), f_line);
 	else if (f_line[0] == 'W' && f_line[1] == 'E')
-		cvt_text_path(&(scn->w_tex), f_line);
+		cvt_text_path(&(scene_p->w_tex), f_line);
 	else if (f_line[0] == 'S' && f_line[1] == ' ')
-		cvt_text_path(&(scn->sprt_tex), f_line);
+		cvt_text_path(&(scene_p->sprt_tex), f_line);
 	else if (f_line[0] == 'F')
-		cvt_rgb(&(scn->flr_clr), f_line);
+		cvt_rgb(&(scene_p->flr_clr), f_line);
 	else if (f_line[0] == 'C')
-		cvt_rgb(&(scn->cei_clr), f_line);
+		cvt_rgb(&(scene_p->cei_clr), f_line);
 }

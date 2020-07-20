@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 18:11:43 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/13 18:34:34 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/16 13:36:18 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		main(int argc, char *argv[])
 	// mlx_loop(env.mlx_ptr);
 	// mlx_pixel_put(env.mlx_ptr, env.mlx_win, 1920/2, 1080/2, 0xFFCCCC);
 	// mlx_string_put(env.mlx_ptr, env.mlx_win, 1920/2, 1080/2, 0xFFCCCC, "HELLO WORLD");
-	calc_closest_wall(&scene);
+	cast_rays_to_wall(&scene);
 	mlx_loop(env.mlx_ptr);
 	return (0);
 }

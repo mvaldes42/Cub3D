@@ -6,25 +6,26 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:51:10 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/13 18:43:41 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/20 12:18:23 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	are_params_found(t_scene *scn_p)
+static int	are_params_found(t_scene *scene_p)
 {
 	int		n_prm;
 
 	n_prm = 0;
-	n_prm = scn_p->screen.x != 0 && scn_p->screen.y != 0 ? (n_prm + 1) : n_prm;
-	n_prm = scn_p->n_tex != NULL ? (n_prm + 1) : n_prm;
-	n_prm = scn_p->s_tex != NULL ? (n_prm + 1) : n_prm;
-	n_prm = scn_p->e_tex != NULL ? (n_prm + 1) : n_prm;
-	n_prm = scn_p->w_tex != NULL ? (n_prm + 1) : n_prm;
-	n_prm = scn_p->sprt_tex != NULL ? (n_prm + 1) : n_prm;
-	n_prm = scn_p->flr_clr.b != 0 ? (n_prm + 1) : n_prm;
-	n_prm = scn_p->cei_clr.b != 0 ? (n_prm + 1) : n_prm;
+	n_prm = scene_p->screen.x != 0 && scene_p->screen.y != 0 ? (n_prm + 1) :
+	n_prm;
+	n_prm = scene_p->n_tex != NULL ? (n_prm + 1) : n_prm;
+	n_prm = scene_p->s_tex != NULL ? (n_prm + 1) : n_prm;
+	n_prm = scene_p->e_tex != NULL ? (n_prm + 1) : n_prm;
+	n_prm = scene_p->w_tex != NULL ? (n_prm + 1) : n_prm;
+	n_prm = scene_p->sprt_tex != NULL ? (n_prm + 1) : n_prm;
+	n_prm = scene_p->flr_clr.b != 0 ? (n_prm + 1) : n_prm;
+	n_prm = scene_p->cei_clr.b != 0 ? (n_prm + 1) : n_prm;
 	if (n_prm == 8)
 		return (1);
 	g_error = 1;
@@ -40,16 +41,28 @@ static int	is_env_params(char c)
 	return (0);
 }
 
-static int	cvt_player_orient(char c)
+static void	cvt_player_orient(char c, t_scene *scene_p)
 {
 	if (c == 'N')
-		return (90);
+	{
+		scene_p->player.dir.x = 0;
+		scene_p->player.dir.y = 1;
+	}
 	else if (c == 'S')
-		return (270);
+	{
+		scene_p->player.dir.x = 0;
+		scene_p->player.dir.y = -1;
+	}
 	else if (c == 'E')
-		return (0);
+	{
+		scene_p->player.dir.x = 1;
+		scene_p->player.dir.y = 0;
+	}
 	else
-		return (180);
+	{
+		scene_p->player.dir.x = -1;
+		scene_p->player.dir.y = 0;
+	}
 }
 
 static void	parse_player_pos(t_scene *scene_p)
@@ -68,8 +81,7 @@ static void	parse_player_pos(t_scene *scene_p)
 			{
 				scene_p->player.pos.x = j * 64 + 64 / 2;
 				scene_p->player.pos.y = i * 64 + 64 / 2;
-				scene_p->player.orient =
-				cvt_player_orient(scene_p->map_a[i][j]);
+				cvt_player_orient(scene_p->map_a[i][j], scene_p);
 			}
 			j++;
 		}

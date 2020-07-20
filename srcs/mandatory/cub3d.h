@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:51:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/16 12:05:47 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/20 12:05:00 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ typedef struct	s_env
 
 typedef struct s_point
 {
-	double			x;
-	double			y;
+	float		x;
+	float		y;
 }			t_point;
 
 typedef struct  s_data
@@ -61,11 +61,10 @@ typedef struct	s_map
 
 typedef	struct s_camera
 {
-	int			planeLength;
-	t_point		planeCenter;
-	int			dirLength;
+	t_point		planeDir;
+	float		planeLength;
+	float		dirLength;
 	float		cameraFov;
-	float		angleRays;
 }				t_camera;
 
 typedef struct s_vector
@@ -77,7 +76,7 @@ typedef struct s_vector
 typedef	struct	s_player
 {
 	t_point		pos;
-	int			orient;
+	t_point		dir;
 }				t_player;
 
 typedef	struct	s_screen
@@ -159,6 +158,6 @@ void			parse_scene(t_scene *scene_ptr, int fd);
 void			parse_env_params(char *f_line, t_scene *scn);
 
 void			init_scene(char **argv, t_scene *scene_ptr);
-void			calc_closest_wall(t_scene *scene_p);
+void			cast_rays_to_wall(t_scene *scene_p);
 
 #endif

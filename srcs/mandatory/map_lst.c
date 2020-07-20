@@ -6,13 +6,13 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:56:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/08 14:42:03 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/20 12:20:09 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	create_map_lst(t_scene *scene_ptr, char *f_line, int fd, int ret)
+static void	create_map_lst(t_scene *scene_p, char *f_line, int fd, int ret)
 {
 	t_map	*tmp;
 
@@ -24,23 +24,23 @@ static void	create_map_lst(t_scene *scene_ptr, char *f_line, int fd, int ret)
 			ret = get_next_line(fd, &f_line);
 		if (!(tmp = ft_lstnew_map(ft_strdup(f_line))))
 			exit_message_failure();
-		ft_lstadd_back_map(&(scene_ptr->map), tmp);
+		ft_lstadd_back_map(&(scene_p->map), tmp);
 		ret = get_next_line(fd, &f_line);
 	}
 }
 
-void	cvt_lst_to_array(t_scene *scene_ptr, char *f_line, int fd, int ret)
+void	cvt_lst_to_array(t_scene *scene_p, char *f_line, int fd, int ret)
 {
 	t_map	*current_line;
 	int		i;
 
-	create_map_lst(scene_ptr, f_line, fd, ret);
-	scene_ptr->map_a = malloc(sizeof(char*) * ft_lstsize_map(scene_ptr->map) + 1);
-	current_line = scene_ptr->map;
+	create_map_lst(scene_p, f_line, fd, ret);
+	scene_p->map_a = malloc(sizeof(char*) * ft_lstsize_map(scene_p->map) + 1);
+	current_line = scene_p->map;
 	i = 0;
 	while (current_line != NULL)
 	{
-		scene_ptr->map_a[i] = ft_strdup(current_line->line);
+		scene_p->map_a[i] = ft_strdup(current_line->line);
 		i++;
 		current_line = current_line->next;
 	}
