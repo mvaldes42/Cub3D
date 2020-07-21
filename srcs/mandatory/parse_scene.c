@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:51:10 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/20 12:18:23 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/21 13:03:18 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,25 +43,26 @@ static int	is_env_params(char c)
 
 static void	cvt_player_orient(char c, t_scene *scene_p)
 {
+	ft_bzero(&scene_p->player.dir, sizeof(scene_p->player.dir));
 	if (c == 'N')
-	{
-		scene_p->player.dir.x = 0;
-		scene_p->player.dir.y = 1;
-	}
-	else if (c == 'S')
-	{
-		scene_p->player.dir.x = 0;
-		scene_p->player.dir.y = -1;
-	}
-	else if (c == 'E')
 	{
 		scene_p->player.dir.x = 1;
 		scene_p->player.dir.y = 0;
 	}
-	else
+	else if (c == 'S')
 	{
 		scene_p->player.dir.x = -1;
 		scene_p->player.dir.y = 0;
+	}
+	else if (c == 'E')
+	{
+		scene_p->player.dir.x = 0;
+		scene_p->player.dir.y = 1;
+	}
+	else
+	{
+		scene_p->player.dir.x = 0;
+		scene_p->player.dir.y = -1;
 	}
 }
 
@@ -71,7 +72,7 @@ static void	parse_player_pos(t_scene *scene_p)
 	int j;
 
 	i = 0;
-	ft_bzero(&scene_p->player, sizeof(scene_p->player));
+	ft_bzero(&scene_p->player.pos, sizeof(scene_p->player.pos));
 	while (scene_p->map_a[i] != NULL)
 	{
 		j = 0;
@@ -79,8 +80,10 @@ static void	parse_player_pos(t_scene *scene_p)
 		{
 			if (ft_strrchr("NSEW", scene_p->map_a[i][j]))
 			{
-				scene_p->player.pos.x = j * 64 + 64 / 2;
-				scene_p->player.pos.y = i * 64 + 64 / 2;
+				scene_p->player.pos.x = i;
+				scene_p->player.pos.y = j;
+				// printf("scene_p->player.pos.x : %f\n", scene_p->player.pos.x);
+				// printf("scene_p->player.pos.y : %f\n", scene_p->player.pos.y);
 				cvt_player_orient(scene_p->map_a[i][j], scene_p);
 			}
 			j++;

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:57:33 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/04/29 18:48:52 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/20 16:57:30 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int			is_map_closed(char **map_a)
 
 	i = 0;
 	g_error = 6;
-	while (map_a[i] != NULL)
+	while (map_a[i])
 	{
 		j = 0;
 		while (map_a[i][j])
@@ -61,11 +61,11 @@ int			is_map_closed(char **map_a)
 				return (0);
 			if (map_a[i][j] == ' ' && !are_holes_closed(map_a, i, j))
 				return (0);
-			printf("%c", map_a[i][j]);
+			// printf("%c", map_a[i][j]);
 			j++;
 		}
 		i++;
-		printf("\n");
+		// printf("\n");
 	}
 	return (1);
 }
@@ -79,10 +79,10 @@ int			parse_map(char **map)
 	position = 0;
 	g_error = 7;
 	i = 0;
-	while (map[i] != NULL)
+	while (map[i])
 	{
 		j = 0;
-		while (map[i][j] != '\0')
+		while (map[i][j])
 		{
 			if (!ft_strrchr("012NSEW ", map[i][j]))
 				return (0);

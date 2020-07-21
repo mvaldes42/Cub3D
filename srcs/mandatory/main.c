@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 18:11:43 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/16 13:36:18 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/20 16:12:13 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		key_press(int keycode, t_env *env)
 int		main(int argc, char *argv[])
 {
 	t_scene		scene;
-	t_env	env;
+	// t_env	env;
 	// t_player	player;
 
 	// player.pos = (t_point){22, 12};
@@ -63,20 +63,20 @@ int		main(int argc, char *argv[])
 ** 	printf("size map = %d\n", ft_lstsize_map(scene.map));
 ** 	print(scene.map);
 */
-	if ((env.mlx_ptr = mlx_init()) == NULL)
-		return (EXIT_FAILURE);
-	if ((env.mlx_win = mlx_new_window(env.mlx_ptr, scene.screen.x, scene.screen.y, "Loulou's Awesome Game")) == NULL)
-		return (EXIT_FAILURE);
+	// if ((env.mlx_ptr = mlx_init()) == NULL)
+	// 	return (EXIT_FAILURE);
+	// if ((env.mlx_win = mlx_new_window(env.mlx_ptr, scene.screen.x, scene.screen.y, "Loulou's Awesome Game")) == NULL)
+	// 	return (EXIT_FAILURE);
 	// img.img = mlx_new_image(env.mlx_ptr, 1920, 1080);
 	// img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 	// my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);
 	// mlx_put_image_to_window(env.mlx_ptr, env.mlx_win, img.img, 0, 0);
-	mlx_hook(env.mlx_win, X_EVENT_KEY_PRESS, 0, &key_press, &env);
-	mlx_hook(env.mlx_win, X_EVENT_EXIT, 0, &exit_hook, &env);
+	// mlx_hook(env.mlx_win, X_EVENT_KEY_PRESS, 0, &key_press, &env);
+	// mlx_hook(env.mlx_win, X_EVENT_EXIT, 0, &exit_hook, &env);
 	// mlx_loop(env.mlx_ptr);
 	// mlx_pixel_put(env.mlx_ptr, env.mlx_win, 1920/2, 1080/2, 0xFFCCCC);
 	// mlx_string_put(env.mlx_ptr, env.mlx_win, 1920/2, 1080/2, 0xFFCCCC, "HELLO WORLD");
 	cast_rays_to_wall(&scene);
-	mlx_loop(env.mlx_ptr);
+	// mlx_loop(env.mlx_ptr);
 	return (0);
 }

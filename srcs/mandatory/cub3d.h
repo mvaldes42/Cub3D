@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:51:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/20 12:05:00 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/20 19:25:29 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ typedef struct	s_env
 
 typedef struct s_point
 {
-	float		x;
-	float		y;
+	double		x;
+	double		y;
 }			t_point;
 
 typedef struct  s_data
@@ -53,6 +53,18 @@ typedef struct  s_data
 	int			endian;
 }				t_data;
 
+typedef struct	s_raycast
+{
+	t_point		ray_dir;
+	t_point		map;
+	t_point		side_dist;
+	t_point		delta_dist;
+	t_point		step;
+	int			wall;
+	int			side;
+	double		wall_dist;
+}				t_raycast;
+
 typedef struct	s_map
 {
 	char			*line;
@@ -62,9 +74,9 @@ typedef struct	s_map
 typedef	struct s_camera
 {
 	t_point		planeDir;
-	float		planeLength;
-	float		dirLength;
-	float		cameraFov;
+	double		planeLength;
+	double		dirLength;
+	double		cameraFov;
 }				t_camera;
 
 typedef struct s_vector
