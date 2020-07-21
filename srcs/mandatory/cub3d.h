@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:51:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/20 19:25:29 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/21 15:43:58 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,6 @@ void			parse_scene(t_scene *scene_ptr, int fd);
 void			parse_env_params(char *f_line, t_scene *scn);
 
 void			init_scene(char **argv, t_scene *scene_ptr);
-void			cast_rays_to_wall(t_scene *scene_p);
+void			cast_rays_to_wall(t_scene *scene_p, t_env *env_p);
 
 #endif
