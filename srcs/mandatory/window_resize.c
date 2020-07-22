@@ -1,31 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_general.c                                    :+:      :+:    :+:   */
+/*   window_resize.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/29 18:02:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/22 17:21:21 by mvaldes          ###   ########.fr       */
+/*   Created: 2020/07/22 17:23:34 by mvaldes           #+#    #+#             */
+/*   Updated: 2020/07/22 18:29:13 by mvaldes          é###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void		exit_message_failure(void)
+void window_resize(t_scene *s_p)
 {
-	printf("Error\n%s\n", g_error[g_errorm].msg);
-	exit(EXIT_FAILURE);
-}
-
-void		print_map(t_map *map)
-{
-	t_map	*current_line;
-
-	current_line = map;
-	while (current_line != NULL)
-	{
-		printf("%s\n", current_line->line);
-		current_line = current_line->next;
-	}
+	s_p->screen.x =  s_p->screen.x > DISP_X ? DISP_X : s_p->screen.x;
+	s_p->screen.y =  s_p->screen.y > DISP_Y ? DISP_Y : s_p->screen.y;
 }

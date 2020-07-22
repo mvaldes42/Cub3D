@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:51:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/22 17:08:50 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/22 18:48:58 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,8 @@
 # define KEY_ESC				53
 # define HEX_BASE				"0123456789ABCDEF"
 # define DEC_BASE				"0123456789"
-
-typedef struct	s_env
-{
-	void	*mlx_ptr;
-	void	*mlx_win;
-}				t_env;
+# define DISP_X					2560
+# define DISP_Y					1440
 
 typedef struct	s_point
 {
@@ -131,6 +127,13 @@ typedef struct	s_scene
 
 }				t_scene;
 
+typedef struct	s_env
+{
+	void	*mlx_ptr;
+	void	*mlx_win;
+	t_scene	scene;
+}				t_env;
+
 typedef struct	s_data
 {
 	void	*img;
@@ -194,5 +197,6 @@ void			cast_rays_to_wall(t_scene *scene_p, t_env *env_p);
 
 void			draw_vert_line(t_scene *scene_p, t_env *env_p,
 				t_raycast *raycast_p, int i);
+void			window_resize(t_scene *scene_p);
 
 #endif

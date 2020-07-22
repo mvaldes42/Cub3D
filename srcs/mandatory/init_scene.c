@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 13:36:31 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/22 17:13:28 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/22 18:21:47 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void			init_scene(char **argv, t_scene *scene_p)
 	ft_bzero(&scene_p->player, sizeof(scene_p->player));
 	ft_bzero(&scene_p->cam, sizeof(scene_p->cam));
 	parse_scene(scene_p, open(argv[1], O_RDONLY));
+	window_resize(scene_p);
 	init_camera(scene_p);
 }
 

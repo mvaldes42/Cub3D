@@ -6,7 +6,7 @@
 #    By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/15 14:41:36 by mvaldes           #+#    #+#              #
-#    Updated: 2020/07/22 17:09:57 by mvaldes          ###   ########.fr        #
+#    Updated: 2020/07/22 17:24:34 by mvaldes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS = ./srcs/mandatory/utils_lst.c\
 	   ./srcs/mandatory/parse_map.c\
 	   ./srcs/mandatory/map_lst.c\
 	   ./srcs/mandatory/window_draw.c\
+	   ./srcs/mandatory/window_resize.c\
 	   ./srcs/mandatory/digital_diff_analy.c\
 	   ./srcs/mandatory/main.c\
 	   ./srcs/get_next_line/get_next_line.c\
