@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:53:19 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/22 15:46:40 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/22 16:49:40 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int		word_count(const char *s, char c)
 	return (count);
 }
 
-static void			cvt_rgb(t_rgb *rgb, char *f_line)
+static void		cvt_rgb(t_rgb *rgb, char *f_line)
 {
 	char	**str_array;
 	int		b;
@@ -70,9 +70,8 @@ static void			cvt_rgb(t_rgb *rgb, char *f_line)
 	free(str_array);
 }
 
-static void cvt_text_path(char **text_path, char *f_line)
+static void		cvt_text_path(char **text_path, char *f_line)
 {
-
 	if (!(*text_path = ft_strchr(f_line, '.'))
 	|| ft_strnstr(*text_path, "xpm", ft_strlen(*text_path)) == '\0')
 	{

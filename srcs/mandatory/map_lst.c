@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:56:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/20 12:20:09 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/22 16:51:01 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	create_map_lst(t_scene *scene_p, char *f_line, int fd, int ret)
 	}
 }
 
-void	cvt_lst_to_array(t_scene *scene_p, char *f_line, int fd, int ret)
+void		cvt_lst_to_array(t_scene *scene_p, char *f_line, int fd, int ret)
 {
 	t_map	*current_line;
 	int		i;

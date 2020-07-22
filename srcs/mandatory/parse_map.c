@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:57:33 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/20 16:57:30 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/22 16:50:46 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,9 @@ int			is_map_closed(char **map_a)
 				return (0);
 			if (map_a[i][j] == ' ' && !are_holes_closed(map_a, i, j))
 				return (0);
-			// printf("%c", map_a[i][j]);
 			j++;
 		}
 		i++;
-		// printf("\n");
 	}
 	return (1);
 }

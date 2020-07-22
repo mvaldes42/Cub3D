@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:51:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/21 15:43:58 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/22 17:08:50 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,39 +30,49 @@
 # define KEY_LEFT				123
 # define KEY_RIGHT				124
 # define KEY_ESC				53
-
+# define HEX_BASE				"0123456789ABCDEF"
+# define DEC_BASE				"0123456789"
 
 typedef struct	s_env
 {
-	void		*mlx_ptr;
-	void		*mlx_win;
+	void	*mlx_ptr;
+	void	*mlx_win;
 }				t_env;
 
-typedef struct s_point
+typedef struct	s_point
 {
-	double		x;
-	double		y;
-}			t_point;
+	double	x;
+	double	y;
+}				t_point;
 
-typedef struct  s_data
+typedef struct	s_line
 {
-	void		*img;
-	char		*addr;
-	int			bits_per_pixel;
-	int			line_length;
-	int			endian;
-}				t_data;
+	int	start;
+	int	end;
+	int	height;
+}				t_line;
+
+typedef struct	s_screen_l
+{
+	t_line	wall;
+	char	*wl_hex;
+	int		wl_dec;
+	char	*cei_hex;
+	int		cei_dec;
+	char	*fl_hex;
+	int		fl_dec;
+}				t_screen_l;
 
 typedef struct	s_raycast
 {
-	t_point		ray_dir;
-	t_point		map;
-	t_point		side_dist;
-	t_point		delta_dist;
-	t_point		step;
-	int			wall;
-	int			side;
-	double		wall_dist;
+	t_point	ray_dir;
+	t_point	map;
+	t_point	side_d;
+	t_point	delta_d;
+	t_point	step;
+	int		wall;
+	int		side;
+	double	wall_d;
 }				t_raycast;
 
 typedef struct	s_map
@@ -71,37 +81,37 @@ typedef struct	s_map
 	struct s_map	*next;
 }				t_map;
 
-typedef	struct s_camera
+typedef	struct	s_camera
 {
-	t_point		planeDir;
-	double		planeLength;
-	double		dirLength;
-	double		cameraFov;
+	t_point	pln_dir;
+	double	pln_len;
+	double	dir_len;
+	double	cam_fov;
 }				t_camera;
 
-typedef struct s_vector
+typedef struct	s_vector
 {
-	t_point		start;
-	t_point		end;
+	t_point	start;
+	t_point	end;
 }				t_vector;
 
 typedef	struct	s_player
 {
-	t_point		pos;
-	t_point		dir;
+	t_point	pos;
+	t_point	dir;
 }				t_player;
 
 typedef	struct	s_screen
 {
-	int			x;
-	int			y;
+	int	x;
+	int	y;
 }				t_screen;
 
 typedef	struct	s_rgb
 {
-	int			r;
-	int			g;
-	int			b;
+	int	r;
+	int	g;
+	int	b;
 }				t_rgb;
 
 typedef struct	s_scene
@@ -117,9 +127,18 @@ typedef struct	s_scene
 	t_map		*map;
 	char		**map_a;
 	t_player	player;
-	t_camera	camera;
+	t_camera	cam;
 
 }				t_scene;
+
+typedef struct	s_data
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_data;
 
 typedef enum	e_error
 {
@@ -162,7 +181,8 @@ void			ft_lstadd_back_map(t_map **alst, t_map *new);
 void			ft_lstclear_map(t_map **lst);
 int				ft_lstsize_map(t_map *lst);
 
-void			cvt_lst_to_array(t_scene *scene_ptr, char *f_line, int fd, int ret);
+void			cvt_lst_to_array(t_scene *scene_ptr, char *f_line, int fd,
+				int ret);
 
 int				parse_map(char **map);
 int				is_map_closed(char **map_a);
@@ -171,5 +191,8 @@ void			parse_env_params(char *f_line, t_scene *scn);
 
 void			init_scene(char **argv, t_scene *scene_ptr);
 void			cast_rays_to_wall(t_scene *scene_p, t_env *env_p);
+
+void			draw_vert_line(t_scene *scene_p, t_env *env_p,
+				t_raycast *raycast_p, int i);
 
 #endif

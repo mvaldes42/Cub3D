@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 18:11:43 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/21 15:44:09 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/22 17:14:26 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int		exit_hook(t_env *env)
 int		key_press(int keycode, t_env *env)
 {
 	mlx_clear_window(env->mlx_ptr, env->mlx_win);
-	if (keycode == KEY_Q || keycode == KEY_LEFT)
+	if (keycode == KEY_LEFT)
 		mlx_string_put(env->mlx_ptr, env->mlx_win, 1920 / 2, 1080 / 2, 0xFFCCCC, "LEFT");
-	else if (keycode == KEY_E || keycode == KEY_RIGHT)
+	else if (keycode == KEY_RIGHT)
 		mlx_string_put(env->mlx_ptr, env->mlx_win, 1920 / 2, 1080 / 2, 0xFFCCCC, "RIGHT");
 	if (keycode == KEY_ESC)
 		exit_hook(env);
@@ -52,13 +52,6 @@ int		main(int argc, char *argv[])
 	(void)argc;
 	ft_bzero(&scene, sizeof(scene));
 	init_scene(argv, &scene);
-/*
-** 	printf("screen x = %d && screen y = %d\n", scene.screen.x, scene.screen.y);
-** 	printf("north text = %s\n", scene.n_tex);
-** 	printf("r = %d & g = %d & b = %d \n", scene.flr_clr.r, scene.flr_clr.g, scene.flr_clr.b);
-** 	printf("size map = %d\n", ft_lstsize_map(scene.map));
-** 	print(scene.map);
-*/
 	if ((env.mlx_ptr = mlx_init()) == NULL)
 		return (EXIT_FAILURE);
 	if ((env.mlx_win = mlx_new_window(env.mlx_ptr, scene.screen.x, scene.screen.y, "Loulou's Awesome Game")) == NULL)

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:51:10 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/21 13:03:18 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/22 16:48:33 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,6 @@ static void	parse_player_pos(t_scene *scene_p)
 			{
 				scene_p->player.pos.x = i;
 				scene_p->player.pos.y = j;
-				// printf("scene_p->player.pos.x : %f\n", scene_p->player.pos.x);
-				// printf("scene_p->player.pos.y : %f\n", scene_p->player.pos.y);
 				cvt_player_orient(scene_p->map_a[i][j], scene_p);
 			}
 			j++;
