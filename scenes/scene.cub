@@ -1,11 +1,11 @@
-R 500 250
-NO ./path_to_the_north_texture.xpm
-SO ./path_to_the_south_texture.xpm
-WE ./path_to_the_west_texture.xpm
-EA ./path_to_the_east_texture.xpm
-S ./path_to_the_sprite_texture.xpm
-F 0,   100, 255
-C 225, 30,  0
+R  1920    1080
+NO  ./path_to_the_north_texture.xpm
+SO  ./path_to_the_south_texture.xpm
+WE  ./path_to_the_west_texture.xpm
+EA  ./path_to_the_east_texture.xpm
+S  ./path_to_the_sprite_texture.xpm
+F  226,   149,  120
+C 233, 193, 106
 
         11111111111 1111111111111
         10000000001 1000000000111

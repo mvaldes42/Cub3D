@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:53:19 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/20 12:20:48 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/22 15:46:40 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,13 @@ static void			cvt_rgb(t_rgb *rgb, char *f_line)
 
 	ft_bzero(rgb, sizeof(&rgb));
 	str_array = (char **)malloc(sizeof(char *) * word_count(f_line, ',') + 1);
-	ft_memmove(f_line, f_line + 2, ft_strlen(f_line) - 2 + 1);
+	f_line++;
+	while (*f_line == ' ')
+		f_line++;
 	str_array = ft_split(f_line, ',');
-	b = ft_atoi(str_array[1]);
-	g = ft_atoi(str_array[2]);
-	r = ft_atoi(str_array[3]);
+	b = ft_atoi(str_array[2]);
+	g = ft_atoi(str_array[1]);
+	r = ft_atoi(str_array[0]);
 	if ((!((b <= 255 && b >= 0) && (g <= 255 && b >= 0) &&
 	(r <= 255 && b >= 0))) || (word_count(f_line, ',') != 3))
 	{
