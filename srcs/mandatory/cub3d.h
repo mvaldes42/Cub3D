@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:51:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/22 18:48:58 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/23 15:35:08 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,13 +127,6 @@ typedef struct	s_scene
 
 }				t_scene;
 
-typedef struct	s_env
-{
-	void	*mlx_ptr;
-	void	*mlx_win;
-	t_scene	scene;
-}				t_env;
-
 typedef struct	s_data
 {
 	void	*img;
@@ -142,6 +135,14 @@ typedef struct	s_data
 	int		line_length;
 	int		endian;
 }				t_data;
+
+typedef struct	s_env
+{
+	void	*mlx_ptr;
+	void	*mlx_win;
+	t_data	mlx_img;
+	t_scene	scene;
+}				t_env;
 
 typedef enum	e_error
 {
@@ -193,7 +194,7 @@ void			parse_scene(t_scene *scene_ptr, int fd);
 void			parse_env_params(char *f_line, t_scene *scn);
 
 void			init_scene(char **argv, t_scene *scene_ptr);
-void			cast_rays_to_wall(t_scene *scene_p, t_env *env_p);
+void			draw_env(t_scene *scene_p, t_env *env_p);
 
 void			draw_vert_line(t_scene *scene_p, t_env *env_p,
 				t_raycast *raycast_p, int i);

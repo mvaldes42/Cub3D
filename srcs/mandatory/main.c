@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 18:11:43 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/22 18:53:54 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/23 15:40:55 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,10 @@ int		exit_hook(t_env *env)
 
 void	rotate_right(t_scene *scene_p, t_env *env)
 {
-	double oldTime = 0;
-	double time = 0;
-
-	oldTime = time;
-	time = clock();
-	double frameTime = (time - oldTime) / 1000.0;
 
 	//speed modifiers
 	// double moveSpeed = frameTime * 5.0;
-	double rotSpeed = frameTime * 3.0;
+	double rotSpeed = 0.10;
 
 	double oldDirX = scene_p->player.dir.x;
 	scene_p->player.dir.x = scene_p->player.dir.x* cos(-rotSpeed) - scene_p->player.dir.y * sin(-rotSpeed);
@@ -52,11 +46,12 @@ void	rotate_right(t_scene *scene_p, t_env *env)
 	double oldPlaneX = scene_p->cam.pln_dir.x ;
 	scene_p->cam.pln_dir.x = scene_p->cam.pln_dir.x * cos(-rotSpeed) - scene_p->cam.pln_dir.y * sin(-rotSpeed);
 	scene_p->cam.pln_dir.y = oldPlaneX * sin(-rotSpeed) + scene_p->cam.pln_dir.y * cos(-rotSpeed);
-	cast_rays_to_wall(scene_p, env);
+	mlx_clear_window(env->mlx_ptr, env->mlx_win);
+	draw_env(scene_p, env);
 }
 int		key_press(int keycode, t_env *env)
 {
-	mlx_clear_window(env->mlx_ptr, env->mlx_win);
+	// mlx_clear_window(env->mlx_ptr, env->mlx_win);
 	if (keycode == KEY_LEFT)
 		mlx_string_put(env->mlx_ptr, env->mlx_win, 1920 / 2, 1080 / 2, 0xFFCCCC, "LEFT");
 	else if (keycode == KEY_RIGHT)
@@ -77,6 +72,8 @@ int		main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	if ((env.mlx_win = mlx_new_window(env.mlx_ptr, env.scene.screen.x, env.scene.screen.y, "Loulou's Awesome Game")) == NULL)
 		return (EXIT_FAILURE);
+	env.mlx_img.img = mlx_new_image(env.mlx_ptr, env.scene.screen.x, env.scene.screen.y);
+	env.mlx_img.addr = mlx_get_data_addr(env.mlx_img.img , &env.mlx_img.bits_per_pixel, &env.mlx_img.line_length, &env.mlx_img.endian);
 /*
 **	img.img = mlx_new_image(env.mlx_ptr, 1920, 1080);
 **	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
@@ -85,11 +82,7 @@ int		main(int argc, char *argv[])
 */
 	mlx_hook(env.mlx_win, X_EVENT_KEY_PRESS, 0, &key_press, &env);
 	mlx_hook(env.mlx_win, X_EVENT_EXIT, 0, &exit_hook, &env);
-/*
-**	mlx_pixel_put(env.mlx_ptr, env.mlx_win, 1920/2, 1080/2, 0xFFCCCC);
-**	mlx_string_put(env.mlx_ptr, env.mlx_win, 1920/2, 1080/2, 0xFFCCCC, "HELLO WORLD");
-*/
-	// cast_rays_to_wall(&(env.scene), &env);
+	draw_env(&(env.scene), &env);
 	mlx_loop(env.mlx_ptr);
 	return (0);
 }

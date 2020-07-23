@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:07:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/22 17:10:48 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/23 15:27:05 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static void		dig_diff_analy(t_raycast *ray_p, t_scene *s_p)
 	calc_dist_to_wall(ray_p, s_p);
 }
 
-void			cast_rays_to_wall(t_scene *s_p, t_env *env_p)
+void			draw_env(t_scene *s_p, t_env *env_p)
 {
 	int			i;
 	double		w;
