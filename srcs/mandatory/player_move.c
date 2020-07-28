@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 16:22:32 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/28 16:44:26 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/28 19:08:40 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	move(t_scene *s, char f)
 {
 	double m_speed;
 
-	m_speed = 0.5;
+	m_speed = 0.3;
 	if (f == 'f')
 	{
 		if (s->map_a[(int)(s->player.pos.x + s->player.dir.x * m_speed)]
@@ -60,7 +60,7 @@ void	translate(t_scene *s, char f)
 {
 	double t_speed;
 
-	t_speed = 0.5;
+	t_speed = 0.3;
 	if (f == 'l')
 	{
 		if (s->map_a[(int)(s->player.pos.x + -s->player.dir.y * t_speed)]

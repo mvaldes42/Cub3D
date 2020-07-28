@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 15:58:16 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/28 18:36:08 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/28 19:36:22 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ static void		calc_wall_height(t_screen_l *line, t_raycast *ray, int h)
 
 int		create_trgb_shade(int t, t_rgb color, int d)
 {
+	(void)d;
 	if (d <= 1)
 		return (t << 24 | color.r << 16 | color.g << 8 | color.b);
 	return (t << 24 | (color.r / d << 16) | (color.g / d << 8)| color.b / d);
@@ -77,15 +78,43 @@ int		create_trgb_shade(int t, t_rgb color, int d)
 
 void	rgb_to_shade(t_screen_l *s_line, t_raycast *ray, t_scene *s)
 {
-	t_rgb	wall_clr = {233, 196, 106};
+	t_rgb	wall_N_clr = {255, 0, 0};
+	t_rgb	wall_S_clr = {0, 255, 0};
+	t_rgb	wall_E_clr = {255, 255, 0};
+	t_rgb	wall_W_clr = {0, 0, 255};
+	t_rgb	wall_clr = {0,0,0};
 
-	printf("ray->wall_d : %f\n", ray->wall_d);
-	if (ray->side == 0)
+	if (ray->map.y > s->player.pos.y && ray->side == 1)//EST YELLOW
 	{
-		wall_clr.r = wall_clr.r / 1.5;
-		wall_clr.g = wall_clr.g / 1.5;
-		wall_clr.b = wall_clr.b / 1.5;
+		wall_clr.r = wall_E_clr.r;
+		wall_clr.g = wall_E_clr.g;
+		wall_clr.b = wall_E_clr.b;
 	}
+	else if (ray->map.y < s->player.pos.y && ray->side == 1)//WEST BLUE
+	{
+		printf("pos x : %f, wall.x : %f, ray.side : %d\n",s->player.pos.x, ray->map.x, ray->side);
+		wall_clr.r = wall_W_clr.r;
+		wall_clr.g = wall_W_clr.g;
+		wall_clr.b = wall_W_clr.b;
+	}
+	else if (ray->map.x < s->player.pos.x && ray->side == 0)//NORTH RED
+	{
+		wall_clr.r = wall_N_clr.r;
+		wall_clr.g = wall_N_clr.g;
+		wall_clr.b = wall_N_clr.b;
+	}
+	else if (ray->map.x > s->player.pos.x && ray->side == 0)//SOUTH GREEN
+	{
+		wall_clr.r = wall_S_clr.r;
+		wall_clr.g = wall_S_clr.g;
+		wall_clr.b = wall_S_clr.b;
+	}
+	// if (ray->side == 0)
+	// {
+	// 	wall_clr.r = wall_clr.r / 1.5;
+	// 	wall_clr.g = wall_clr.g / 1.5;
+	// 	wall_clr.b = wall_clr.b / 1.5;
+	// }
 	s_line->c_wall = create_trgb_shade(0, wall_clr, ray->wall_d / 3);
 	s_line->c_floor = create_trgb_shade(0, s->flr_clr, 0);
 	s_line->c_ceil = create_trgb_shade(0, s->cei_clr, 0);
