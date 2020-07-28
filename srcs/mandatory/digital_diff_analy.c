@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:07:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/28 15:20:10 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/28 16:48:15 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static void		dig_diff_analy(t_raycast *ray_p, t_scene *s_p)
 	calc_dist_to_wall(ray_p, s_p);
 }
 
-void			draw_env(t_scene *s_p, t_env *env_p)
+void			draw_env(t_scene *s_p, t_env *env)
 {
 	int			i;
 	double		w;
@@ -101,9 +101,6 @@ void			draw_env(t_scene *s_p, t_env *env_p)
 	ray_p = &raycast;
 	i = 0;
 	w = s_p->screen.x;
-	// if (!(env_p->mlx_img.img = (char*)malloc(((s_p->screen.x * s_p->screen.y * 4)+ 1) * sizeof(char))))
-	// 	return ;
-	// ft_memset(env_p->mlx_img.img, 0, sizeof(env_p->mlx_img.img));
 	while (i < w)
 	{
 		ft_bzero(&raycast, sizeof(raycast));
@@ -111,10 +108,10 @@ void			draw_env(t_scene *s_p, t_env *env_p)
 		ray_p->ray_dir.x = s_p->player.dir.x + s_p->cam.pln_dir.x * cam_x;
 		ray_p->ray_dir.y = s_p->player.dir.y + s_p->cam.pln_dir.y * cam_x;
 		dig_diff_analy(&raycast, s_p);
-		draw_vert_line(s_p, env_p, ray_p, i);
+		draw_vert_line(s_p, env, ray_p, i);
 		i++;
 	}
-	mlx_put_image_to_window(env_p->mlx_ptr, env_p->mlx_win, env_p->mlx_img.addr, 0, 0);
+	mlx_put_image_to_window(env->mlx_ptr, env->mlx_win, env->mlx_img.addr, 0, 0);
 }
 /*
 **	printf("scene_p->player.pos.x : %f\n", scene_p->player.pos.x);

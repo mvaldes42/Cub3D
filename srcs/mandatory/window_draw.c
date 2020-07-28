@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 15:58:16 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/28 15:17:32 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/28 18:36:08 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,6 @@
 // 	return (hex_color);
 // }
 
-static void		calc_wall_height(t_screen_l *line, t_raycast *ray, int h)
-{
-	line->wall.height = (int)(h / ray->wall_d);
-	line->wall.start = -line->wall.height / 2 + h / 2;
-	if (line->wall.start < 0)
-		line->wall.start = 0;
-	line->wall.end = line->wall.height / 2 + h / 2;
-	if (line->wall.end >= h)
-		line->wall.end = h - 1;
-}
-
 // static void		rgb_to_dec(t_screen_l *s_line, t_raycast *ray, t_scene *s)
 // {
 // 	t_rgb		wall_rgb;
@@ -68,10 +57,38 @@ static void		calc_wall_height(t_screen_l *line, t_raycast *ray, int h)
 // 	s_line->fl_dec = ft_atoi(ft_cvt_base(s_line->fl_hex, HEX_BASE, DEC_BASE));
 // }
 
-
-int		create_trgb_shade(int t, int r, int g, int b, int d)
+static void		calc_wall_height(t_screen_l *line, t_raycast *ray, int h)
 {
-	return (t << 24 | (r / d) << 16 | (g / d) << 8 | (b / d));
+	line->wall.height = (int)(h / ray->wall_d);
+	line->wall.start = -line->wall.height / 2 + h / 2;
+	if (line->wall.start < 0)
+		line->wall.start = 0;
+	line->wall.end = line->wall.height / 2 + h / 2;
+	if (line->wall.end >= h)
+		line->wall.end = h - 1;
+}
+
+int		create_trgb_shade(int t, t_rgb color, int d)
+{
+	if (d <= 1)
+		return (t << 24 | color.r << 16 | color.g << 8 | color.b);
+	return (t << 24 | (color.r / d << 16) | (color.g / d << 8)| color.b / d);
+}
+
+void	rgb_to_shade(t_screen_l *s_line, t_raycast *ray, t_scene *s)
+{
+	t_rgb	wall_clr = {233, 196, 106};
+
+	printf("ray->wall_d : %f\n", ray->wall_d);
+	if (ray->side == 0)
+	{
+		wall_clr.r = wall_clr.r / 1.5;
+		wall_clr.g = wall_clr.g / 1.5;
+		wall_clr.b = wall_clr.b / 1.5;
+	}
+	s_line->c_wall = create_trgb_shade(0, wall_clr, ray->wall_d / 3);
+	s_line->c_floor = create_trgb_shade(0, s->flr_clr, 0);
+	s_line->c_ceil = create_trgb_shade(0, s->cei_clr, 0);
 }
 
 void			draw_vert_line(t_scene *s, t_env *env, t_raycast *ray, int s_x)
@@ -79,27 +96,23 @@ void			draw_vert_line(t_scene *s, t_env *env, t_raycast *ray, int s_x)
 	int			h;
 	int			pos_y;
 	t_screen_l	s_line;
-	// t_rgb		wall_rgb;
 
 	h = s->screen.y;
 	ft_bzero(&s_line, sizeof(s_line));
 	calc_wall_height(&s_line, ray, h);
-	// rgb_to_dec(&s_line, ray, s);
-	int color = create_trgb_shade(0, 233, 196, 106, (int)(ray->wall_d));
-	int colorfl = create_trgb_shade(0, 226, 149, 120, 1);
-	int colorcei = create_trgb_shade(0, 168, 218, 220, 1);
+	rgb_to_shade(&s_line, ray, s);
 	pos_y = 0;
 	while (pos_y < s->screen.y)
 	{
 		while (pos_y >= s_line.wall.start && pos_y < s_line.wall.end)
 		{
-			*(int*)(env->mlx_img.data + (4 * (int)s->screen.x * (int)pos_y) + ((int)s_x  * 4)) = color;
+			*(int*)(env->mlx_img.data + (4 * (int)s->screen.x * (int)pos_y) + ((int)s_x  * 4)) = s_line.c_wall;
 			pos_y++;
 		}
 		if (pos_y >= s_line.wall.end)
-			*(int*)(env->mlx_img.data + (4 * (int)s->screen.x * (int)pos_y) + ((int)s_x  * 4)) = colorfl;
+			*(int*)(env->mlx_img.data + (4 * (int)s->screen.x * (int)pos_y) + ((int)s_x  * 4)) = s_line.c_floor;
 		else
-			*(int*)(env->mlx_img.data + (4 * (int)s->screen.x * (int)pos_y) + ((int)s_x  * 4)) = colorcei;
+			*(int*)(env->mlx_img.data + (4 * (int)s->screen.x * (int)pos_y) + ((int)s_x  * 4)) = s_line.c_ceil;
 
 		pos_y++;
 	}

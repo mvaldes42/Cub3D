@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:51:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/28 14:26:34 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/28 16:50:11 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@
 # define KEY_LEFT				123
 # define KEY_RIGHT				124
 # define KEY_ESC				53
+# define KEY_W					13
+# define KEY_A					0
+# define KEY_S					1
+# define KEY_D					2
 # define HEX_BASE				"0123456789ABCDEF"
 # define DEC_BASE				"0123456789"
 # define DISP_X					2560
@@ -51,12 +55,15 @@ typedef struct	s_line
 typedef struct	s_screen_l
 {
 	t_line	wall;
-	char	*wl_hex;
-	int		wl_dec;
-	char	*cei_hex;
-	int		cei_dec;
-	char	*fl_hex;
-	int		fl_dec;
+	int		c_wall;
+	int		c_floor;
+	int		c_ceil;
+	// char	*wl_hex;
+	// int		wl_dec;
+	// char	*cei_hex;
+	// int		cei_dec;
+	// char	*fl_hex;
+	// int		fl_dec;
 }				t_screen_l;
 
 typedef struct	s_raycast
@@ -130,7 +137,6 @@ typedef struct	s_scene
 typedef struct	s_data
 {
 	void	*addr;
-	void	*img;
 	char	*data;
 	int		bits_per_pixel;
 	int		line_length;
@@ -200,5 +206,9 @@ void			draw_env(t_scene *scene_p, t_env *env_p);
 void			draw_vert_line(t_scene *scene_p, t_env *env_p,
 				t_raycast *raycast_p, int i);
 void			window_resize(t_scene *scene_p);
+
+void			rotate(t_scene *scene_p, int f);
+void			move(t_scene *scene_p, char f);
+void			translate(t_scene *scene_p, char f);
 
 #endif

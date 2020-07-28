@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 18:11:43 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/28 15:20:28 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/28 16:31:53 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,30 +33,24 @@ int		exit_hook(t_env *env)
 	return (exit_game(env, EXIT_SUCCESS));
 }
 
-void	rotate_right(t_scene *scene_p, t_env *env)
-{
-
-	//speed modifiers
-	// double moveSpeed = frameTime * 5.0;
-	double rotSpeed = 0.10;
-
-	double oldDirX = scene_p->player.dir.x;
-	scene_p->player.dir.x = scene_p->player.dir.x* cos(-rotSpeed) - scene_p->player.dir.y * sin(-rotSpeed);
-	scene_p->player.dir.y = oldDirX * sin(-rotSpeed) + scene_p->player.dir.y* cos(-rotSpeed);
-	double oldPlaneX = scene_p->cam.pln_dir.x ;
-	scene_p->cam.pln_dir.x = scene_p->cam.pln_dir.x * cos(-rotSpeed) - scene_p->cam.pln_dir.y * sin(-rotSpeed);
-	scene_p->cam.pln_dir.y = oldPlaneX * sin(-rotSpeed) + scene_p->cam.pln_dir.y * cos(-rotSpeed);
-	draw_env(scene_p, env);
-}
 int		key_press(int keycode, t_env *env)
 {
 	// mlx_clear_window(env->mlx_ptr, env->mlx_win);
 	if (keycode == KEY_LEFT)
-		mlx_string_put(env->mlx_ptr, env->mlx_win, 1920 / 2, 1080 / 2, 0xFFCCCC, "LEFT");
-	else if (keycode == KEY_RIGHT)
-		rotate_right(&(env->scene), env);
-	if (keycode == KEY_ESC)
+		rotate(&(env->scene), 1);
+	if (keycode == KEY_RIGHT)
+		rotate(&(env->scene), -1);
+	if (keycode == KEY_W)
+		move(&(env->scene), 'f');
+	if (keycode == KEY_S)
+		move(&(env->scene), 'b');
+	if (keycode == KEY_A)
+		translate(&(env->scene), 'l');
+	if (keycode == KEY_D)
+		translate(&(env->scene), 'r');
+	else if (keycode == KEY_ESC)
 		exit_hook(env);
+	draw_env(&(env->scene), env);
 	return (0);
 }
 
