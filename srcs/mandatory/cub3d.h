@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:51:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/23 15:35:08 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/28 14:26:34 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,9 @@ typedef struct	s_scene
 
 typedef struct	s_data
 {
+	void	*addr;
 	void	*img;
-	char	*addr;
+	char	*data;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;

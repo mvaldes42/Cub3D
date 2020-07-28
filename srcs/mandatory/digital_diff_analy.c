@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:07:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/23 15:27:05 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/28 15:20:10 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,9 @@ void			draw_env(t_scene *s_p, t_env *env_p)
 	ray_p = &raycast;
 	i = 0;
 	w = s_p->screen.x;
+	// if (!(env_p->mlx_img.img = (char*)malloc(((s_p->screen.x * s_p->screen.y * 4)+ 1) * sizeof(char))))
+	// 	return ;
+	// ft_memset(env_p->mlx_img.img, 0, sizeof(env_p->mlx_img.img));
 	while (i < w)
 	{
 		ft_bzero(&raycast, sizeof(raycast));
@@ -111,6 +114,7 @@ void			draw_env(t_scene *s_p, t_env *env_p)
 		draw_vert_line(s_p, env_p, ray_p, i);
 		i++;
 	}
+	mlx_put_image_to_window(env_p->mlx_ptr, env_p->mlx_win, env_p->mlx_img.addr, 0, 0);
 }
 /*
 **	printf("scene_p->player.pos.x : %f\n", scene_p->player.pos.x);

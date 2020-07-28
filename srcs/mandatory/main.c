@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 18:11:43 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/23 15:40:55 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/28 15:20:28 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	rotate_right(t_scene *scene_p, t_env *env)
 	double oldPlaneX = scene_p->cam.pln_dir.x ;
 	scene_p->cam.pln_dir.x = scene_p->cam.pln_dir.x * cos(-rotSpeed) - scene_p->cam.pln_dir.y * sin(-rotSpeed);
 	scene_p->cam.pln_dir.y = oldPlaneX * sin(-rotSpeed) + scene_p->cam.pln_dir.y * cos(-rotSpeed);
-	mlx_clear_window(env->mlx_ptr, env->mlx_win);
 	draw_env(scene_p, env);
 }
 int		key_press(int keycode, t_env *env)
@@ -72,8 +71,8 @@ int		main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	if ((env.mlx_win = mlx_new_window(env.mlx_ptr, env.scene.screen.x, env.scene.screen.y, "Loulou's Awesome Game")) == NULL)
 		return (EXIT_FAILURE);
-	env.mlx_img.img = mlx_new_image(env.mlx_ptr, env.scene.screen.x, env.scene.screen.y);
-	env.mlx_img.addr = mlx_get_data_addr(env.mlx_img.img , &env.mlx_img.bits_per_pixel, &env.mlx_img.line_length, &env.mlx_img.endian);
+	env.mlx_img.addr = mlx_new_image(env.mlx_ptr, env.scene.screen.x, env.scene.screen.y);
+	env.mlx_img.data = mlx_get_data_addr(env.mlx_img.addr , &env.mlx_img.bits_per_pixel, &env.mlx_img.line_length, &env.mlx_img.endian);
 /*
 **	img.img = mlx_new_image(env.mlx_ptr, 1920, 1080);
 **	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
