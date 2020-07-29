@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 13:36:31 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/28 19:05:39 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/29 11:30:14 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ void			init_scene(char **argv, t_scene *scene_p)
 {
 	ft_bzero(&scene_p->player, sizeof(scene_p->player));
 	ft_bzero(&scene_p->cam, sizeof(scene_p->cam));
+	ft_bzero(&scene_p->n_tex, sizeof(scene_p->n_tex));
+	ft_bzero(&scene_p->s_tex, sizeof(scene_p->s_tex));
+	ft_bzero(&scene_p->e_tex, sizeof(scene_p->e_tex));
+	ft_bzero(&scene_p->w_tex, sizeof(scene_p->w_tex));
+	ft_bzero(&scene_p->sprt_tex, sizeof(scene_p->sprt_tex));
 	parse_scene(scene_p, open(argv[1], O_RDONLY));
 	scene_p->player.pos.x += 0.5;
 	scene_p ->player.pos.y += 0.5;

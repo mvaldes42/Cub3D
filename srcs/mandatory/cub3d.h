@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:51:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/28 16:50:11 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/29 11:30:58 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@
 # define DEC_BASE				"0123456789"
 # define DISP_X					2560
 # define DISP_Y					1440
+# define TEXT_WIDTH				64
+# define TEXT_HEIGHT			64
 
 typedef struct	s_point
 {
@@ -117,14 +119,31 @@ typedef	struct	s_rgb
 	int	b;
 }				t_rgb;
 
+typedef struct	s_data
+{
+	void	*addr;
+	char	*data;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}				t_data;
+
+typedef	struct s_texture
+{
+	char		*path;
+	t_data		img;
+	int			width;
+	int			height;
+}				t_texture;
+
 typedef struct	s_scene
 {
 	t_screen	screen;
-	char		*n_tex;
-	char		*s_tex;
-	char		*e_tex;
-	char		*w_tex;
-	char		*sprt_tex;
+	t_texture	n_tex;
+	t_texture	s_tex;
+	t_texture	e_tex;
+	t_texture	w_tex;
+	t_texture	sprt_tex;
 	t_rgb		flr_clr;
 	t_rgb		cei_clr;
 	t_map		*map;
@@ -133,15 +152,6 @@ typedef struct	s_scene
 	t_camera	cam;
 
 }				t_scene;
-
-typedef struct	s_data
-{
-	void	*addr;
-	char	*data;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
 
 typedef struct	s_env
 {
@@ -200,7 +210,7 @@ int				is_map_closed(char **map_a);
 void			parse_scene(t_scene *scene_ptr, int fd);
 void			parse_env_params(char *f_line, t_scene *scn);
 
-void			init_scene(char **argv, t_scene *scene_ptr);
+void			init_scene(char **argv, t_scene *scene_p);
 void			draw_env(t_scene *scene_p, t_env *env_p);
 
 void			draw_vert_line(t_scene *scene_p, t_env *env_p,

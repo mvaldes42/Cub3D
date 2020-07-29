@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:53:19 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/22 16:49:40 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/29 10:47:08 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,10 @@ static void		cvt_rgb(t_rgb *rgb, char *f_line)
 
 static void		cvt_text_path(char **text_path, char *f_line)
 {
-	if (!(*text_path = ft_strchr(f_line, '.'))
+	while (*f_line == 'N' || *f_line == 'O' || *f_line == 'S' || *f_line == 'W' || *f_line == 'E' ||
+	*f_line == 'A' || *f_line == ' ')
+		f_line++;
+	if (!(*text_path = ft_strdup(f_line))
 	|| ft_strnstr(*text_path, "xpm", ft_strlen(*text_path)) == '\0')
 	{
 		g_error = 4;
@@ -85,15 +88,15 @@ void			parse_env_params(char *f_line, t_scene *scene_p)
 	if (f_line[0] == 'R')
 		cvt_screen_res(scene_p, f_line);
 	else if (f_line[0] == 'N' && f_line[1] == 'O')
-		cvt_text_path(&(scene_p->n_tex), f_line);
+		cvt_text_path(&(scene_p->n_tex.path), f_line);
 	else if (f_line[0] == 'S' && f_line[1] == 'O')
-		cvt_text_path(&(scene_p->s_tex), f_line);
+		cvt_text_path(&(scene_p->s_tex.path), f_line);
 	else if (f_line[0] == 'E' && f_line[1] == 'A')
-		cvt_text_path(&(scene_p->e_tex), f_line);
+		cvt_text_path(&(scene_p->e_tex.path), f_line);
 	else if (f_line[0] == 'W' && f_line[1] == 'E')
-		cvt_text_path(&(scene_p->w_tex), f_line);
+		cvt_text_path(&(scene_p->w_tex.path), f_line);
 	else if (f_line[0] == 'S' && f_line[1] == ' ')
-		cvt_text_path(&(scene_p->sprt_tex), f_line);
+		cvt_text_path(&(scene_p->sprt_tex.path), f_line);
 	else if (f_line[0] == 'F')
 		cvt_rgb(&(scene_p->flr_clr), f_line);
 	else if (f_line[0] == 'C')

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:51:10 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/28 19:05:13 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/29 10:11:30 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ static int	are_params_found(t_scene *scene_p)
 	n_prm = 0;
 	n_prm = scene_p->screen.x != 0 && scene_p->screen.y != 0 ? (n_prm + 1) :
 	n_prm;
-	n_prm = scene_p->n_tex != NULL ? (n_prm + 1) : n_prm;
-	n_prm = scene_p->s_tex != NULL ? (n_prm + 1) : n_prm;
-	n_prm = scene_p->e_tex != NULL ? (n_prm + 1) : n_prm;
-	n_prm = scene_p->w_tex != NULL ? (n_prm + 1) : n_prm;
-	n_prm = scene_p->sprt_tex != NULL ? (n_prm + 1) : n_prm;
+	n_prm = scene_p->n_tex.path != NULL ? (n_prm + 1) : n_prm;
+	n_prm = scene_p->s_tex.path != NULL ? (n_prm + 1) : n_prm;
+	n_prm = scene_p->e_tex.path != NULL ? (n_prm + 1) : n_prm;
+	n_prm = scene_p->w_tex.path != NULL ? (n_prm + 1) : n_prm;
+	n_prm = scene_p->sprt_tex.path != NULL ? (n_prm + 1) : n_prm;
 	n_prm = scene_p->flr_clr.b != 0 ? (n_prm + 1) : n_prm;
 	n_prm = scene_p->cei_clr.b != 0 ? (n_prm + 1) : n_prm;
 	if (n_prm == 8)

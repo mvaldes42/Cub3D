@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 15:58:16 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/28 19:36:22 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/29 09:38:18 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void	rgb_to_shade(t_screen_l *s_line, t_raycast *ray, t_scene *s)
 	}
 	else if (ray->map.y < s->player.pos.y && ray->side == 1)//WEST BLUE
 	{
-		printf("pos x : %f, wall.x : %f, ray.side : %d\n",s->player.pos.x, ray->map.x, ray->side);
 		wall_clr.r = wall_W_clr.r;
 		wall_clr.g = wall_W_clr.g;
 		wall_clr.b = wall_W_clr.b;
@@ -109,15 +108,16 @@ void	rgb_to_shade(t_screen_l *s_line, t_raycast *ray, t_scene *s)
 		wall_clr.g = wall_S_clr.g;
 		wall_clr.b = wall_S_clr.b;
 	}
-	// if (ray->side == 0)
-	// {
-	// 	wall_clr.r = wall_clr.r / 1.5;
-	// 	wall_clr.g = wall_clr.g / 1.5;
-	// 	wall_clr.b = wall_clr.b / 1.5;
-	// }
 	s_line->c_wall = create_trgb_shade(0, wall_clr, ray->wall_d / 3);
 	s_line->c_floor = create_trgb_shade(0, s->flr_clr, 0);
 	s_line->c_ceil = create_trgb_shade(0, s->cei_clr, 0);
+}
+
+void			draw_pixel(t_env *env, int s_x, int pos_y, int color)
+{
+	*(int*)(env->mlx_img.data +
+	(env->mlx_img.line_len * pos_y) +
+	(s_x  * (env->mlx_img.bpp / 8))) = color;
 }
 
 void			draw_vert_line(t_scene *s, t_env *env, t_raycast *ray, int s_x)
@@ -133,16 +133,12 @@ void			draw_vert_line(t_scene *s, t_env *env, t_raycast *ray, int s_x)
 	pos_y = 0;
 	while (pos_y < s->screen.y)
 	{
-		while (pos_y >= s_line.wall.start && pos_y < s_line.wall.end)
-		{
-			*(int*)(env->mlx_img.data + (4 * (int)s->screen.x * (int)pos_y) + ((int)s_x  * 4)) = s_line.c_wall;
-			pos_y++;
-		}
-		if (pos_y >= s_line.wall.end)
-			*(int*)(env->mlx_img.data + (4 * (int)s->screen.x * (int)pos_y) + ((int)s_x  * 4)) = s_line.c_floor;
+		if (pos_y >= s_line.wall.start && pos_y < s_line.wall.end)
+			draw_pixel(env, s_x, pos_y, s_line.c_wall);
+		else if (pos_y >= s_line.wall.end)
+			draw_pixel(env, s_x, pos_y, s_line.c_floor);
 		else
-			*(int*)(env->mlx_img.data + (4 * (int)s->screen.x * (int)pos_y) + ((int)s_x  * 4)) = s_line.c_ceil;
-
+			draw_pixel(env, s_x, pos_y, s_line.c_ceil);
 		pos_y++;
 	}
 }

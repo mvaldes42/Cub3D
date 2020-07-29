@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 18:11:43 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/28 16:31:53 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/29 11:30:19 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char		*dst;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	dst = data->addr + (y * data->line_len + x * (data->bpp / 8));
 	*(unsigned int*)dst = color;
 }
 
@@ -54,6 +54,34 @@ int		key_press(int keycode, t_env *env)
 	return (0);
 }
 
+static int		load_xpm_texture(t_env *env, t_texture *text)
+{
+	printf("text->path : %s\n", text->path);
+	if (text->path)
+	{
+		if ((text->img.addr = mlx_xpm_file_to_image(env->mlx_ptr,
+			text->path, &text->width, &text->height)))
+			text->img.data = mlx_get_data_addr(text->img.addr,
+				&text->img.bpp, &text->img.line_len, &text->img.endian);
+		else
+		{
+			g_error = 4;
+			return (0);
+		}
+	}
+	return (1);
+}
+
+static void		load_game_textures(t_env *env_p, t_scene *scene_p)
+{
+	if (! load_xpm_texture(env_p, &(scene_p->n_tex)) ||
+	!load_xpm_texture(env_p, &(scene_p->s_tex)) ||
+	!load_xpm_texture(env_p, &(scene_p->e_tex)) ||
+	!load_xpm_texture(env_p, &(scene_p->w_tex)) ||
+	!load_xpm_texture(env_p, &(scene_p->sprt_tex)))
+		exit_message_failure();
+}
+
 int		main(int argc, char *argv[])
 {
 	t_env		env;
@@ -66,10 +94,11 @@ int		main(int argc, char *argv[])
 	if ((env.mlx_win = mlx_new_window(env.mlx_ptr, env.scene.screen.x, env.scene.screen.y, "Loulou's Awesome Game")) == NULL)
 		return (EXIT_FAILURE);
 	env.mlx_img.addr = mlx_new_image(env.mlx_ptr, env.scene.screen.x, env.scene.screen.y);
-	env.mlx_img.data = mlx_get_data_addr(env.mlx_img.addr , &env.mlx_img.bits_per_pixel, &env.mlx_img.line_length, &env.mlx_img.endian);
+	env.mlx_img.data = mlx_get_data_addr(env.mlx_img.addr , &env.mlx_img.bpp, &env.mlx_img.line_len, &env.mlx_img.endian);
+	load_game_textures(&env, &(env.scene));
 /*
 **	img.img = mlx_new_image(env.mlx_ptr, 1920, 1080);
-**	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+**	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_len, &img.endian);
 **	my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);
 **	mlx_put_image_to_window(env.mlx_ptr, env.mlx_win, img.img, 0, 0);
 */

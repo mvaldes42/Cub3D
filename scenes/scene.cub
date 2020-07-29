@@ -1,12 +1,12 @@
 R  800  400
-NO  ./path_to_the_north_texture.xpm
-SO  ./path_to_the_south_texture.xpm
+NO  srcs/textures/mossy.xpm
+SO  srcs/textures/wood.xpm
 
 
-WE  ./path_to_the_west_texture.xpm
-EA  ./path_to_the_east_texture.xpm
+WE  srcs/textures/redbrick.xpm
+EA  srcs/textures/colorstone.xpm
 
-S  ./path_to_the_sprite_texture.xpm
+S  srcs/textures/wood.xpm
 F  226,   149,  120
 C 150, 193, 106
 
