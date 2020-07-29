@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:51:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/29 11:30:58 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/29 14:54:03 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@
 # include <string.h>
 # include <stdlib.h>
 # include <float.h>
+#include  <stdint.h>
 # include "../get_next_line/get_next_line.h"
 # include "../libft/libft.h"
 # include "../minilibx/mlx.h"
 
+# define GAME_NAME				"Cub3D"
 # define X_EVENT_EXIT			17
 # define X_EVENT_KEY_PRESS		2
 # define X_EVENT_KEY_RELEASE	3
@@ -60,12 +62,8 @@ typedef struct	s_screen_l
 	int		c_wall;
 	int		c_floor;
 	int		c_ceil;
-	// char	*wl_hex;
-	// int		wl_dec;
-	// char	*cei_hex;
-	// int		cei_dec;
-	// char	*fl_hex;
-	// int		fl_dec;
+	double	wallX;
+	int 	texX;
 }				t_screen_l;
 
 typedef struct	s_raycast
@@ -171,6 +169,7 @@ typedef enum	e_error
 	E_RBG_SYNT = 5,
 	E_MAP_N_CLS = 6,
 	E_MAP_I_CHAR = 7,
+	E_MLX = 8
 }				t_error;
 
 typedef struct	s_errordesc
@@ -189,6 +188,7 @@ static const	t_errordesc g_errorm[] =
 	{E_RBG_SYNT, "Invalid RGB synthax."},
 	{E_MAP_N_CLS, "Invalid map (map not closed)."},
 	{E_MAP_I_CHAR, "Invalid map (invalid character)."},
+	{E_MLX, "MLX init error"},
 };
 
 int	g_error;
@@ -211,6 +211,7 @@ void			parse_scene(t_scene *scene_ptr, int fd);
 void			parse_env_params(char *f_line, t_scene *scn);
 
 void			init_scene(char **argv, t_scene *scene_p);
+void			init_mlx(t_env *env);
 void			draw_env(t_scene *scene_p, t_env *env_p);
 
 void			draw_vert_line(t_scene *scene_p, t_env *env_p,
@@ -220,5 +221,8 @@ void			window_resize(t_scene *scene_p);
 void			rotate(t_scene *scene_p, int f);
 void			move(t_scene *scene_p, char f);
 void			translate(t_scene *scene_p, char f);
+
+int				key_press(int keycode, t_env *env);
+int				exit_hook(t_env *env);
 
 #endif

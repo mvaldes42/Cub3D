@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 13:36:31 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/29 11:30:14 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/29 13:44:56 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,45 @@
 static float	v_length(t_point vector)
 {
 	return (sqrt((vector.x * vector.x) + (vector.y * vector.y)));
+}
+
+static int		load_xpm_texture(t_env *env, t_texture *text)
+{
+	if (text->path)
+	{
+		if ((text->img.addr = mlx_xpm_file_to_image(env->mlx_ptr, text->path,
+							&text->width, &text->height)))
+			text->img.data = mlx_get_data_addr(text->img.addr, &text->img.bpp,
+							&text->img.line_len, &text->img.endian);
+		else
+			return(0);
+	}
+	return (1);
+}
+
+static void		load_game_textures(t_env *env_p, t_scene *scene_p)
+{
+	if (!load_xpm_texture(env_p, &(scene_p->n_tex)) ||
+	!load_xpm_texture(env_p, &(scene_p->s_tex)) ||
+	!load_xpm_texture(env_p, &(scene_p->e_tex)) ||
+	!load_xpm_texture(env_p, &(scene_p->w_tex)) ||
+	!load_xpm_texture(env_p, &(scene_p->sprt_tex)))
+		exit_message_failure();
+}
+
+void			init_mlx(t_env *env)
+{
+	g_error = 8;
+	if ((!(env->mlx_ptr = mlx_init())) ||
+	(!(env->mlx_win = mlx_new_window(env->mlx_ptr, env->scene.screen.x,
+	env->scene.screen.y, GAME_NAME))))
+		exit_message_failure();
+	if (!(env->mlx_img.addr = mlx_new_image(env->mlx_ptr, env->scene.screen.x,
+	env->scene.screen.y)) ||
+	!(env->mlx_img.data = mlx_get_data_addr(env->mlx_img.addr,
+	&env->mlx_img.bpp, &env->mlx_img.line_len, &env->mlx_img.endian)))
+		exit_message_failure();
+	load_game_textures(env, &(env->scene));
 }
 
 static void		init_camera(t_scene *scene_p)
@@ -35,11 +74,6 @@ void			init_scene(char **argv, t_scene *scene_p)
 {
 	ft_bzero(&scene_p->player, sizeof(scene_p->player));
 	ft_bzero(&scene_p->cam, sizeof(scene_p->cam));
-	ft_bzero(&scene_p->n_tex, sizeof(scene_p->n_tex));
-	ft_bzero(&scene_p->s_tex, sizeof(scene_p->s_tex));
-	ft_bzero(&scene_p->e_tex, sizeof(scene_p->e_tex));
-	ft_bzero(&scene_p->w_tex, sizeof(scene_p->w_tex));
-	ft_bzero(&scene_p->sprt_tex, sizeof(scene_p->sprt_tex));
 	parse_scene(scene_p, open(argv[1], O_RDONLY));
 	scene_p->player.pos.x += 0.5;
 	scene_p ->player.pos.y += 0.5;

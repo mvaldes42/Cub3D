@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 15:58:16 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/29 09:38:18 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/29 15:26:09 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,45 @@ void			draw_pixel(t_env *env, int s_x, int pos_y, int color)
 	(s_x  * (env->mlx_img.bpp / 8))) = color;
 }
 
+static void			find_text_pix_color(t_scene *s, t_raycast *ray, t_texture *tex, t_screen_l *s_line)
+{
+	//calculate value of wallX
+	// double wallX; //where exactly the wall was hit
+	if (ray->side == 0)
+		s_line->wallX = s->player.pos.y + ray->wall_d * ray->ray_dir.y;
+	else
+		s_line->wallX = s->player.pos.x + ray->wall_d * ray->ray_dir.x;
+	s_line->wallX -= floor((s_line->wallX));
+
+	//x coordinate on the texture
+	s_line->texX = (int)(s_line->wallX * (double)(tex->width));
+	if(ray->side == 0 && ray->ray_dir.x > 0)
+		s_line->texX = tex->width - s_line->texX - 1;
+	if(ray->side == 1 && ray->ray_dir.y < 0)
+		s_line->texX = tex->width - s_line->texX - 1;
+}
+
+// int			find_pix_color(t_scene *s, t_raycast *ray, t_texture *tex, t_screen_l *s_line, int h)
+// {
+// 	(void)s;
+// 	double step = 1.0 * tex->height / s_line->wall.height;
+// 	// Starting texture coordinate
+// 	double texPos = (s_line->wall.start - h / 2 + s_line->wall.height / 2) * step;
+// 	for(int y = s_line->wall.start; y < s_line->wall.end; c)
+// 	{
+// 		// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
+// 		int texY = (int)texPos & (tex->height  - 1);
+// 		texPos += step;
+// 		uint32_t color = tex->img.data[tex->height  * texY + s_line->texX];
+// 		//make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
+// 		if (ray->side == 1)
+// 			color = (color >> 1) & 8355711;
+// 		// buffer[y][x] = color;
+// 		return (color);
+// 	}
+// 	return (0);
+// }
+
 void			draw_vert_line(t_scene *s, t_env *env, t_raycast *ray, int s_x)
 {
 	int			h;
@@ -129,12 +168,26 @@ void			draw_vert_line(t_scene *s, t_env *env, t_raycast *ray, int s_x)
 	h = s->screen.y;
 	ft_bzero(&s_line, sizeof(s_line));
 	calc_wall_height(&s_line, ray, h);
+	find_text_pix_color(s, ray, &s->n_tex, &s_line);
 	rgb_to_shade(&s_line, ray, s);
+
+	double step = 1.0 * s->n_tex.height / s_line.wall.height;
+	// Starting texture coordinate
+	double texPos = (s_line.wall.start - h / 2 + s_line.wall.height / 2) * step;
+
 	pos_y = 0;
 	while (pos_y < s->screen.y)
 	{
 		if (pos_y >= s_line.wall.start && pos_y < s_line.wall.end)
-			draw_pixel(env, s_x, pos_y, s_line.c_wall);
+		{
+			int texY = (int)texPos;// & (s->n_tex.height  - 1)
+			texPos += step;
+			// int color = s->n_tex.img.data[s->n_tex.height  * texY + s_line.texX];
+			// // if (ray->side == 1)
+			// // 	color = (color >> 1) & 8355711;
+			// printf("c : %d ", color);
+			draw_pixel(env, s_x, pos_y, s->n_tex.img.data[s->n_tex.height  * texY + s_line.texX]);
+		}
 		else if (pos_y >= s_line.wall.end)
 			draw_pixel(env, s_x, pos_y, s_line.c_floor);
 		else

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:07:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/29 10:13:38 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/07/29 15:28:13 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ void			draw_env(t_scene *s_p, t_env *env)
 		i++;
 	}
 	mlx_put_image_to_window(env->mlx_ptr, env->mlx_win, env->mlx_img.addr, 0, 0);
+	mlx_put_image_to_window(env->mlx_ptr, env->mlx_win, env->scene.n_tex.img.addr , 0, 0);
 }
 /*
 **	printf("scene_p->player.pos.x : %f\n", scene_p->player.pos.x);

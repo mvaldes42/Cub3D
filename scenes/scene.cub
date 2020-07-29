@@ -1,12 +1,12 @@
 R  800  400
-NO  srcs/textures/mossy.xpm
-SO  srcs/textures/wood.xpm
+NO  srcs/textures/redbrick.xpm
+SO  srcs/textures/redbrick.xpm
 
 
 WE  srcs/textures/redbrick.xpm
-EA  srcs/textures/colorstone.xpm
+EA  srcs/textures/redbrick.xpm
+S   srcs/textures/redbrick.xpm
 
-S  srcs/textures/wood.xpm
 F  226,   149,  120
 C 150, 193, 106
 
@@ -19,7 +19,7 @@ C 150, 193, 106
 11110111111  1011100000010001
   110111111  1011101000000001
 11100000111111011100000001001
-100000000000000N1100000010001
+100000000000000W1100000010001
 10000000000000001111010010001
 11000001110101011 1101111000111
 11110111 1110101   101111010001
