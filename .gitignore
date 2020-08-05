@@ -5,3 +5,4 @@ norminette
 .vscode/
 *.o
 srcs/mandatory/cub3d.h.gch
+/Cub3D.dSYM/
