@@ -6,11 +6,11 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:57:33 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/05 12:42:45 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/05 15:50:44 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 static int	is_border_closed(char **map_a, int i, int j)
 {

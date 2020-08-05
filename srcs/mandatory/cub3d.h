@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:51:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/05 15:39:00 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/05 15:54:56 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <string.h>
 # include <stdlib.h>
 # include <float.h>
-#include  <stdint.h>
+# include <stdint.h>
 # include "../get_next_line/get_next_line.h"
 # include "../libft/libft.h"
 # include "../minilibx/mlx.h"
@@ -63,7 +63,7 @@ typedef struct	s_screen_l
 	int		c_floor;
 	int		c_ceil;
 	double	wall_x;
-	int 	text_x;
+	int		text_x;
 	int		text_y;
 	double	step;
 	double	texel_pos;
@@ -131,7 +131,7 @@ typedef struct	s_data
 	int		endian;
 }				t_data;
 
-typedef	struct s_texture
+typedef struct	s_texture
 {
 	char		*path;
 	t_data		img;

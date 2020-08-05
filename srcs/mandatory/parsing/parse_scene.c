@@ -6,11 +6,11 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:51:10 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/05 13:23:08 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/05 15:53:16 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 static int	are_params_found(t_scene *scene_p)
 {
