@@ -1,11 +1,11 @@
-R  800  400
-NO  srcs/textures/Red10.xpm
-SO  srcs/textures/Red10.xpm
+R  1920 1080
+NO  srcs/textures/redbrick.xpm
+SO  srcs/textures/bookshelf.xpm
 
 
-WE  srcs/textures/Red5.xpm
-EA  srcs/textures/Red12.xpm
-S   srcs/textures/wood.xpm
+WE  srcs/textures/colorstone.xpm
+EA  srcs/textures/mossy.xpm
+S   srcs/textures/redbrick.xpm
 
 F  226,   149,  120
 C 150, 193, 106

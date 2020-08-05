@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:51:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/05 13:22:27 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/05 15:39:00 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,13 @@ typedef struct	s_screen_l
 	int		c_wall;
 	int		c_floor;
 	int		c_ceil;
-	double	wallX;
-	int 	texX;
+	double	wall_x;
+	int 	text_x;
+	int		text_y;
+	double	step;
+	double	texel_pos;
+	int		orient;
+
 }				t_screen_l;
 
 typedef struct	s_raycast
@@ -132,6 +137,8 @@ typedef	struct s_texture
 	t_data		img;
 	int			width;
 	int			height;
+	double		step;
+	double		texel_pos;
 }				t_texture;
 
 typedef struct	s_scene
@@ -212,6 +219,8 @@ void			draw_env(t_scene *scene_p, t_env *env_p);
 void			draw_vert_line(t_scene *scene_p, t_env *env_p,
 				t_raycast *raycast_p, int i);
 void			window_resize(t_scene *scene_p);
+
+int				create_trgb_shade(int t, t_rgb color, int d);
 
 void			rotate(t_scene *scene_p, int f);
 void			move(t_scene *scene_p, char f);

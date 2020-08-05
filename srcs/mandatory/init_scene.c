@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 13:36:31 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/05 13:22:11 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/05 15:35:14 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,21 @@ static float	v_length(t_point vector)
 	return (sqrt((vector.x * vector.x) + (vector.y * vector.y)));
 }
 
-static int		load_xpm_texture(t_env *env, t_texture *text)
-{
-	if (text->path)
-	{
-		if ((text->img.addr = mlx_xpm_file_to_image(env->mlx_ptr, text->path,
-							&text->width, &text->height)))
-			text->img.data = mlx_get_data_addr(text->img.addr, &text->img.bpp,
-							&text->img.line_len, &text->img.endian);
-		else
-			return(0);
-	}
-	return (1);
-}
-
 static void		load_game_textures(t_env *env_p, t_scene *scene_p)
 {
-	int i;
+	int			i;
+	t_texture	*text;
 
 	i = 0;
 	while (i < 5)
 	{
-		if (!load_xpm_texture(env_p, &(scene_p->env_text[i])))
-				exit_message_failure();
+		text = &(scene_p->env_text[i]);
+		if ((text->img.addr = mlx_xpm_file_to_image(env_p->mlx_ptr, text->path,
+							&text->width, &text->height)))
+			text->img.data = mlx_get_data_addr(text->img.addr, &text->img.bpp,
+							&text->img.line_len, &text->img.endian);
+		else
+			exit_message_failure();
 		i++;
 	}
 }
@@ -75,10 +67,12 @@ static void		init_camera(t_scene *scene_p)
 
 void			init_scene(char **argv, t_scene *scene_p)
 {
+	int i;
+
 	ft_bzero(&scene_p->player, sizeof(scene_p->player));
 	ft_bzero(&scene_p->cam, sizeof(scene_p->cam));
 	ft_bzero(&scene_p->env_text, sizeof(scene_p->env_text));
-	int i = 0;
+	i = 0;
 	while (i < 5)
 	{
 		ft_bzero(&scene_p->env_text[i], sizeof(scene_p->env_text[i]));
@@ -86,7 +80,7 @@ void			init_scene(char **argv, t_scene *scene_p)
 	}
 	parse_scene(scene_p, open(argv[1], O_RDONLY));
 	scene_p->player.pos.x += 0.5;
-	scene_p ->player.pos.y += 0.5;
+	scene_p->player.pos.y += 0.5;
 	window_resize(scene_p);
 	init_camera(scene_p);
 }

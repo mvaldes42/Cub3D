@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/29 13:43:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/05 13:22:16 by mvaldes          ###   ########.fr       */
+/*   Created: 2020/08/05 15:37:12 by mvaldes           #+#    #+#             */
+/*   Updated: 2020/08/05 15:38:59 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ static int		exit_game(t_env *env, int code)
 	return (code);
 }
 
-int		exit_hook(t_env *env)
+int				exit_hook(t_env *env)
 {
 	return (exit_game(env, EXIT_SUCCESS));
 }
 
-int		key_press(int keycode, t_env *env)
+int				key_press(int keycode, t_env *env)
 {
 	mlx_clear_window(env->mlx_ptr, env->mlx_win);
 	if (keycode == KEY_LEFT)

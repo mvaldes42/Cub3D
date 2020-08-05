@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:53:19 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/05 13:22:28 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/05 15:28:56 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ static void		cvt_rgb(t_rgb *rgb, char *f_line)
 
 static void		cvt_text_path(char **text_path, char *f_line)
 {
-	while (*f_line == 'N' || *f_line == 'O' || *f_line == 'S' || *f_line == 'W' || *f_line == 'E' ||
-	*f_line == 'A' || *f_line == ' ')
+	while (*f_line == 'N' || *f_line == 'O' || *f_line == 'S' || *f_line == 'W'
+	|| *f_line == 'E' || *f_line == 'A' || *f_line == ' ')
 		f_line++;
 	if (!(*text_path = ft_strdup(f_line))
 	|| ft_strnstr(*text_path, "xpm", ft_strlen(*text_path)) == '\0')

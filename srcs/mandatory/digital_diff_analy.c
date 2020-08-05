@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:07:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/05 12:27:55 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/05 15:34:41 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static void		dig_diff_analy(t_raycast *ray_p, t_scene *s_p)
 	calc_dist_to_wall(ray_p, s_p);
 }
 
-void			draw_env(t_scene *s_p, t_env *env)
+void			draw_env(t_scene *s_p, t_env *e)
 {
 	int			i;
 	double		w;
@@ -108,11 +108,10 @@ void			draw_env(t_scene *s_p, t_env *env)
 		ray_p->ray_dir.x = s_p->player.dir.x + s_p->cam.pln_dir.x * cam_x;
 		ray_p->ray_dir.y = s_p->player.dir.y + s_p->cam.pln_dir.y * cam_x;
 		dig_diff_analy(&raycast, s_p);
-		draw_vert_line(s_p, env, ray_p, i);
+		draw_vert_line(s_p, e, ray_p, i);
 		i++;
 	}
-	mlx_put_image_to_window(env->mlx_ptr, env->mlx_win, env->mlx_img.addr, 0, 0);
-	// mlx_put_image_to_window(env->mlx_ptr, env->mlx_win, env->scene.n_tex.img.addr , 0, 0);
+	mlx_put_image_to_window(e->mlx_ptr, e->mlx_win, e->mlx_img.addr, 0, 0);
 }
 /*
 **	printf("scene_p->player.pos.x : %f\n", scene_p->player.pos.x);
