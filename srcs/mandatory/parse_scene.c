@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:51:10 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/29 10:11:30 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/05 13:23:08 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ static int	are_params_found(t_scene *scene_p)
 	n_prm = 0;
 	n_prm = scene_p->screen.x != 0 && scene_p->screen.y != 0 ? (n_prm + 1) :
 	n_prm;
-	n_prm = scene_p->n_tex.path != NULL ? (n_prm + 1) : n_prm;
-	n_prm = scene_p->s_tex.path != NULL ? (n_prm + 1) : n_prm;
-	n_prm = scene_p->e_tex.path != NULL ? (n_prm + 1) : n_prm;
-	n_prm = scene_p->w_tex.path != NULL ? (n_prm + 1) : n_prm;
-	n_prm = scene_p->sprt_tex.path != NULL ? (n_prm + 1) : n_prm;
-	n_prm = scene_p->flr_clr.b != 0 ? (n_prm + 1) : n_prm;
-	n_prm = scene_p->cei_clr.b != 0 ? (n_prm + 1) : n_prm;
+	n_prm = scene_p->env_text[0].path != NULL ? (n_prm + 1) : n_prm;
+	n_prm = scene_p->env_text[1].path != NULL ? (n_prm + 1) : n_prm;
+	n_prm = scene_p->env_text[2].path != NULL ? (n_prm + 1) : n_prm;
+	n_prm = scene_p->env_text[3].path != NULL ? (n_prm + 1) : n_prm;
+	n_prm = scene_p->env_text[4].path != NULL ? (n_prm + 1) : n_prm;
+	n_prm = scene_p->env_col[0].b != 0 ? (n_prm + 1) : n_prm;
+	n_prm = scene_p->env_col[1].b != 0 ? (n_prm + 1) : n_prm;
 	if (n_prm == 8)
 		return (1);
 	g_error = 1;

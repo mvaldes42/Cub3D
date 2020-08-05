@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 13:43:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/29 13:58:30 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/05 13:22:16 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,17 @@
 
 static int		exit_game(t_env *env, int code)
 {
+	int i;
+
+	i = 0;
 	mlx_destroy_window(env->mlx_ptr, env->mlx_win);
 	mlx_destroy_image(env->mlx_ptr, env->mlx_img.addr);
-	if (env->scene.n_tex.img.addr)
-		mlx_destroy_image(env->mlx_ptr, env->scene.n_tex.img.addr);
-	if (env->scene.s_tex.img.addr)
-		mlx_destroy_image(env->mlx_ptr, env->scene.s_tex.img.addr);
-	if (env->scene.e_tex.img.addr)
-		mlx_destroy_image(env->mlx_ptr, env->scene.e_tex.img.addr);
-	if (env->scene.w_tex.img.addr)
-		mlx_destroy_image(env->mlx_ptr, env->scene.w_tex.img.addr);
-	if (env->scene.sprt_tex.img.addr)
-		mlx_destroy_image(env->mlx_ptr, env->scene.sprt_tex.img.addr);
+	while (i < 5)
+	{
+		if (env->scene.env_text[i].img.addr)
+			mlx_destroy_image(env->mlx_ptr, env->scene.env_text[i].img.addr);
+		i++;
+	}
 	if (env->scene.map_a)
 		free(env->scene.map_a);
 	exit(code);

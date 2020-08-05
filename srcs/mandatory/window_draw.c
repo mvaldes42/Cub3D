@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 15:58:16 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/29 15:26:09 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/05 13:22:30 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,41 +76,20 @@ int		create_trgb_shade(int t, t_rgb color, int d)
 	return (t << 24 | (color.r / d << 16) | (color.g / d << 8)| color.b / d);
 }
 
-void	rgb_to_shade(t_screen_l *s_line, t_raycast *ray, t_scene *s)
+int		find_wall_orient(t_raycast *ray, t_scene *s)
 {
-	t_rgb	wall_N_clr = {255, 0, 0};
-	t_rgb	wall_S_clr = {0, 255, 0};
-	t_rgb	wall_E_clr = {255, 255, 0};
-	t_rgb	wall_W_clr = {0, 0, 255};
-	t_rgb	wall_clr = {0,0,0};
+	int		wall_orient;
 
+	wall_orient = 0;
 	if (ray->map.y > s->player.pos.y && ray->side == 1)//EST YELLOW
-	{
-		wall_clr.r = wall_E_clr.r;
-		wall_clr.g = wall_E_clr.g;
-		wall_clr.b = wall_E_clr.b;
-	}
+		wall_orient = 2;
 	else if (ray->map.y < s->player.pos.y && ray->side == 1)//WEST BLUE
-	{
-		wall_clr.r = wall_W_clr.r;
-		wall_clr.g = wall_W_clr.g;
-		wall_clr.b = wall_W_clr.b;
-	}
-	else if (ray->map.x < s->player.pos.x && ray->side == 0)//NORTH RED
-	{
-		wall_clr.r = wall_N_clr.r;
-		wall_clr.g = wall_N_clr.g;
-		wall_clr.b = wall_N_clr.b;
-	}
+		wall_orient = 3;
+	// else if (ray->map.x < s->player.pos.x && ray->side == 0)//NORTH RED
+	// 	wall_orient = 0;
 	else if (ray->map.x > s->player.pos.x && ray->side == 0)//SOUTH GREEN
-	{
-		wall_clr.r = wall_S_clr.r;
-		wall_clr.g = wall_S_clr.g;
-		wall_clr.b = wall_S_clr.b;
-	}
-	s_line->c_wall = create_trgb_shade(0, wall_clr, ray->wall_d / 3);
-	s_line->c_floor = create_trgb_shade(0, s->flr_clr, 0);
-	s_line->c_ceil = create_trgb_shade(0, s->cei_clr, 0);
+		wall_orient = 1;
+	return (wall_orient);
 }
 
 void			draw_pixel(t_env *env, int s_x, int pos_y, int color)
@@ -122,8 +101,6 @@ void			draw_pixel(t_env *env, int s_x, int pos_y, int color)
 
 static void			find_text_pix_color(t_scene *s, t_raycast *ray, t_texture *tex, t_screen_l *s_line)
 {
-	//calculate value of wallX
-	// double wallX; //where exactly the wall was hit
 	if (ray->side == 0)
 		s_line->wallX = s->player.pos.y + ray->wall_d * ray->ray_dir.y;
 	else
@@ -164,15 +141,17 @@ void			draw_vert_line(t_scene *s, t_env *env, t_raycast *ray, int s_x)
 	int			h;
 	int			pos_y;
 	t_screen_l	s_line;
+	unsigned int tex_col;
+	int			wall_orient;
 
 	h = s->screen.y;
 	ft_bzero(&s_line, sizeof(s_line));
 	calc_wall_height(&s_line, ray, h);
-	find_text_pix_color(s, ray, &s->n_tex, &s_line);
-	rgb_to_shade(&s_line, ray, s);
-
-	double step = 1.0 * s->n_tex.height / s_line.wall.height;
-	// Starting texture coordinate
+	wall_orient = find_wall_orient(ray, s);
+	find_text_pix_color(s, ray, &s->env_text[wall_orient], &s_line);
+	s_line.c_floor = create_trgb_shade(0, s->env_col[1], 0);
+	s_line.c_ceil = create_trgb_shade(0, s->env_col[0], 0);
+	double step = 1.0 * s->env_text[wall_orient].height / s_line.wall.height;
 	double texPos = (s_line.wall.start - h / 2 + s_line.wall.height / 2) * step;
 
 	pos_y = 0;
@@ -180,13 +159,12 @@ void			draw_vert_line(t_scene *s, t_env *env, t_raycast *ray, int s_x)
 	{
 		if (pos_y >= s_line.wall.start && pos_y < s_line.wall.end)
 		{
-			int texY = (int)texPos;// & (s->n_tex.height  - 1)
+			int texY = (int)texPos;
 			texPos += step;
-			// int color = s->n_tex.img.data[s->n_tex.height  * texY + s_line.texX];
-			// // if (ray->side == 1)
-			// // 	color = (color >> 1) & 8355711;
-			// printf("c : %d ", color);
-			draw_pixel(env, s_x, pos_y, s->n_tex.img.data[s->n_tex.height  * texY + s_line.texX]);
+			tex_col = ((unsigned int*)s->env_text[wall_orient].img.data)[(int)(s->env_text[wall_orient].width  * texY + s_line.texX)];
+			if(ray->side == 1)
+				tex_col = (tex_col >> 1) & 8355711;
+			draw_pixel(env, s_x, pos_y, tex_col);
 		}
 		else if (pos_y >= s_line.wall.end)
 			draw_pixel(env, s_x, pos_y, s_line.c_floor);

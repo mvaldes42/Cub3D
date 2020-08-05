@@ -1,11 +1,11 @@
 R  800  400
-NO  srcs/textures/redbrick.xpm
-SO  srcs/textures/redbrick.xpm
+NO  srcs/textures/Red10.xpm
+SO  srcs/textures/Red10.xpm
 
 
-WE  srcs/textures/redbrick.xpm
-EA  srcs/textures/redbrick.xpm
-S   srcs/textures/redbrick.xpm
+WE  srcs/textures/Red5.xpm
+EA  srcs/textures/Red12.xpm
+S   srcs/textures/wood.xpm
 
 F  226,   149,  120
 C 150, 193, 106

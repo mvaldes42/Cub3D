@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:51:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/07/29 14:54:03 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/05 13:22:27 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,17 +137,12 @@ typedef	struct s_texture
 typedef struct	s_scene
 {
 	t_screen	screen;
-	t_texture	n_tex;
-	t_texture	s_tex;
-	t_texture	e_tex;
-	t_texture	w_tex;
-	t_texture	sprt_tex;
-	t_rgb		flr_clr;
-	t_rgb		cei_clr;
 	t_map		*map;
 	char		**map_a;
 	t_player	player;
 	t_camera	cam;
+	t_texture	env_text[5];
+	t_rgb		env_col[2];
 
 }				t_scene;
 
