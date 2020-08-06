@@ -6,12 +6,11 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 16:04:35 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/06 22:46:24 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/06 22:58:58 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bmp.h"
-#include <stdio.h>
 
 static void		init_bmp_header(t_bmp_img *bmp, int *screen)
 {

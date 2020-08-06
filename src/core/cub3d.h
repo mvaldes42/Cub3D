@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:51:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/06 22:06:33 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/06 23:04:05 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,6 @@
 # define X_EVENT_EXIT			17
 # define X_EVENT_KEY_PRESS		2
 # define X_EVENT_KEY_RELEASE	3
-# define KEY_Q					12
-# define KEY_E					14
-# define KEY_LEFT				123
-# define KEY_RIGHT				124
-# define KEY_ESC				53
-# define KEY_W					13
-# define KEY_A					0
-# define KEY_S					1
-# define KEY_D					2
 # define HEX_BASE				"0123456789ABCDEF"
 # define DEC_BASE				"0123456789"
 # define DISP_X					2560
@@ -219,10 +210,6 @@ void			draw_vert_line(t_scene *scene_p, t_env *env_p,
 void			window_resize(t_scene *scene_p);
 
 int				create_trgb_shade(int t, t_rgb color, int d);
-
-void			rotate(t_scene *scene_p, int f);
-void			move(t_scene *scene_p, char f);
-void			translate(t_scene *scene_p, char f);
 
 int				key_press(int keycode, t_env *env);
 int				exit_hook(t_env *env);

@@ -6,11 +6,11 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 15:37:12 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/06 21:37:47 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/06 23:03:45 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "move.h"
 
 static int		exit_game(t_env *env, int code)
 {
