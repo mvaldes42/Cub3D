@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:51:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/05 16:24:01 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/06 19:07:15 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,28 +161,35 @@ typedef struct	s_env
 	t_scene	scene;
 }				t_env;
 
-typedef struct	bitmap_file_header {
-    unsigned char   bitmap_type[2];     // 2 bytes
-    int             file_size;          // 4 bytes
-    short           reserved1;          // 2 bytes
-    short           reserved2;          // 2 bytes
-    unsigned int    offset_bits;        // 4 bytes
-}				bfh;
+typedef struct	s_bmp_f_header
+{
+	unsigned char	bitmap_type[2];// 2 bytes
+	int				file_size;// 4 bytes
+	short int		reserved1;// 2 bytes
+	short int		reserved2;// 2 bytes
+	unsigned int	offset_bits;// 4 bytes
+}				t_bmp_f_header;
 
-// bitmap image header (40 bytes)
-typedef struct	bitmap_image_header {
-    unsigned int    size_header;        // 4 bytes
-    unsigned int    width;              // 4 bytes
-    unsigned int    height;             // 4 bytes
-    short int       planes;             // 2 bytes
-    short int       bit_count;          // 2 bytes
-    unsigned int    compression;        // 4 bytes
-    unsigned int    image_size;         // 4 bytes
-    unsigned int    ppm_x;              // 4 bytes
-    unsigned int    ppm_y;              // 4 bytes
-    unsigned int    clr_used;           // 4 bytes
-    unsigned int    clr_important;      // 4 bytes
-}				bih;
+typedef	struct	s_bmp_h_header
+{
+	unsigned int	size_header;// 4 bytes
+	unsigned int	width;// 4 bytes
+	unsigned int	height;// 4 bytes
+	short int		planes;// 2 bytes
+	short int		bit_count;// 2 bytes
+	unsigned int	compression;// 4 bytes
+	unsigned int	image_size;// 4 bytes
+	unsigned int	ppm_x;// 4 bytes
+	unsigned int	ppm_y;// 4 bytes
+	unsigned int	clr_used;// 4 bytes
+	unsigned int	clr_important;// 4 bytes
+}				t_bmp_h_header;
+
+typedef struct	s_bmp_img
+{
+	t_bmp_f_header	f_hdr;
+	t_bmp_h_header	hdr;
+}				t_bmp_img;
 
 
 typedef enum	e_error
@@ -252,7 +259,7 @@ void			translate(t_scene *scene_p, char f);
 
 int				key_press(int keycode, t_env *env);
 int				exit_hook(t_env *env);
-void			save_img_to_bmp(t_scene *scene, t_env *env);
-
+void			save_img_to_bmp(t_env *env, t_scene *scene);
+void			take_game_snapshot(t_env *env);
 
 #endif

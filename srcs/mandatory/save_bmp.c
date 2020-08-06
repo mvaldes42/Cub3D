@@ -6,55 +6,51 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 16:04:35 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/05 16:30:02 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/06 19:05:57 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	save_img_to_bmp(t_scene *scene, t_env *env)
+void	save_img_to_bmp(t_env *env, t_scene *scene)
 {
-	(void)env;
-	bfh			bfh;
-	bih			bih;
-	const char	*file_name;
-	FILE		*img;
-	int			img_size;
-	int			file_size;
-	int			dpi = 300;
+	t_bmp_img	bmp;
+	char		*file_name;
+	int			i;
+	int			fd;
 
-	img_size = scene->screen.x * scene->screen.y;
-	file_size = 54 + 4 * img_size;
-	int ppm = dpi * 39.375;
+	file_name = "cub3d_snapshot.bmp";
+	ft_memcpy(&bmp.f_hdr.bitmap_type, "BM", 2);
+	bmp.f_hdr.file_size = 54 + 4 * scene->screen.x * scene->screen.y;
+	bmp.f_hdr.reserved1 = 0;
+	bmp.f_hdr.reserved2 = 0;
+	bmp.f_hdr.offset_bits = 0;
 
-	ft_memcpy(&bfh.bitmap_type, "BM", 2);
-	bfh.file_size = file_size;
-	bfh.reserved1 = 0;
-	bfh.reserved2 = 0;
-	bfh.offset_bits = 0;
+	bmp.hdr.size_header = 40;
+	bmp.hdr.width = scene->screen.x;
+	bmp.hdr.height = scene->screen.y;
+	bmp.hdr.planes = 1;
+	bmp.hdr.bit_count = 32;
+	bmp.hdr.compression = 0;
+	bmp.hdr.image_size = scene->screen.x * scene->screen.y;
+	bmp.hdr.ppm_x = 0;
+	bmp.hdr.ppm_y = 0;
+	bmp.hdr.clr_used = 0;
+	bmp.hdr.clr_important = 0;
 
-	bih.size_header = sizeof(bih);
-	bih.width = scene->screen.x;
-	bih.height = scene->screen.y;
-	bih.planes = 1;
-	bih.bit_count = 24;
-	bih.compression = 0;
-	bih.image_size = file_size;
-	bih.ppm_x = ppm;
-	bih.ppm_y = ppm;
-	bih.clr_used = 0;
-	bih.clr_important = 0;
-	img = fopen(file_name, "wb");
-	fwrite(&bfh, 1, 14, img);
-	fwrite(&bih, 1, sizeof(bih), img);
-	for (int i = 0; i < img; i++)
-	{
-		t_rgb BGR = data[i];
-		float red   = (BGR.r);
-		float green = (BGR.g);
-		float blue  = (BGR.b);
-		unsigned char color[3] = { blue, green, red};
-		fwrite(color, 1, sizeof(color), img);
-	}
-	fclose(img);
+	if ((fd = open(file_name, O_RDWR | O_CREAT, S_IRWXU | O_TRUNC)) < 0)
+		exit_message_failure();
+	write(fd, &(bmp.f_hdr), 14);
+	write(fd, &(bmp.hdr), 40);
+	i = scene->screen.y + 1;
+	int bmp_line_size = scene->screen.x * 4;
+	while (--i >= 0)
+		write(fd, &env->mlx_img.data[i * (env->mlx_img.line_len)], bmp_line_size);
+	close(fd);
+}
+
+void	take_game_snapshot(t_env *env)
+{
+	save_img_to_bmp(env, &env->scene);
+	exit_hook(env);
 }
