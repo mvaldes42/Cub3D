@@ -6,57 +6,59 @@
 #    By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/15 14:41:36 by mvaldes           #+#    #+#              #
-#    Updated: 2020/08/05 16:25:28 by mvaldes          ###   ########.fr        #
+#    Updated: 2020/08/06 21:41:11 by mvaldes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .PHONY: libft minilibx
 
-SRCS = ./srcs/mandatory/utils_lst.c\
-	   ./srcs/mandatory/utils_general.c\
-	   ./srcs/mandatory/utils_color.c\
-	   ./srcs/mandatory/init_scene.c\
-	   ./srcs/mandatory/save_bmp.c\
-	   ./srcs/mandatory/parsing/parse_scene.c\
-	   ./srcs/mandatory/parsing/parse_params.c\
-	   ./srcs/mandatory/parsing/parse_map.c\
-	   ./srcs/mandatory/map_lst.c\
-	   ./srcs/mandatory/window_draw.c\
-	   ./srcs/mandatory/window_resize.c\
-	   ./srcs/mandatory/digital_diff_analy.c\
-	   ./srcs/mandatory/player_move.c\
-	    ./srcs/mandatory/hooks.c\
-	   ./srcs/mandatory/main.c\
-	   ./srcs/get_next_line/get_next_line.c\
-	   ./srcs/get_next_line/get_next_line_utils.c\
+SRCS =	./src/core/main.c\
+		./src/core/utils_general.c\
+		./src/core/parse/parse_map.c\
+		./src/core/parse/parse_scene.c\
+		./src/core/parse/parse_params.c\
+		./src/core/parse/map_lst.c\
+		./src/core/parse/utils_lst.c\
+		./src/core/initialize/init_scene.c\
+		./src/core/initialize/window_resize.c\
+		./src/core/render/window_draw.c\
+		./src/core/render/digital_diff_analy.c\
+		./src/core/render/utils_color.c\
+		./src/core/snapshot/save_bmp.c\
+		./src/core/move/hooks.c\
+		./src/core/move/player_move.c\
+		./src/libraries/get_next_line/get_next_line.c\
+		./src/libraries/get_next_line/get_next_line_utils.c\
 
 NAME = Cub3D
 GCC_FLAG = -Wall -Werror -Wextra -g
 CC = gcc $(GCC_FLAG)
+LIBFT = src/libraries/libft
+MLX = src/libraries/minilibx/
 
 OBJS = $(SRCS:.c=.o)
 
 all: libft minilibx $(NAME)
 
 libft:
-	make -C srcs/libft/
+	make -C $(LIBFT)
 
 minilibx:
-	make -C srcs/minilibx/
+	make -C $(MLX)
 
 $(%.o): $(%.c)
 	$(CC) -o $@ -c $^
 
 $(NAME): $(OBJS)
-	$(CC) -o $@ $^ -Lsrcs/libft -lft -Lsrcs/minilibx/ -lmlx -framework OPENGL -framework Appkit
+	$(CC) -o $@ $^ -L$(LIBFT) -lft -L$(MLX) -lmlx -framework OPENGL -framework Appkit
 clean:
 	rm -f $(OBJS)
-	make -C srcs/libft/ clean
-	make -C srcs/minilibx/ clean
+	make -C $(LIBFT) clean
+	make -C $(MLX) clean
 
 fclean: clean
 	rm -f $(NAME)
-	make -C srcs/libft/ fclean
-	make -C srcs/minilibx/ clean
+	make -C $(LIBFT) fclean
+	make -C $(MLX) clean
 
 re: fclean all
