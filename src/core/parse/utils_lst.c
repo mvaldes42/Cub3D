@@ -6,11 +6,10 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:50:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/06 21:37:04 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/07 10:54:32 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
 #include "parse.h"
 
 t_map	*ft_lstnew_map(char *line)

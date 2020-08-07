@@ -6,11 +6,10 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:53:19 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/06 21:36:56 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/07 11:13:37 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
 #include "parse.h"
 
 static void		cvt_screen_res(t_scene *scene_p, char *f_line)
@@ -50,7 +49,6 @@ static void		cvt_rgb(t_rgb *rgb, char *f_line)
 	int		g;
 	int		r;
 
-	ft_bzero(rgb, sizeof(&rgb));
 	str_array = (char **)malloc(sizeof(char *) * word_count(f_line, ',') + 1);
 	f_line++;
 	while (*f_line == ' ')

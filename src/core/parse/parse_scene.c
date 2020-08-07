@@ -6,11 +6,10 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:51:10 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/06 21:37:00 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/07 11:13:48 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
 #include "parse.h"
 
 static int	are_params_found(t_scene *scene_p)
@@ -44,7 +43,6 @@ static int	is_env_params(char c)
 
 static void	cvt_player_orient(char c, t_scene *scene_p)
 {
-	ft_bzero(&scene_p->player.dir, sizeof(scene_p->player.dir));
 	if (c == 'N')
 	{
 		scene_p->player.dir.x = -1;
@@ -73,7 +71,6 @@ static void	parse_player_pos(t_scene *scene_p)
 	int j;
 
 	i = 0;
-	ft_bzero(&scene_p->player.pos, sizeof(scene_p->player.pos));
 	while (scene_p->map_a[i] != NULL)
 	{
 		j = 0;
@@ -90,6 +87,8 @@ static void	parse_player_pos(t_scene *scene_p)
 		}
 		i++;
 	}
+	scene_p->player.pos.x += 0.5;
+	scene_p->player.pos.y += 0.5;
 }
 
 void		parse_scene(t_scene *scene_p, int fd)

@@ -6,19 +6,18 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 13:36:31 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/06 21:48:10 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/07 11:15:00 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
-#include "../parse/parse.h"
+#include "initialize.h"
 
 static float	v_length(t_point vector)
 {
 	return (sqrt((vector.x * vector.x) + (vector.y * vector.y)));
 }
 
-static void		load_game_textures(t_env *env_p, t_scene *scene_p)
+static void		load_game_textures(t_env *env, t_scene *scene)
 {
 	int			i;
 	t_texture	*text;
@@ -27,8 +26,8 @@ static void		load_game_textures(t_env *env_p, t_scene *scene_p)
 	i = 0;
 	while (i < 5)
 	{
-		text = &(scene_p->env_text[i]);
-		if ((text->img.addr = mlx_xpm_file_to_image(env_p->mlx_ptr, text->path,
+		text = &(scene->env_text[i]);
+		if ((text->img.addr = mlx_xpm_file_to_image(env->mlx_ptr, text->path,
 							&text->width, &text->height)))
 			text->img.data = mlx_get_data_addr(text->img.addr, &text->img.bpp,
 							&text->img.line_len, &text->img.endian);
@@ -38,7 +37,7 @@ static void		load_game_textures(t_env *env_p, t_scene *scene_p)
 	}
 }
 
-void			init_mlx(t_env *env)
+static void			init_mlx(t_env *env)
 {
 	g_error = 8;
 	if ((!(env->mlx_ptr = mlx_init())) ||
@@ -53,38 +52,24 @@ void			init_mlx(t_env *env)
 	load_game_textures(env, &(env->scene));
 }
 
-static void		init_camera(t_scene *scene_p)
+static void		init_camera(t_scene *scene)
 {
-	ft_bzero(&(scene_p->cam.pln_dir), sizeof(scene_p->cam.pln_dir));
-	scene_p->cam.cam_fov = 66;
-	scene_p->cam.pln_dir.x = scene_p->player.dir.y * 0.66 / 1;
-	scene_p->cam.pln_dir.y = (-scene_p->player.dir.x) * 0.66 / 1;
-	if (scene_p->cam.pln_dir.y == 0)
-		scene_p->cam.pln_dir.y = 0;
-	if (scene_p->cam.pln_dir.x == 0)
-		scene_p->cam.pln_dir.x = 0;
-	scene_p->cam.pln_len = v_length(scene_p->cam.pln_dir) * 2;
-	scene_p->cam.dir_len = v_length(scene_p->player.dir);
+	scene->cam.cam_fov = 66;
+	scene->cam.pln_dir.x = scene->player.dir.y * 0.66 / 1;
+	scene->cam.pln_dir.y = (-scene->player.dir.x) * 0.66 / 1;
+	if (scene->cam.pln_dir.y == 0)
+		scene->cam.pln_dir.y = 0;
+	if (scene->cam.pln_dir.x == 0)
+		scene->cam.pln_dir.x = 0;
+	scene->cam.pln_len = v_length(scene->cam.pln_dir) * 2;
+	scene->cam.dir_len = v_length(scene->player.dir);
 }
 
-void			init_scene(char **argv, t_scene *scene_p)
+void			init_scene(t_env *env)
 {
-	int i;
-
-	ft_bzero(&scene_p->player, sizeof(scene_p->player));
-	ft_bzero(&scene_p->cam, sizeof(scene_p->cam));
-	ft_bzero(&scene_p->env_text, sizeof(scene_p->env_text));
-	i = 0;
-	while (i < 5)
-	{
-		ft_bzero(&scene_p->env_text[i], sizeof(scene_p->env_text[i]));
-		i++;
-	}
-	parse_scene(scene_p, open(argv[1], O_RDONLY));
-	scene_p->player.pos.x += 0.5;
-	scene_p->player.pos.y += 0.5;
-	window_resize(scene_p);
-	init_camera(scene_p);
+	init_camera(&env->scene);
+	window_resize(&env->scene);
+	init_mlx(env);
 }
 
 /*

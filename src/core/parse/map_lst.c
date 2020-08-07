@@ -6,11 +6,10 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:56:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/06 21:21:25 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/07 10:54:03 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
 #include "parse.h"
 
 static void	create_map_lst(t_scene *scene_p, char *f_line, int fd, int ret)

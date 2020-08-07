@@ -6,11 +6,13 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 18:11:43 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/06 22:25:58 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/07 11:15:01 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "initialize/initialize.h"
+#include "./snapshot/bmp.h"
 
 int		main(int argc, char *argv[])
 {
@@ -18,8 +20,8 @@ int		main(int argc, char *argv[])
 
 	(void)argc;
 	ft_bzero(&env, sizeof(env));
-	init_scene(argv, &(env.scene));
-	init_mlx(&env);
+	parse_scene(&env.scene, open(argv[1], O_RDONLY));
+	init_scene(&env);
 	draw_env(&(env.scene), &env);
 	if (ft_strnstr(argv[2], "--save", ft_strlen(argv[2])))
 	{

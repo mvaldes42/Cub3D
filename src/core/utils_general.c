@@ -6,10 +6,11 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 18:02:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/05 15:30:40 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/07 10:56:29 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "error.h"
 #include "cub3d.h"
 
 void		exit_message_failure(void)

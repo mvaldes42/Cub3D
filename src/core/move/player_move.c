@@ -6,11 +6,11 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 16:22:32 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/06 21:37:51 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/07 10:44:10 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "move.h"
 
 void	rotate(t_scene *s, int f)
 {

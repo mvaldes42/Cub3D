@@ -6,11 +6,11 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 16:46:27 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/06 21:37:42 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/07 10:39:13 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "initialize.h"
 
 void	window_resize(t_scene *s_p)
 {

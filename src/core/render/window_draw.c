@@ -6,11 +6,11 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 15:58:16 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/06 21:38:19 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/07 10:32:31 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "render.h"
 
 static void		calc_wall_height(t_scene *s, t_screen_l *line, t_raycast *ray)
 {

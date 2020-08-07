@@ -6,11 +6,11 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 15:26:15 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/06 21:38:16 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/07 10:32:28 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "render.h"
 
 int		create_trgb_shade(int t, t_rgb color, int d)
 {

@@ -6,11 +6,11 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:07:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/06 21:38:14 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/07 11:17:05 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "render.h"
 
 static void		find_step(t_raycast *ray_p, t_scene *scene_p)
 {

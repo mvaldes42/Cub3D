@@ -6,13 +6,14 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 23:02:13 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/06 23:04:10 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/07 10:35:23 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef __MOVE_H
 # define __MOVE_H
 # include "../cub3d.h"
+# include <math.h>
 # define KEY_Q					12
 # define KEY_E					14
 # define KEY_LEFT				123

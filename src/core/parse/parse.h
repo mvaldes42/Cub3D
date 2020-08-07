@@ -6,18 +6,13 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 21:18:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/06 21:24:14 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/07 10:54:27 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef __PARSE_H
 # define __PARSE_H
-
-// typedef struct	s_map
-// {
-// 	char			*line;
-// 	struct s_map	*next;
-// }				t_map;
+# include "../cub3d.h"
 
 int				parse_map(char **map);
 int				is_map_closed(char **map_a);
