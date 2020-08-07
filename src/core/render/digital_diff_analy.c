@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:07:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/07 11:17:05 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/07 17:48:16 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,60 @@ static void		dig_diff_analy(t_raycast *ray_p, t_scene *s_p)
 	calc_dist_to_wall(ray_p, s_p);
 }
 
+static void		sort_sprites_desc(t_scene *s, double *spriteDistance)
+{
+	int		i;
+	int		j;
+	int		tmp;
+	t_point	tmp_pos;
+
+	i = 0;
+	while (i < s->sprites.nbr_sprites)
+	{
+		j = i + 1;
+		while (j < s->sprites.nbr_sprites)
+		{
+			if (spriteDistance[i] < spriteDistance[j])
+			{
+				tmp = spriteDistance[i];
+				tmp_pos = s->sprites.position[i];
+				s->sprites.position[i] = s->sprites.position[j];
+				spriteDistance[i] = spriteDistance[j];
+				s->sprites.position[j] = tmp_pos;
+				spriteDistance[j] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+static void		draw_sprites(t_scene *s, t_env *env, t_raycast *ray)
+{
+	int		i;
+	int		spriteOrder[s->sprites.nbr_sprites];
+	double	spriteDistance[s->sprites.nbr_sprites];
+	(void)env;
+	(void)ray;
+	i = 0;
+	while (i < s->sprites.nbr_sprites)
+	{
+		spriteOrder[i] = i;
+		spriteDistance[i] = (( s->player.pos.x - s->sprites.position[i].x)
+		* (s->player.pos.x - s->sprites.position[i].x)
+		+ (s->player.pos.y - s->sprites.position[i].y)
+		* (s->player.pos.y - s->sprites.position[i].y));
+		i++;
+	}
+	sort_sprites_desc(s, spriteDistance);
+	i = 0;
+	while (i < s->sprites.nbr_sprites)
+	{
+		printf("%f\n", s->sprites.position[i].x);
+		i++;
+	}
+}
+
 void			draw_env(t_scene *s_p, t_env *e)
 {
 	int			i;
@@ -109,9 +163,11 @@ void			draw_env(t_scene *s_p, t_env *e)
 		ray_p->ray_dir.y = s_p->player.dir.y + s_p->cam.pln_dir.y * cam_x;
 		dig_diff_analy(&raycast, s_p);
 		draw_vert_line(s_p, e, ray_p, i);
+		s_p->cam.z_buffer[i] = ray_p->wall_d;
 		i++;
 	}
 	mlx_put_image_to_window(e->mlx_ptr, e->mlx_win, e->mlx_img.addr, 0, 0);
+	draw_sprites(s_p, e, ray_p);
 }
 /*
 **	printf("scene_p->player.pos.x : %f\n", scene_p->player.pos.x);

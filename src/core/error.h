@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 10:48:26 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/07 10:55:24 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/07 12:20:56 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef enum	e_error
 	E_MAP_I_CHAR = 7,
 	E_MLX = 8,
 	E_TEXT_MLX = 9,
+	E_MAL = 10,
 }				t_error;
 
 typedef struct	s_errordesc
@@ -45,6 +46,7 @@ static const	t_errordesc g_errorm[] =
 	{E_MAP_I_CHAR, "Invalid map (invalid character)."},
 	{E_MLX, "MLX init error"},
 	{E_TEXT_MLX, "XPM textures could not be loaded"},
+	{E_MAL, "Malloc error"},
 };
 
 int	g_error;

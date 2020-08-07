@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 13:36:31 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/07 11:15:00 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/07 17:40:16 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,35 @@ static void		init_camera(t_scene *scene)
 	scene->cam.dir_len = v_length(scene->player.dir);
 }
 
+static void		init_sprites(t_scene *scene)
+{
+	int i;
+	int j;
+	int	count;
+
+	scene->sprites.position = malloc(scene->sprites.nbr_sprites * sizeof(t_point));
+	i = 0;
+	count = 0;
+	while (scene->map_a[i] != NULL)
+	{
+		j = 0;
+		while (scene->map_a[i][j] && count < scene->sprites.nbr_sprites)
+		{
+			if (ft_strrchr("2", scene->map_a[i][j]))
+			{
+				scene->sprites.position[count].x = i;
+				scene->sprites.position[count].y = j;
+				count++;
+			}
+			j++;
+		}
+		i++;
+	}
+}
 void			init_scene(t_env *env)
 {
 	init_camera(&env->scene);
+	init_sprites(&env->scene);
 	window_resize(&env->scene);
 	init_mlx(env);
 }

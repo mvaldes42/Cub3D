@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:51:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/07 10:51:36 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/07 17:27:31 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef	struct	s_camera
 	double	pln_len;
 	double	dir_len;
 	double	cam_fov;
+	double	*z_buffer;
 }				t_camera;
 
 typedef	struct	s_player
@@ -82,6 +83,12 @@ typedef struct	s_texture
 	double		texel_pos;
 }				t_texture;
 
+typedef struct	s_sprite
+{
+	int			nbr_sprites;
+	t_point		*position;
+}				t_sprite;
+
 typedef struct	s_scene
 {
 	t_screen	screen;
@@ -91,6 +98,7 @@ typedef struct	s_scene
 	t_camera	cam;
 	t_texture	env_text[5];
 	t_rgb		env_col[2];
+	t_sprite	sprites;
 
 }				t_scene;
 

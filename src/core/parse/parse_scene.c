@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:51:10 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/07 11:13:48 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/07 15:28:48 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ static void	parse_player_pos(t_scene *scene_p)
 				cvt_player_orient(scene_p->map_a[i][j], scene_p);
 				scene_p->map_a[i][j] = '0';
 			}
+			if (ft_strrchr("2", scene_p->map_a[i][j]))
+				scene_p->sprites.nbr_sprites++;
 			j++;
 		}
 		i++;
