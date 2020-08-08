@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:07:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/07 17:48:16 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/07 18:47:12 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static void		dig_diff_analy(t_raycast *ray_p, t_scene *s_p)
 	calc_dist_to_wall(ray_p, s_p);
 }
 
-static void		sort_sprites_desc(t_scene *s, double *spriteDistance)
+static void		sort_sprites_desc(t_scene *s, double *sprite_dist)
 {
 	int		i;
 	int		j;
@@ -103,14 +103,14 @@ static void		sort_sprites_desc(t_scene *s, double *spriteDistance)
 		j = i + 1;
 		while (j < s->sprites.nbr_sprites)
 		{
-			if (spriteDistance[i] < spriteDistance[j])
+			if (sprite_dist[i] < sprite_dist[j])
 			{
-				tmp = spriteDistance[i];
+				tmp = sprite_dist[i];
 				tmp_pos = s->sprites.position[i];
 				s->sprites.position[i] = s->sprites.position[j];
-				spriteDistance[i] = spriteDistance[j];
+				sprite_dist[i] = sprite_dist[j];
 				s->sprites.position[j] = tmp_pos;
-				spriteDistance[j] = tmp;
+				sprite_dist[j] = tmp;
 			}
 			j++;
 		}
@@ -118,30 +118,76 @@ static void		sort_sprites_desc(t_scene *s, double *spriteDistance)
 	}
 }
 
-static void		draw_sprites(t_scene *s, t_env *env, t_raycast *ray)
+static void		draw_pixel(t_env *env, int s_x, int pos_y, int color)
+{
+	*(int*)(env->mlx_img.data +
+	(env->mlx_img.line_len * pos_y) +
+	(s_x * (env->mlx_img.bpp / 8))) = color;
+}
+
+static void		draw_sprites(t_scene *s, t_env *env, t_raycast *ray_p)
 {
 	int		i;
-	int		spriteOrder[s->sprites.nbr_sprites];
-	double	spriteDistance[s->sprites.nbr_sprites];
+	int		num_sprite;
+	int		sprite_order[s->sprites.nbr_sprites];
+	double	sprite_dist[s->sprites.nbr_sprites];
 	(void)env;
-	(void)ray;
+
+	num_sprite = s->sprites.nbr_sprites;
 	i = 0;
 	while (i < s->sprites.nbr_sprites)
 	{
-		spriteOrder[i] = i;
-		spriteDistance[i] = (( s->player.pos.x - s->sprites.position[i].x)
+		sprite_order[i] = i;
+		sprite_dist[i] = (( s->player.pos.x - s->sprites.position[i].x)
 		* (s->player.pos.x - s->sprites.position[i].x)
 		+ (s->player.pos.y - s->sprites.position[i].y)
 		* (s->player.pos.y - s->sprites.position[i].y));
 		i++;
 	}
-	sort_sprites_desc(s, spriteDistance);
-	i = 0;
-	while (i < s->sprites.nbr_sprites)
+	sort_sprites_desc(s, sprite_dist);
+	// i = 0;
+	// while (i < s->sprites.nbr_sprites)
+	// {
+	// 	printf("%f\n", s->sprites.position[i].x);
+	// 	i++;
+	// }
+	for(int i = 0; i < num_sprite; i++)
 	{
-		printf("%f\n", s->sprites.position[i].x);
-		i++;
+		//translate sprite position to relative to camera
+		double spriteX = s->sprites.position[sprite_order[i]].x - s->player.pos.x;
+		double spriteY = s->sprites.position[sprite_order[i]].y - s->player.pos.y;
+		double inv_det = 1.0 / (s->cam.pln_dir.x * ray_p->ray_dir.y - ray_p->ray_dir.x * s->cam.pln_dir.y); //required for correct matrix multiplication
+		double transform_x = inv_det * (ray_p->ray_dir.y * spriteX - ray_p->ray_dir.x * spriteY);
+		double transform_y = inv_det * (-s->cam.pln_dir.y * spriteX + s->cam.pln_dir.x * spriteY); //this is actually the depth inside the screen, that what Z is in 3D
+		int sprites_screen_x = (int)((s->screen.x / 2) * (1 + transform_x / transform_y));
+		//calculate height of the sprite on screen
+		int sprite_h = abs((int)(s->screen.y / (transform_y))); //using 'transform_y' instead of the real distance prevents fisheye
+		//calculate lowest and highest pixel to fill in current stripe
+		int draw_start_y = (-sprite_h / 2 + s->screen.y / 2) < 0 ? 0 : -sprite_h / 2 + s->screen.y / 2;
+		int draw_end_y = (sprite_h / 2 + s->screen.y / 2) >= s->screen.y ? s->screen.y - 1 : sprite_h / 2 + s->screen.y / 2;
+		//calculate width of the sprite
+		int sprite_w = abs((int)(s->screen.y / (transform_y)));
+		int draw_start_x = (-sprite_w / 2 + sprites_screen_x) < 0 ? 0 : -sprite_w / 2 + sprites_screen_x;
+		int draw_end_x = (sprite_w / 2 + sprites_screen_x) >= s->screen.x ? s->screen.x - 1 : sprite_w / 2 + sprites_screen_x;
+		for(int stripe = draw_start_x; stripe < draw_end_x; stripe++)
+		{
+			int texX = (int)(256 * (stripe - (-sprite_w / 2 + sprites_screen_x)) * 64 / sprite_w) / 256;
+			// if (transform_y > 0 && stripe > 0 && stripe < s->screen.x && transform_y < env->scene.cam.z_buffer[stripe])
+			// {
+				for(int y = draw_start_y; y < draw_end_y; y++) //for every pixel of the current stripe
+				{
+					int d = (y) * 256 - s->screen.y * 128 + sprite_h * 128; //256 and 128 factors to avoid floats
+					int texY = ((d * 64) / sprite_h) / 256;
+					// Uint32 color = s->env_text[sprite[spriteOrder[i]].texture][64 * texY + texX]; //get current color from the texture
+					unsigned int tex_col = ((unsigned int*)s->env_text[4].img.data)
+								[(int)(64 * texY + texX)];
+					if((tex_col & 0x00FFFFFF) != 0)
+						draw_pixel(env, stripe, y, tex_col); //paint pixel if it isn't black, black is the invisible color
+				}
+			// }
+		}
 	}
+	mlx_put_image_to_window(env->mlx_ptr, env->mlx_win, env->mlx_img.addr, 0, 0);
 }
 
 void			draw_env(t_scene *s_p, t_env *e)
