@@ -12,15 +12,15 @@
 
 #include "initialize.h"
 
-static float	v_length(t_point vector)
+static float v_length(t_point vector)
 {
 	return (sqrt((vector.x * vector.x) + (vector.y * vector.y)));
 }
 
-static void		load_game_textures(t_env *env, t_scene *scene)
+static void load_game_textures(t_env *env, t_scene *scene)
 {
-	int			i;
-	t_texture	*text;
+	int i;
+	t_texture *text;
 
 	g_error = 9;
 	i = 0;
@@ -28,31 +28,31 @@ static void		load_game_textures(t_env *env, t_scene *scene)
 	{
 		text = &(scene->env_text[i]);
 		if ((text->img.addr = mlx_xpm_file_to_image(env->mlx_ptr, text->path,
-							&text->width, &text->height)))
+													&text->width, &text->height)))
 			text->img.data = mlx_get_data_addr(text->img.addr, &text->img.bpp,
-							&text->img.line_len, &text->img.endian);
+											   &text->img.line_len, &text->img.endian);
 		else
 			exit_message_failure();
 		i++;
 	}
 }
 
-static void			init_mlx(t_env *env)
+static void init_mlx(t_env *env)
 {
 	g_error = 8;
 	if ((!(env->mlx_ptr = mlx_init())) ||
-	(!(env->mlx_win = mlx_new_window(env->mlx_ptr, env->scene.screen.x,
-	env->scene.screen.y, GAME_NAME))))
+		(!(env->mlx_win = mlx_new_window(env->mlx_ptr, env->scene.screen.x,
+										 env->scene.screen.y, GAME_NAME))))
 		exit_message_failure();
 	if (!(env->mlx_img.addr = mlx_new_image(env->mlx_ptr, env->scene.screen.x,
-	env->scene.screen.y)) ||
-	!(env->mlx_img.data = mlx_get_data_addr(env->mlx_img.addr,
-	&env->mlx_img.bpp, &env->mlx_img.line_len, &env->mlx_img.endian)))
+											env->scene.screen.y)) ||
+		!(env->mlx_img.data = mlx_get_data_addr(env->mlx_img.addr,
+												&env->mlx_img.bpp, &env->mlx_img.line_len, &env->mlx_img.endian)))
 		exit_message_failure();
 	load_game_textures(env, &(env->scene));
 }
 
-static void		init_camera(t_scene *scene)
+static void init_camera(t_scene *scene)
 {
 	scene->cam.cam_fov = 66;
 	scene->cam.pln_dir.x = scene->player.dir.y * 0.66 / 1;
@@ -65,11 +65,11 @@ static void		init_camera(t_scene *scene)
 	scene->cam.dir_len = v_length(scene->player.dir);
 }
 
-static void		init_sprites(t_scene *scene)
+static void init_sprites(t_scene *scene)
 {
 	int i;
 	int j;
-	int	count;
+	int count;
 
 	scene->sprites.position = malloc(scene->sprites.nbr_sprites * sizeof(t_point));
 	i = 0;
@@ -81,8 +81,8 @@ static void		init_sprites(t_scene *scene)
 		{
 			if (ft_strrchr("2", scene->map_a[i][j]))
 			{
-				scene->sprites.position[count].x = i;
-				scene->sprites.position[count].y = j;
+				scene->sprites.position[count].x = i + 0.5;
+				scene->sprites.position[count].y = j + 0.5;
 				count++;
 			}
 			j++;
@@ -90,7 +90,7 @@ static void		init_sprites(t_scene *scene)
 		i++;
 	}
 }
-void			init_scene(t_env *env)
+void init_scene(t_env *env)
 {
 	init_camera(&env->scene);
 	init_sprites(&env->scene);
