@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 18:02:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/07 10:56:29 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/10 18:17:46 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 void		exit_message_failure(void)
 {
-	printf("Error\n%s\n", g_error[g_errorm].msg);
+	ft_putstr_fd("Error\n", 1);
+	write(1, g_error[g_errorm].msg, ft_strlen(g_error[g_errorm].msg));
 	exit(EXIT_FAILURE);
 }
 
@@ -26,7 +27,8 @@ void		print_map(t_map *map)
 	current_line = map;
 	while (current_line != NULL)
 	{
-		printf("%s\n", current_line->line);
+		write(1, current_line->line, ft_strlen(current_line->line));
+		write(1, "\n", 1);
 		current_line = current_line->next;
 	}
 }

@@ -6,14 +6,14 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:51:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/10 15:37:42 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/10 16:48:04 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef __CUB3D_H
 # define __CUB3D_H
 # include <fcntl.h>
-# include <stdio.h>
+#include <stdio.h>
 # include "../libraries/get_next_line/get_next_line.h"
 # include "../libraries/libft/libft.h"
 # include "../libraries/minilibx/mlx.h"

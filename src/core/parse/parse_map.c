@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:57:33 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/07 15:10:32 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/10 18:49:55 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,25 @@ static int	are_holes_closed(char **map_a, int i, int j)
 	{
 		if ((map_a[i][j - 1] == '0') ||
 		(i != 0 && map_a[i - 1][j - 1] == '0') ||
-		(map_a[i + 1] != NULL && map_a[i + 1][j - 1] == '0'))
+		(map_a[i + 1] != NULL && j - 1 < (int)ft_strlen(map_a[i + 1])
+		&& map_a[i + 1][j - 1] == '0'))
+		{
+			if (map_a[i + 1] != NULL && map_a[i + 1][j - 1] == '0')
+				printf("i: %d & j: %d\n", i, j);
 			return (0);
+		}
 	}
 	if (map_a[i][j + 1])
 	{
 		if ((map_a[i][j + 1] == '0') ||
 		(i != 0 && map_a[i - 1][j + 1] == '0') ||
-		(map_a[i + 1] != NULL && map_a[i + 1][j + 1] == '0'))
+		(map_a[i + 1] != NULL && j + 1 < (int)ft_strlen(map_a[i + 1])
+		&& map_a[i + 1][j + 1] == '0'))
 			return (0);
 	}
 	if ((i != 0 && map_a[i - 1][j] == '0') ||
-	(map_a[i + 1] != NULL && map_a[i + 1][j] == '0'))
+	(map_a[i + 1] != NULL && j < (int)ft_strlen(map_a[i + 1])
+	&& map_a[i + 1][j] == '0'))
 		return (0);
 	return (1);
 }

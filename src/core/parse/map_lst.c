@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:56:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/07 10:54:03 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/10 18:34:10 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,17 @@ void		cvt_lst_to_array(t_scene *scene_p, char *f_line, int fd, int ret)
 {
 	t_map	*current_line;
 	int		i;
+	int		j;
 
 	create_map_lst(scene_p, f_line, fd, ret);
-	scene_p->map_a = malloc(sizeof(char*) * ft_lstsize_map(scene_p->map) + 1);
+	scene_p->map_a = malloc(sizeof(char*) * (ft_lstsize_map(scene_p->map) + 1));
 	current_line = scene_p->map;
 	i = 0;
 	while (current_line != NULL)
 	{
+		j = 0;
 		scene_p->map_a[i] = ft_strdup(current_line->line);
+		scene_p->map_a[i][ft_strlen(current_line->line)] = '\0';
 		i++;
 		current_line = current_line->next;
 	}
