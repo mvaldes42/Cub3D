@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:53:19 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/07 11:13:37 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/10 14:38:08 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static void		cvt_screen_res(t_scene *scene_p, char *f_line)
 
 	str_array = (char **)malloc(sizeof(char *) * 3 + 1);
 	str_array = ft_split(f_line, ' ');
-	scene_p->screen.x = ft_atoi(str_array[1]);
-	scene_p->screen.y = ft_atoi(str_array[2]);
+	scene_p->scrn.x = ft_atoi(str_array[1]);
+	scene_p->scrn.y = ft_atoi(str_array[2]);
 	free(str_array);
 }
 
@@ -87,17 +87,17 @@ void			parse_env_params(char *f_line, t_scene *scene_p)
 	if (f_line[0] == 'R')
 		cvt_screen_res(scene_p, f_line);
 	else if (f_line[0] == 'N' && f_line[1] == 'O')
-		cvt_text_path(&(scene_p->env_text[0].path), f_line);
+		cvt_text_path(&(scene_p->tex[0].path), f_line);
 	else if (f_line[0] == 'S' && f_line[1] == 'O')
-		cvt_text_path(&(scene_p->env_text[1].path), f_line);
+		cvt_text_path(&(scene_p->tex[1].path), f_line);
 	else if (f_line[0] == 'E' && f_line[1] == 'A')
-		cvt_text_path(&(scene_p->env_text[2].path), f_line);
+		cvt_text_path(&(scene_p->tex[2].path), f_line);
 	else if (f_line[0] == 'W' && f_line[1] == 'E')
-		cvt_text_path(&(scene_p->env_text[3].path), f_line);
+		cvt_text_path(&(scene_p->tex[3].path), f_line);
 	else if (f_line[0] == 'S' && f_line[1] == ' ')
-		cvt_text_path(&(scene_p->env_text[4].path), f_line);
+		cvt_text_path(&(scene_p->tex[4].path), f_line);
 	else if (f_line[0] == 'F')
-		cvt_rgb(&(scene_p->env_col[1]), f_line);
+		cvt_rgb(&(scene_p->col[1]), f_line);
 	else if (f_line[0] == 'C')
-		cvt_rgb(&(scene_p->env_col[0]), f_line);
+		cvt_rgb(&(scene_p->col[0]), f_line);
 }

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 10:28:23 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/07 11:49:41 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/10 15:35:58 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,10 @@ typedef struct	s_raycast
 	double	wall_d;
 }				t_raycast;
 
+void			draw_pixel(t_env *env, int s_x, int pos_y, int color);
 void			draw_vert_line(t_scene *scene_p, t_env *env_p,
 				t_raycast *raycast_p, int i);
+void			draw_sprites(t_scene *s, t_env *env, t_sprite *sprt);
 void			window_resize(t_scene *scene_p);
 int				create_trgb_shade(int t, t_rgb color, int d);
 

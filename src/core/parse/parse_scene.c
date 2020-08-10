@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:51:10 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/07 15:28:48 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/10 14:43:23 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ static int	are_params_found(t_scene *scene_p)
 	int		n_prm;
 
 	n_prm = 0;
-	n_prm = scene_p->screen.x != 0 && scene_p->screen.y != 0 ? (n_prm + 1) :
+	n_prm = scene_p->scrn.x != 0 && scene_p->scrn.y != 0 ? (n_prm + 1) :
 	n_prm;
-	n_prm = scene_p->env_text[0].path != NULL ? (n_prm + 1) : n_prm;
-	n_prm = scene_p->env_text[1].path != NULL ? (n_prm + 1) : n_prm;
-	n_prm = scene_p->env_text[2].path != NULL ? (n_prm + 1) : n_prm;
-	n_prm = scene_p->env_text[3].path != NULL ? (n_prm + 1) : n_prm;
-	n_prm = scene_p->env_text[4].path != NULL ? (n_prm + 1) : n_prm;
-	n_prm = scene_p->env_col[0].b != 0 ? (n_prm + 1) : n_prm;
-	n_prm = scene_p->env_col[1].b != 0 ? (n_prm + 1) : n_prm;
+	n_prm = scene_p->tex[0].path != NULL ? (n_prm + 1) : n_prm;
+	n_prm = scene_p->tex[1].path != NULL ? (n_prm + 1) : n_prm;
+	n_prm = scene_p->tex[2].path != NULL ? (n_prm + 1) : n_prm;
+	n_prm = scene_p->tex[3].path != NULL ? (n_prm + 1) : n_prm;
+	n_prm = scene_p->tex[4].path != NULL ? (n_prm + 1) : n_prm;
+	n_prm = scene_p->col[0].b != 0 ? (n_prm + 1) : n_prm;
+	n_prm = scene_p->col[1].b != 0 ? (n_prm + 1) : n_prm;
 	if (n_prm == 8)
 		return (1);
 	g_error = 1;
@@ -45,23 +45,23 @@ static void	cvt_player_orient(char c, t_scene *scene_p)
 {
 	if (c == 'N')
 	{
-		scene_p->player.dir.x = -1;
-		scene_p->player.dir.y = 0;
+		scene_p->plyr.dir.x = -1;
+		scene_p->plyr.dir.y = 0;
 	}
 	else if (c == 'S')
 	{
-		scene_p->player.dir.x = 1;
-		scene_p->player.dir.y = 0;
+		scene_p->plyr.dir.x = 1;
+		scene_p->plyr.dir.y = 0;
 	}
 	else if (c == 'E')
 	{
-		scene_p->player.dir.x = 0;
-		scene_p->player.dir.y = 1;
+		scene_p->plyr.dir.x = 0;
+		scene_p->plyr.dir.y = 1;
 	}
 	else
 	{
-		scene_p->player.dir.x = 0;
-		scene_p->player.dir.y = -1;
+		scene_p->plyr.dir.x = 0;
+		scene_p->plyr.dir.y = -1;
 	}
 }
 
@@ -78,19 +78,19 @@ static void	parse_player_pos(t_scene *scene_p)
 		{
 			if (ft_strrchr("NSEW", scene_p->map_a[i][j]))
 			{
-				scene_p->player.pos.x = i;
-				scene_p->player.pos.y = j;
+				scene_p->plyr.pos.x = i;
+				scene_p->plyr.pos.y = j;
 				cvt_player_orient(scene_p->map_a[i][j], scene_p);
 				scene_p->map_a[i][j] = '0';
 			}
 			if (ft_strrchr("2", scene_p->map_a[i][j]))
-				scene_p->sprites.nbr_sprites++;
+				scene_p->sprt.nbr++;
 			j++;
 		}
 		i++;
 	}
-	scene_p->player.pos.x += 0.5;
-	scene_p->player.pos.y += 0.5;
+	scene_p->plyr.pos.x += 0.5;
+	scene_p->plyr.pos.y += 0.5;
 }
 
 void		parse_scene(t_scene *scene_p, int fd)

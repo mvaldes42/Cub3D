@@ -6,7 +6,7 @@
 #    By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/15 14:41:36 by mvaldes           #+#    #+#              #
-#    Updated: 2020/08/06 21:41:11 by mvaldes          ###   ########.fr        #
+#    Updated: 2020/08/10 15:40:41 by mvaldes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,9 @@ SRCS =	./src/core/main.c\
 		./src/core/parse/map_lst.c\
 		./src/core/parse/utils_lst.c\
 		./src/core/initialize/init_scene.c\
-		./src/core/initialize/window_resize.c\
+		./src/core/initialize/utils_init.c\
 		./src/core/render/window_draw.c\
+		./src/core/render/draw_sprite.c\
 		./src/core/render/digital_diff_analy.c\
 		./src/core/render/utils_color.c\
 		./src/core/snapshot/save_bmp.c\

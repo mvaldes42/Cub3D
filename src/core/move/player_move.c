@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 16:22:32 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/07 10:44:10 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/10 14:39:11 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ void	rotate(t_scene *s, int f)
 	double old_plane_x;
 
 	r_speed = 0.10;
-	old_dir_x = s->player.dir.x;
-	s->player.dir.x = s->player.dir.x * cos(f * r_speed)
-	- s->player.dir.y * sin(f * r_speed);
-	s->player.dir.y = old_dir_x * sin(f * r_speed)
-	+ s->player.dir.y * cos(f * r_speed);
-	old_plane_x = s->cam.pln_dir.x;
-	s->cam.pln_dir.x = s->cam.pln_dir.x * cos(f * r_speed)
-	- s->cam.pln_dir.y * sin(f * r_speed);
-	s->cam.pln_dir.y = old_plane_x * sin(f * r_speed)
-	+ s->cam.pln_dir.y * cos(f * r_speed);
+	old_dir_x = s->plyr.dir.x;
+	s->plyr.dir.x = s->plyr.dir.x * cos(f * r_speed)
+	- s->plyr.dir.y * sin(f * r_speed);
+	s->plyr.dir.y = old_dir_x * sin(f * r_speed)
+	+ s->plyr.dir.y * cos(f * r_speed);
+	old_plane_x = s->cam.pln.x;
+	s->cam.pln.x = s->cam.pln.x * cos(f * r_speed)
+	- s->cam.pln.y * sin(f * r_speed);
+	s->cam.pln.y = old_plane_x * sin(f * r_speed)
+	+ s->cam.pln.y * cos(f * r_speed);
 }
 
 void	move(t_scene *s, char f)
@@ -38,21 +38,21 @@ void	move(t_scene *s, char f)
 	m_speed = 0.3;
 	if (f == 'f')
 	{
-		if (s->map_a[(int)(s->player.pos.x + s->player.dir.x * m_speed)]
-		[(int)(s->player.pos.y)] == '0')
-			s->player.pos.x += s->player.dir.x * m_speed;
-		if (s->map_a[(int)(s->player.pos.x)]
-		[(int)(s->player.pos.y + s->player.dir.y * m_speed)] == '0')
-			s->player.pos.y += s->player.dir.y * m_speed;
+		if (s->map_a[(int)(s->plyr.pos.x + s->plyr.dir.x * m_speed)]
+		[(int)(s->plyr.pos.y)] == '0')
+			s->plyr.pos.x += s->plyr.dir.x * m_speed;
+		if (s->map_a[(int)(s->plyr.pos.x)]
+		[(int)(s->plyr.pos.y + s->plyr.dir.y * m_speed)] == '0')
+			s->plyr.pos.y += s->plyr.dir.y * m_speed;
 	}
 	else if (f == 'b')
 	{
-		if (s->map_a[(int)(s->player.pos.x - s->player.dir.x * m_speed)]
-		[(int)(s->player.pos.y)] == '0')
-			s->player.pos.x -= s->player.dir.x * m_speed;
-		if (s->map_a[(int)(s->player.pos.x)]
-		[(int)(s->player.pos.y - s->player.dir.y * m_speed)] == '0')
-			s->player.pos.y -= s->player.dir.y * m_speed;
+		if (s->map_a[(int)(s->plyr.pos.x - s->plyr.dir.x * m_speed)]
+		[(int)(s->plyr.pos.y)] == '0')
+			s->plyr.pos.x -= s->plyr.dir.x * m_speed;
+		if (s->map_a[(int)(s->plyr.pos.x)]
+		[(int)(s->plyr.pos.y - s->plyr.dir.y * m_speed)] == '0')
+			s->plyr.pos.y -= s->plyr.dir.y * m_speed;
 	}
 }
 
@@ -63,20 +63,20 @@ void	translate(t_scene *s, char f)
 	t_speed = 0.3;
 	if (f == 'l')
 	{
-		if (s->map_a[(int)(s->player.pos.x + -s->player.dir.y * t_speed)]
-		[(int)(s->player.pos.y)] == '0')
-			s->player.pos.x += -s->player.dir.y * t_speed;
-		if (s->map_a[(int)(s->player.pos.x)]
-		[(int)(s->player.pos.x + s->player.dir.x * t_speed)] == '0')
-			s->player.pos.y += s->player.dir.x * t_speed;
+		if (s->map_a[(int)(s->plyr.pos.x + -s->plyr.dir.y * t_speed)]
+		[(int)(s->plyr.pos.y)] == '0')
+			s->plyr.pos.x += -s->plyr.dir.y * t_speed;
+		if (s->map_a[(int)(s->plyr.pos.x)]
+		[(int)(s->plyr.pos.x + s->plyr.dir.x * t_speed)] == '0')
+			s->plyr.pos.y += s->plyr.dir.x * t_speed;
 	}
 	else if (f == 'r')
 	{
-		if (s->map_a[(int)(s->player.pos.x + s->player.dir.y * t_speed)]
-		[(int)(s->player.pos.y)] == '0')
-			s->player.pos.x += s->player.dir.y * t_speed;
-		if (s->map_a[(int)(s->player.pos.x)]
-		[(int)(s->player.pos.x + -s->player.dir.x * t_speed)] == '0')
-			s->player.pos.y += -s->player.dir.x * t_speed;
+		if (s->map_a[(int)(s->plyr.pos.x + s->plyr.dir.y * t_speed)]
+		[(int)(s->plyr.pos.y)] == '0')
+			s->plyr.pos.x += s->plyr.dir.y * t_speed;
+		if (s->map_a[(int)(s->plyr.pos.x)]
+		[(int)(s->plyr.pos.x + -s->plyr.dir.x * t_speed)] == '0')
+			s->plyr.pos.y += -s->plyr.dir.x * t_speed;
 	}
 }

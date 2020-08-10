@@ -6,14 +6,14 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:51:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/07 17:27:31 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/10 15:37:42 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef __CUB3D_H
 # define __CUB3D_H
-# include <fcntl.h>//OPEN
-# include <stdio.h>//PRINTF
+# include <fcntl.h>
+# include <stdio.h>
 # include "../libraries/get_next_line/get_next_line.h"
 # include "../libraries/libft/libft.h"
 # include "../libraries/minilibx/mlx.h"
@@ -45,7 +45,7 @@ typedef struct	s_map
 
 typedef	struct	s_camera
 {
-	t_point	pln_dir;
+	t_point	pln;
 	double	pln_len;
 	double	dir_len;
 	double	cam_fov;
@@ -58,11 +58,11 @@ typedef	struct	s_player
 	t_point	dir;
 }				t_player;
 
-typedef	struct	s_screen
+typedef	struct	s_point_i
 {
 	int	x;
 	int	y;
-}				t_screen;
+}				t_point_i;
 
 typedef struct	s_data
 {
@@ -77,28 +77,40 @@ typedef struct	s_texture
 {
 	char		*path;
 	t_data		img;
-	int			width;
-	int			height;
+	int			w;
+	int			h;
 	double		step;
 	double		texel_pos;
 }				t_texture;
 
 typedef struct	s_sprite
 {
-	int			nbr_sprites;
-	t_point		*position;
+	int			nbr;
+	t_point		*pos;
+	t_point		r_pos;
+	double		*dst;
+	double		inv_det;
+	t_point		trsfrm;
+	int			s_scrn_x;
+	t_point_i	dim;
+	t_point_i	start;
+	t_point_i	end;
+	t_point_i	textr;
+	int			d;
+	int			clr;
+
 }				t_sprite;
 
 typedef struct	s_scene
 {
-	t_screen	screen;
+	t_point_i	scrn;
 	t_map		*map;
 	char		**map_a;
-	t_player	player;
+	t_player	plyr;
 	t_camera	cam;
-	t_texture	env_text[5];
-	t_rgb		env_col[2];
-	t_sprite	sprites;
+	t_texture	tex[5];
+	t_rgb		col[2];
+	t_sprite	sprt;
 
 }				t_scene;
 
