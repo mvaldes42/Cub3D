@@ -6,7 +6,7 @@
 #    By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/12 11:18:52 by mvaldes           #+#    #+#              #
-#    Updated: 2020/07/22 15:55:02 by mvaldes          ###   ########.fr        #
+#    Updated: 2020/08/11 11:13:48 by mvaldes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRCS	= ft_memset.c\
 		ft_strlcpy.c\
 		ft_strlcat.c\
 		ft_strnstr.c\
+		ft_strstr.c\
 		ft_atoi.c\
 		ft_calloc.c\
 		ft_strdup.c\

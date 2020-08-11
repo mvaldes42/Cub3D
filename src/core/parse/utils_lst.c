@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:50:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/07 10:54:32 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/11 13:03:46 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ t_map	*ft_lstnew_map(char *line)
 	t_map	*lst;
 
 	if (!(lst = malloc(sizeof(t_map))))
-	{
-		g_error = 3;
-		return (NULL);
-	}
+		exit_message_failure(10);
 	lst->line = line;
 	lst->next = NULL;
 	return (lst);

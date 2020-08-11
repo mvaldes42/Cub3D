@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 13:36:31 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/10 16:18:39 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/11 12:55:40 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void		load_game_textures(t_env *env, t_scene *scene)
 	int			i;
 	t_texture	*text;
 
-	g_error = 9;
 	i = 0;
 	while (i < 5)
 	{
@@ -27,23 +26,22 @@ static void		load_game_textures(t_env *env, t_scene *scene)
 			text->img.data = mlx_get_data_addr(text->img.addr, &text->img.bpp,
 			&text->img.line_len, &text->img.endian);
 		else
-			exit_message_failure();
+			exit_message_failure(9);
 		i++;
 	}
 }
 
 static void		init_mlx(t_env *env)
 {
-	g_error = 8;
 	if ((!(env->mlx_ptr = mlx_init())) ||
 	(!(env->mlx_win = mlx_new_window(env->mlx_ptr, env->scene.scrn.x,
 	env->scene.scrn.y, GAME_NAME))))
-		exit_message_failure();
+		exit_message_failure(8);
 	if (!(env->mlx_img.addr = mlx_new_image(env->mlx_ptr, env->scene.scrn.x,
 	env->scene.scrn.y)) || !(env->mlx_img.data =
 	mlx_get_data_addr(env->mlx_img.addr, &env->mlx_img.bpp,
 	&env->mlx_img.line_len, &env->mlx_img.endian)))
-		exit_message_failure();
+		exit_message_failure(8);
 	load_game_textures(env, &(env->scene));
 }
 
@@ -69,7 +67,7 @@ static void		init_sprites(t_scene *scene)
 	scene->sprt.pos = malloc(scene->sprt.nbr * sizeof(t_point));
 	i = 0;
 	count = 0;
-	while (scene->map_a[i] != NULL)
+	while (i < ft_lstsize_map(scene->map))
 	{
 		j = 0;
 		while (scene->map_a[i][j] && count < scene->sprt.nbr)
@@ -86,11 +84,12 @@ static void		init_sprites(t_scene *scene)
 	}
 }
 
-void			init_scene(t_env *env)
+void			init_scene(t_env *env, char *argv[])
 {
 	init_camera(&env->scene);
 	init_sprites(&env->scene);
-	window_resize(&env->scene);
+	if (!ft_strnstr(argv[2], "--save", ft_strlen(argv[2])))
+		window_resize(&env->scene);
 	init_mlx(env);
 }
 

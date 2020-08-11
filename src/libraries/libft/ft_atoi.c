@@ -6,17 +6,17 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 11:43:05 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/01/09 15:11:01 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/11 11:28:39 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+long long	ft_atoi(const char *str)
 {
-	int	i;
-	int	result;
-	int	negativity;
+	long long	i;
+	long long	result;
+	long long	negativity;
 
 	i = 0;
 	negativity = 1;

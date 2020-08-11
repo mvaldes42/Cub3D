@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:07:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/10 15:48:21 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/11 09:25:52 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,3 @@ void		draw_env(t_scene *s, t_env *e)
 	draw_sprites(s, e, &s->sprt);
 	mlx_put_image_to_window(e->mlx_ptr, e->mlx_win, e->mlx_img.addr, 0, 0);
 }
-/*
-**	printf("scene_p->player.pos.x : %f\n", scene_p->player.pos.x);
-**	printf("scene_p->player.pos.y : %f\n", scene_p->player.pos.y);
-**	printf("scene_ptr->player.dir.x : %f\n", scene_p->player.dir.x);
-**	printf("scene_ptr->player.dir.y : %f\n", scene_p->player.dir.y);
-**	printf("scene_ptr->cam.pln_dir.x : %f\n", scene_p->cam.pln_dir.x);
-**	printf("scene_ptr->cam.pln_dir.y : %f\n", scene_p->cam.pln_dir.y);
-**	printf("scene_ptr->cam.pln_len : %f\n", scene_p->cam.pln_len);
-**	printf("scene_ptr->cam.dir_len  : %f\n", scene_p->cam.dir_len);
-*/

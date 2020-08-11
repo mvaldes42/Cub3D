@@ -6,29 +6,30 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:51:10 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/10 18:18:19 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/11 13:02:31 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 
-static int	are_params_found(t_scene *scene_p)
+static int	are_params_found(t_scene *s)
 {
-	int		n_prm;
+	int		nbr;
 
-	n_prm = 0;
-	n_prm = scene_p->scrn.x != 0 && scene_p->scrn.y != 0 ? (n_prm + 1) :
-	n_prm;
-	n_prm = scene_p->tex[0].path != NULL ? (n_prm + 1) : n_prm;
-	n_prm = scene_p->tex[1].path != NULL ? (n_prm + 1) : n_prm;
-	n_prm = scene_p->tex[2].path != NULL ? (n_prm + 1) : n_prm;
-	n_prm = scene_p->tex[3].path != NULL ? (n_prm + 1) : n_prm;
-	n_prm = scene_p->tex[4].path != NULL ? (n_prm + 1) : n_prm;
-	n_prm = scene_p->col[0].b != 0 ? (n_prm + 1) : n_prm;
-	n_prm = scene_p->col[1].b != 0 ? (n_prm + 1) : n_prm;
-	if (n_prm == 8)
+	nbr = 0;
+	nbr = s->scrn.x != 0 && s->scrn.y != 0 ? (nbr + 1) :
+	nbr;
+	nbr = s->tex[0].path != NULL ? nbr + 1 : nbr;
+	nbr = s->tex[1].path != NULL ? nbr + 1 : nbr;
+	nbr = s->tex[2].path != NULL ? nbr + 1 : nbr;
+	nbr = s->tex[3].path != NULL ? nbr + 1 : nbr;
+	nbr = s->tex[4].path != NULL ? nbr + 1 : nbr;
+	nbr = (s->col[0].r != 300 && s->col[0].g != 300 && s->col[0].b != 300) ?
+	nbr + 1 : nbr;
+	nbr = (s->col[1].r != 300 && s->col[1].g != 300 && s->col[1].b != 300) ?
+	nbr + 1 : nbr;
+	if (nbr == 8)
 		return (1);
-	g_error = 1;
 	return (0);
 }
 
@@ -37,79 +38,80 @@ static int	is_env_params(char c)
 	if (c == 'R' || c == 'N' || c == 'S' || c == 'W' || c == 'E' || c == 'S' ||
 	c == 'F' || c == 'C' || c == '\0')
 		return (1);
-	g_error = 2;
 	return (0);
 }
 
-static void	cvt_player_orient(char c, t_scene *scene_p)
+static void	cvt_player_orient(char c, t_scene *s)
 {
 	if (c == 'N')
 	{
-		scene_p->plyr.dir.x = -1;
-		scene_p->plyr.dir.y = 0;
+		s->plyr.dir.x = -1;
+		s->plyr.dir.y = 0;
 	}
 	else if (c == 'S')
 	{
-		scene_p->plyr.dir.x = 1;
-		scene_p->plyr.dir.y = 0;
+		s->plyr.dir.x = 1;
+		s->plyr.dir.y = 0;
 	}
 	else if (c == 'E')
 	{
-		scene_p->plyr.dir.x = 0;
-		scene_p->plyr.dir.y = 1;
+		s->plyr.dir.x = 0;
+		s->plyr.dir.y = 1;
 	}
 	else
 	{
-		scene_p->plyr.dir.x = 0;
-		scene_p->plyr.dir.y = -1;
+		s->plyr.dir.x = 0;
+		s->plyr.dir.y = -1;
 	}
 }
 
-static void	parse_player_pos(t_scene *scene_p)
+static void	parse_player_pos(t_scene *s)
 {
 	int i;
 	int j;
 
 	i = 0;
-	while (scene_p->map_a[i] != NULL)
+	while (i < ft_lstsize_map(s->map))
 	{
 		j = 0;
-		while (scene_p->map_a[i][j])
+		while (s->map_a[i][j])
 		{
-			if (ft_strrchr("NSEW", scene_p->map_a[i][j]))
+			if (ft_strrchr("NSEW", s->map_a[i][j]))
 			{
-				scene_p->plyr.pos.x = i;
-				scene_p->plyr.pos.y = j;
-				cvt_player_orient(scene_p->map_a[i][j], scene_p);
-				scene_p->map_a[i][j] = '0';
+				s->plyr.pos.x = i;
+				s->plyr.pos.y = j;
+				cvt_player_orient(s->map_a[i][j], s);
+				s->map_a[i][j] = '0';
 			}
-			if (ft_strrchr("2", scene_p->map_a[i][j]))
-				scene_p->sprt.nbr++;
+			if (ft_strrchr("2", s->map_a[i][j]))
+				s->sprt.nbr++;
 			j++;
 		}
 		i++;
 	}
-	scene_p->plyr.pos.x += 0.5;
-	scene_p->plyr.pos.y += 0.5;
+	s->plyr.pos.x += 0.5;
+	s->plyr.pos.y += 0.5;
 }
 
-void		parse_scene(t_scene *scene_p, int fd)
+void		parse_scene(t_scene *s, int fd)
 {
 	int		ret;
 	char	*f_line;
 
 	f_line = NULL;
-	while ((ret = get_next_line(fd, &f_line)) > 0 && !are_params_found(scene_p))
+	s->col[0] = (t_rgb){300, 300, 300};
+	s->col[1] = (t_rgb){300, 300, 300};
+	while ((ret = get_next_line(fd, &f_line)) > 0 && !are_params_found(s))
 	{
 		if (!is_env_params(f_line[0]))
-			exit_message_failure();
-		parse_env_params(f_line, scene_p);
+			exit_message_failure(2);
+		parse_env_params(f_line, s);
 	}
-	if (!are_params_found(scene_p))
-		exit_message_failure();
-	cvt_lst_to_array(scene_p, f_line, fd, ret);
-	if ((!parse_map(scene_p->map_a)) || (!(is_map_closed(scene_p->map_a))))
-		exit_message_failure();
-	parse_player_pos(scene_p);
+	if (!are_params_found(s))
+		exit_message_failure(1);
+	cvt_lst_to_array(s, f_line, fd, ret);
+	if ((!parse_map(s->map_a, s)) || (!(is_map_closed(s->map_a, s))))
+		exit_message_failure(6);
+	parse_player_pos(s);
 	free(f_line);
 }

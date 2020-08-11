@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 10:48:26 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/07 12:20:56 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/11 13:10:31 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ typedef enum	e_error
 	E_MLX = 8,
 	E_TEXT_MLX = 9,
 	E_MAL = 10,
+	E_RES = 11,
+	E_MAP_G = 12,
+	E_MAP_POS = 13,
 }				t_error;
 
 typedef struct	s_errordesc
@@ -47,10 +50,13 @@ static const	t_errordesc g_errorm[] =
 	{E_MLX, "MLX init error"},
 	{E_TEXT_MLX, "XPM textures could not be loaded"},
 	{E_MAL, "Malloc error"},
+	{E_RES, "Invalid screen resolution"},
+	{E_MAP_G, "Empty line in map"},
+	{E_MAP_POS, "Invalid map (invalid player position)."},
 };
 
-int	g_error;
+// int	g_error;
 
-void			exit_message_failure(void);
+void		exit_message_failure(int error);
 
 #endif

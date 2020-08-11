@@ -6,7 +6,7 @@
 #    By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/15 14:41:36 by mvaldes           #+#    #+#              #
-#    Updated: 2020/08/10 15:40:41 by mvaldes          ###   ########.fr        #
+#    Updated: 2020/08/10 21:40:01 by mvaldes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRCS =	./src/core/main.c\
 		./src/libraries/get_next_line/get_next_line.c\
 		./src/libraries/get_next_line/get_next_line_utils.c\
 
-NAME = Cub3D
+NAME = cub3D
 GCC_FLAG = -Wall -Werror -Wextra -g
 CC = gcc $(GCC_FLAG)
 LIBFT = src/libraries/libft

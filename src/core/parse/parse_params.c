@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:53:19 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/10 14:38:08 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/11 13:19:26 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,16 @@ static void		cvt_screen_res(t_scene *scene_p, char *f_line)
 {
 	char		**str_array;
 
+	if (f_line[1] == '\0')
+		exit_message_failure(11);
 	str_array = (char **)malloc(sizeof(char *) * 3 + 1);
 	str_array = ft_split(f_line, ' ');
+	if (!ft_isnum(str_array[1]) || !ft_isnum(str_array[2]))
+		exit_message_failure(11);
 	scene_p->scrn.x = ft_atoi(str_array[1]);
 	scene_p->scrn.y = ft_atoi(str_array[2]);
+	if (scene_p->scrn.x < 0 || scene_p->scrn.y < 0)
+		exit_message_failure(11);
 	free(str_array);
 }
 
@@ -54,15 +60,16 @@ static void		cvt_rgb(t_rgb *rgb, char *f_line)
 	while (*f_line == ' ')
 		f_line++;
 	str_array = ft_split(f_line, ',');
+	printf("-%s-\n", str_array[2]);
+	if (!ft_isnum(str_array[0]) || !ft_isnum(str_array[1]) ||
+	!ft_isnum(str_array[2]))
+		exit_message_failure(5);
 	b = ft_atoi(str_array[2]);
 	g = ft_atoi(str_array[1]);
 	r = ft_atoi(str_array[0]);
-	if ((!((b <= 255 && b >= 0) && (g <= 255 && b >= 0) &&
-	(r <= 255 && b >= 0))) || (word_count(f_line, ',') != 3))
-	{
-		g_error = 5;
-		exit_message_failure();
-	}
+	if ((!((r <= 255 && r >= 0) && (g <= 255 && g >= 0) &&
+	(b <= 255 && b >= 0))) || (word_count(f_line, ',') != 3))
+		exit_message_failure(5);
 	rgb->b = b;
 	rgb->g = g;
 	rgb->r = r;
@@ -76,10 +83,7 @@ static void		cvt_text_path(char **text_path, char *f_line)
 		f_line++;
 	if (!(*text_path = ft_strdup(f_line))
 	|| ft_strnstr(*text_path, "xpm", ft_strlen(*text_path)) == '\0')
-	{
-		g_error = 4;
-		exit_message_failure();
-	}
+		exit_message_failure(4);
 }
 
 void			parse_env_params(char *f_line, t_scene *scene_p)

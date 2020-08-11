@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:51:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/10 16:48:04 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/11 13:23:47 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,18 @@ typedef struct	s_point
 	double	x;
 	double	y;
 }				t_point;
+
+typedef	struct	s_point_i
+{
+	int	x;
+	int	y;
+}				t_point_i;
+
+typedef struct	s_point_ll
+{
+	long long x;
+	long long y;
+}				t_point_ll;
 
 typedef	struct	s_rgb
 {
@@ -57,12 +69,6 @@ typedef	struct	s_player
 	t_point	pos;
 	t_point	dir;
 }				t_player;
-
-typedef	struct	s_point_i
-{
-	int	x;
-	int	y;
-}				t_point_i;
 
 typedef struct	s_data
 {
@@ -103,7 +109,7 @@ typedef struct	s_sprite
 
 typedef struct	s_scene
 {
-	t_point_i	scrn;
+	t_point_ll	scrn;
 	t_map		*map;
 	char		**map_a;
 	t_player	plyr;
@@ -123,6 +129,7 @@ typedef struct	s_env
 }				t_env;
 
 void			print_map(t_map *map);
+int				ft_isnum(char *str);
 
 t_map			*ft_lstnew_map(char *line);
 t_map			*ft_lstlast_map(t_map *lst);

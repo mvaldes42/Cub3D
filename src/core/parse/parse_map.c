@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:57:33 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/10 18:49:55 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/11 12:59:29 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,52 +14,53 @@
 
 static int	is_border_closed(char **map_a, int i, int j)
 {
-	if (i == 0 && map_a[i][j] == '0')
+	char *no_wall;
+
+	no_wall = "02NSEW";
+	if (i == 0 && ft_strchr(no_wall, map_a[i][j]))
 		return (0);
-	if (map_a[i + 1] == NULL && map_a[i][j] == '0')
+	if (map_a[i + 1] == NULL && ft_strchr(no_wall, map_a[i][j]))
 		return (0);
-	if ((map_a[i][0] == '0') || (map_a[i][j] == '0' && map_a[i][j + 1] == '\0'))
+	if ((ft_strchr(no_wall, map_a[i][0])) || (ft_strchr(no_wall, map_a[i][j]) && map_a[i][j + 1] == '\0'))
 		return (0);
 	return (1);
 }
 
 static int	are_holes_closed(char **map_a, int i, int j)
 {
+	char *no_wall;
+
+	no_wall = "02NSEW";
 	if (j != 0)
 	{
-		if ((map_a[i][j - 1] == '0') ||
-		(i != 0 && map_a[i - 1][j - 1] == '0') ||
+		if ((ft_strchr(no_wall, map_a[i][j - 1])) ||
+		(i != 0 && ft_strchr(no_wall, map_a[i - 1][j - 1])) ||
 		(map_a[i + 1] != NULL && j - 1 < (int)ft_strlen(map_a[i + 1])
-		&& map_a[i + 1][j - 1] == '0'))
-		{
-			if (map_a[i + 1] != NULL && map_a[i + 1][j - 1] == '0')
-				printf("i: %d & j: %d\n", i, j);
+		&& ft_strchr(no_wall, map_a[i + 1][j - 1])))
 			return (0);
-		}
 	}
 	if (map_a[i][j + 1])
 	{
-		if ((map_a[i][j + 1] == '0') ||
-		(i != 0 && map_a[i - 1][j + 1] == '0') ||
+		if ((ft_strchr(no_wall, map_a[i][j + 1])) ||
+		(i != 0 && ft_strchr(no_wall, map_a[i - 1][j + 1])) ||
 		(map_a[i + 1] != NULL && j + 1 < (int)ft_strlen(map_a[i + 1])
-		&& map_a[i + 1][j + 1] == '0'))
+		&& ft_strchr(no_wall, map_a[i + 1][j + 1])))
 			return (0);
 	}
-	if ((i != 0 && map_a[i - 1][j] == '0') ||
+	if ((i != 0 && ft_strchr(no_wall, map_a[i - 1][j])) ||
 	(map_a[i + 1] != NULL && j < (int)ft_strlen(map_a[i + 1])
-	&& map_a[i + 1][j] == '0'))
+	&& ft_strchr(no_wall, map_a[i + 1][j])))
 		return (0);
 	return (1);
 }
 
-int			is_map_closed(char **map_a)
+int			is_map_closed(char **map_a, t_scene *s)
 {
 	int		i;
 	int		j;
 
 	i = 0;
-	g_error = 6;
-	while (map_a[i])
+	while (i < ft_lstsize_map(s->map))
 	{
 		j = 0;
 		while (map_a[i][j])
@@ -75,29 +76,29 @@ int			is_map_closed(char **map_a)
 	return (1);
 }
 
-int			parse_map(char **map)
+int			parse_map(char **map, t_scene *s)
 {
 	int		i;
 	int		j;
 	int		position;
 
 	position = 0;
-	g_error = 7;
 	i = 0;
-	while (map[i])
+	while (i < ft_lstsize_map(s->map))
 	{
 		j = 0;
 		while (map[i][j])
 		{
 			if (!ft_strrchr("012NSEW ", map[i][j]))
-				return (0);
+				exit_message_failure(2);
 			if (ft_strrchr("NSEW", map[i][j]))
 				position++;
 			j++;
+
 		}
 		i++;
 	}
 	if (position != 1)
-		return (0);
+		exit_message_failure(13);
 	return (1);
 }
