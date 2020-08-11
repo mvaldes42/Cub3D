@@ -6,7 +6,7 @@
 #    By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/15 14:41:36 by mvaldes           #+#    #+#              #
-#    Updated: 2020/08/10 21:40:01 by mvaldes          ###   ########.fr        #
+#    Updated: 2020/08/11 17:44:26 by mvaldes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ $(%.o): $(%.c)
 
 $(NAME): $(OBJS)
 	$(CC) -o $@ $^ -L$(LIBFT) -lft -L$(MLX) -lmlx -framework OPENGL -framework Appkit
+# -fsanitize=address
 clean:
 	rm -f $(OBJS)
 	make -C $(LIBFT) clean
