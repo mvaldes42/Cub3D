@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 18:11:43 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/11 12:54:37 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/11 13:35:20 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int		main(int argc, char *argv[])
 
 	(void)argc;
 	ft_bzero(&env, sizeof(env));
-	parse_scene(&env.scene, open(argv[1], O_RDONLY));
+	env.fd = open(argv[1], O_RDONLY);
+	parse_scene(&env.scene, env.fd);
 	init_scene(&env, argv);
 	if (!(env.scene.cam.z_buffer = malloc(env.scene.scrn.x * sizeof(double))))
 		exit_message_failure(10);

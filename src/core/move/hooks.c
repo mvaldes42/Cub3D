@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 15:37:12 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/10 14:48:38 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/11 13:33:43 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static int		exit_game(t_env *env, int code)
 		free(env->scene.sprt.pos);
 	if (env->scene.sprt.dst)
 		free(env->scene.sprt.dst);
+	close(env->fd);
 	exit(code);
 	return (code);
 }

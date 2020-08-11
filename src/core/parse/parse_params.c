@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:53:19 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/11 13:19:26 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/11 14:08:18 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,18 @@ static void		cvt_rgb(t_rgb *rgb, char *f_line)
 	while (*f_line == ' ')
 		f_line++;
 	str_array = ft_split(f_line, ',');
-	printf("-%s-\n", str_array[2]);
-	if (!ft_isnum(str_array[0]) || !ft_isnum(str_array[1]) ||
-	!ft_isnum(str_array[2]))
+	// int i = 0;
+	// while (str_array[i])
+	// 	i++;
+	// if (i != 2)
+	if (word_count(f_line, ',') != 3 || !ft_isnum(str_array[0]) ||
+	!ft_isnum(str_array[1]) || !ft_isnum(str_array[2]))
 		exit_message_failure(5);
 	b = ft_atoi(str_array[2]);
 	g = ft_atoi(str_array[1]);
 	r = ft_atoi(str_array[0]);
 	if ((!((r <= 255 && r >= 0) && (g <= 255 && g >= 0) &&
-	(b <= 255 && b >= 0))) || (word_count(f_line, ',') != 3))
+	(b <= 255 && b >= 0))))
 		exit_message_failure(5);
 	rgb->b = b;
 	rgb->g = g;
