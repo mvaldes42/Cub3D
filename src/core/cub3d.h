@@ -6,14 +6,14 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:51:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/11 13:32:41 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/12 20:24:27 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef __CUB3D_H
 # define __CUB3D_H
 # include <fcntl.h>
-#include <stdio.h>
+# include <stdio.h>
 # include "../libraries/get_next_line/get_next_line.h"
 # include "../libraries/libft/libft.h"
 # include "../libraries/minilibx/mlx.h"
@@ -145,5 +145,7 @@ void			draw_env(t_scene *scene_p, t_env *env_p);
 
 int				key_press(int keycode, t_env *env);
 int				exit_hook(t_env *env);
+int				get_max_line(t_map *map);
+int				word_count(const char *s, char c);
 
 #endif

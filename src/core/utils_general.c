@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 18:02:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/12 18:33:29 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/12 20:24:17 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,39 @@ int			ft_isnum(char *str)
 		i++;
 	}
 	return (1);
+}
+
+int			get_max_line(t_map *map)
+{
+	int		max;
+	t_map	*current_line;
+
+	current_line = map;
+	max = 0;
+	while (current_line != NULL)
+	{
+		if ((int)ft_strlen(current_line->line) > max)
+			max = ft_strlen(current_line->line);
+		current_line = current_line->next;
+	}
+	return (max);
+}
+
+int			word_count(const char *s, char c)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (s[i])
+	{
+		while (s[i] == c)
+			i++;
+		if (s[i])
+			count++;
+		while (s[i] != c && s[i])
+			i++;
+	}
+	return (count);
 }

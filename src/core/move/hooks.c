@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 15:37:12 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/11 17:42:04 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/12 20:03:17 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,36 +18,17 @@ static void		free_p(void *p)
 		free(p);
 }
 
-static int	get_max_line(t_map *map)
-{
-	int		max;
-	t_map	*current_line;
-
-	current_line = map;
-	max = 0;
-	while (current_line != NULL)
-	{
-		if ((int)ft_strlen(current_line->line) > max)
-			max = ft_strlen(current_line->line);
-		current_line = current_line->next;
-	}
-	return (max);
-}
-
 static int		exit_game(t_env *env, int code)
 {
 	int i;
 	int mx_line;
 
 	mx_line = get_max_line(env->scene.map);
-	i = 0;
+	i = -1;
 	mlx_destroy_image(env->mlx_ptr, env->mlx_img.addr);
-	while (i < 5)
-	{
+	while (++i < 5)
 		if (env->scene.tex[i].img.addr)
 			mlx_destroy_image(env->mlx_ptr, env->scene.tex[i].img.addr);
-		i++;
-	}
 	mlx_destroy_window(env->mlx_ptr, env->mlx_win);
 	i = 0;
 	while (i < ft_lstsize_map(env->scene.map))

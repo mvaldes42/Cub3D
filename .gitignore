@@ -8,3 +8,5 @@ srcs/mandatory/cub3d.h.gch
 Cub3D.dSYM
 cub3D_tester
 cub3D_map_tester
+cub3d-leaks-tester
+src/core/render/utils_color_unused.c

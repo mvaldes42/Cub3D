@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 18:11:43 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/12 19:37:56 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/12 19:59:04 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,3 @@ int		main(int argc, char *argv[])
 	mlx_loop(env.mlx_ptr);
 	return (0);
 }
-
-	// printf("scene_p->plyr.pos.x : %f\n", env.scene.plyr.pos.x);
-	// printf("scene_p->plyr.pos.y : %f\n", env.scene.plyr.pos.y);
-	// printf("scene_ptr->plyr.dir.x : %f\n", env.scene.plyr.dir.x);
-	// printf("scene_ptr->plyr.dir.y : %f\n", env.scene.plyr.dir.y);
-	// printf("scene_ptr->cam.pln_dir.x : %f\n", env.scene.cam.pln_dir.x);
-	// printf("scene_ptr->cam.pln_dir.y : %f\n", env.scene.cam.pln_dir.y);
-	// printf("scene_ptr->cam.pln_len : %f\n", env.scene.cam.pln_len);
-	// printf("scene_ptr->cam.dir_len  : %f\n", env.scene.cam.dir_len);

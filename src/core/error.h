@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 10:48:26 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/12 19:33:16 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/12 19:58:00 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ static const	t_errordesc g_errorm[] =
 	{E_ARG_S, "Invalid option. Use \"--save\" for snapshot"},
 };
 
-// int	g_error;
-
-void		exit_message_failure(int error);
+void			exit_message_failure(int error);
 
 #endif

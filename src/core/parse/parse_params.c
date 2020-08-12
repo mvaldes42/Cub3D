@@ -6,44 +6,23 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:53:19 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/12 19:13:11 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/12 20:24:39 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 
-static int		word_count(const char *s, char c)
+static int		find_nbrs(char *f_line)
 {
-	unsigned int	i;
-	unsigned int	count;
-
-	i = 0;
-	count = 0;
-	while (s[i])
-	{
-		while (s[i] == c)
-			i++;
-		if (s[i])
-			count++;
-		while (s[i] != c && s[i])
-			i++;
-	}
-	return (count);
-}
-
-static void		cvt_screen_res(t_scene *scene_p, char *f_line)
-{
-	char		**str_array;
-	int			i;
-	int			nbr;
+	int		i;
+	int		nbr;
 
 	i = 1;
 	nbr = 0;
 	while (f_line[i] == ' ')
 		i++;
-	while(f_line[i] != '\0')
+	while (f_line[i] != '\0')
 	{
-		// printf("-%c-\n", f_line[i]);
 		while ((f_line[i] >= '0' && f_line[i] <= '9') && f_line[i] != '\0')
 		{
 			if (i == (int)ft_strlen(f_line)
@@ -53,6 +32,15 @@ static void		cvt_screen_res(t_scene *scene_p, char *f_line)
 		}
 		i++;
 	}
+	return (nbr);
+}
+
+static void		cvt_screen_res(t_scene *scene_p, char *f_line)
+{
+	char	**str_array;
+	int		nbr;
+
+	nbr = find_nbrs(f_line);
 	if (nbr != 2 || f_line[1] == '\0')
 		exit_message_failure(11);
 	str_array = malloc(nbr * sizeof(char *));
