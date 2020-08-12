@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 18:02:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/12 16:22:43 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/12 18:33:29 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 void		exit_message_failure(int error)
 {
+	(void)error;
 	ft_putstr_fd("Error\n", 1);
 	write(1, error[g_errorm].msg, ft_strlen(error[g_errorm].msg));
 	exit(EXIT_FAILURE);

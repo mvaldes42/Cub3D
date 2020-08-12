@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 18:11:43 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/11 17:16:10 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/12 19:37:56 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ int		main(int argc, char *argv[])
 {
 	t_env		env;
 
-	(void)argc;
+	if ((argc > 2 && !ft_strnstr(argv[2], "--save", ft_strlen(argv[2])))
+	|| argc >= 3)
+		exit_message_failure(14);
 	ft_bzero(&env, sizeof(env));
 	env.fd = open(argv[1], O_RDONLY);
 	parse_scene(&env.scene, env.fd);

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 10:48:26 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/11 13:10:31 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/12 19:33:16 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef enum	e_error
 	E_RES = 11,
 	E_MAP_G = 12,
 	E_MAP_POS = 13,
+	E_ARG_S = 14,
 }				t_error;
 
 typedef struct	s_errordesc
@@ -53,6 +54,7 @@ static const	t_errordesc g_errorm[] =
 	{E_RES, "Invalid screen resolution"},
 	{E_MAP_G, "Empty line in map"},
 	{E_MAP_POS, "Invalid map (invalid player position)."},
+	{E_ARG_S, "Invalid option. Use \"--save\" for snapshot"},
 };
 
 // int	g_error;

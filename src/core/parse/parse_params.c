@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:53:19 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/12 16:51:47 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/12 19:13:11 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,15 @@ static void		cvt_screen_res(t_scene *scene_p, char *f_line)
 
 	i = 1;
 	nbr = 0;
-	while(f_line[i])
+	while (f_line[i] == ' ')
+		i++;
+	while(f_line[i] != '\0')
 	{
-		while ((f_line[i]<= 47 || f_line[i] >= 58))
+		// printf("-%c-\n", f_line[i]);
+		while ((f_line[i] >= '0' && f_line[i] <= '9') && f_line[i] != '\0')
 		{
-			if (f_line[i] > 47 || f_line[i] < 58)
+			if (i == (int)ft_strlen(f_line)
+			|| (f_line[i + 1] < '0' || f_line[i + 1] > '9'))
 				nbr++;
 			i++;
 		}
