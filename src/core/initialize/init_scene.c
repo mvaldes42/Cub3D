@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 13:36:31 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/12 23:08:02 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/12 23:11:54 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void			init_scene(t_env *env, char *argv[])
 {
 	init_camera(&env->scene);
 	init_sprites(&env->scene);
-	if (!ft_strnstr(argv[2], "--save", ft_strlen(argv[2])))
+	if (env->save == 0)
 		window_resize(&env->scene);
 	init_mlx(env);
 }
