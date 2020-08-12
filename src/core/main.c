@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 18:11:43 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/12 19:59:04 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/12 23:08:32 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,21 @@ int		main(int argc, char *argv[])
 {
 	t_env		env;
 
-	if ((argc > 2 && !ft_strnstr(argv[2], "--save", ft_strlen(argv[2])))
-	|| argc >= 3)
-		exit_message_failure(14);
 	ft_bzero(&env, sizeof(env));
+	if (ft_strnstr(argv[2], "--save", ft_strlen(argv[2])))
+		env.save = 1;
+	if ((argc == 3 && env.save == 0) || argc > 3)
+		exit_message_failure(14);
 	env.fd = open(argv[1], O_RDONLY);
 	parse_scene(&env.scene, env.fd);
 	init_scene(&env, argv);
 	if (!(env.scene.cam.z_buffer = malloc(env.scene.scrn.x * sizeof(double))))
 		exit_message_failure(10);
 	draw_env(&(env.scene), &env);
-	if (ft_strnstr(argv[2], "--save", ft_strlen(argv[2])))
+	if (env.save == 1)
 	{
 		if (!save_img_to_bmp(env.scene.scrn.x, env.scene.scrn.y,
-		env.mlx_img.line_len, env.mlx_img.data))
+		env.mlx_img.data, env.mlx_img.bpp))
 			exit_message_failure(9);
 		exit_hook(&env);
 	}

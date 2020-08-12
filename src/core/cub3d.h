@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:51:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/12 20:24:27 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/12 22:48:10 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ typedef struct	s_env
 	t_data	mlx_img;
 	t_scene	scene;
 	int		fd;
+	int		save;
 }				t_env;
 
 void			print_map(t_map *map);

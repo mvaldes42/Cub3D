@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 13:36:31 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/11 12:55:40 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/12 23:08:02 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,12 @@ static void		load_game_textures(t_env *env, t_scene *scene)
 
 static void		init_mlx(t_env *env)
 {
-	if ((!(env->mlx_ptr = mlx_init())) ||
-	(!(env->mlx_win = mlx_new_window(env->mlx_ptr, env->scene.scrn.x,
-	env->scene.scrn.y, GAME_NAME))))
+	if ((!(env->mlx_ptr = mlx_init())))
 		exit_message_failure(8);
+	if (env->save == 0)
+		if (!(env->mlx_win = mlx_new_window(env->mlx_ptr, env->scene.scrn.x,
+		env->scene.scrn.y, GAME_NAME)))
+			exit_message_failure(8);
 	if (!(env->mlx_img.addr = mlx_new_image(env->mlx_ptr, env->scene.scrn.x,
 	env->scene.scrn.y)) || !(env->mlx_img.data =
 	mlx_get_data_addr(env->mlx_img.addr, &env->mlx_img.bpp,
@@ -92,14 +94,3 @@ void			init_scene(t_env *env, char *argv[])
 		window_resize(&env->scene);
 	init_mlx(env);
 }
-
-/*
-**	scene_p->cam.pln_len = scene_p->screen.x;
-**	scene_p->cam.dir_len = (scene_p->cam.pln_len / 2) /
-**	tan(scene_p->cam.cam_fov / 2 * (M_PI / 180));
-**	scene_p->cam.dir_len = 1662;
-**	scene_p->cam.angleRays = (float)scene_p->cam.cam_fov /
-**	(float)scene_p->cam.pln_len;
-**	scene_p->cam.cam_fov = (atan((float)(scene_p->cam.pln_len / 2) /
-**	(float)scene_p->cam.dir_len)) * 2 * (180 / M_PI);
-*/
