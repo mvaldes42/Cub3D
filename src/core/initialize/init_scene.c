@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 13:36:31 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/12 23:11:54 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/12 23:12:39 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static void		init_sprites(t_scene *scene)
 	}
 }
 
-void			init_scene(t_env *env, char *argv[])
+void			init_scene(t_env *env)
 {
 	init_camera(&env->scene);
 	init_sprites(&env->scene);

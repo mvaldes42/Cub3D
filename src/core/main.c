@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 18:11:43 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/12 23:08:32 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/12 23:12:58 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		main(int argc, char *argv[])
 		exit_message_failure(14);
 	env.fd = open(argv[1], O_RDONLY);
 	parse_scene(&env.scene, env.fd);
-	init_scene(&env, argv);
+	init_scene(&env);
 	if (!(env.scene.cam.z_buffer = malloc(env.scene.scrn.x * sizeof(double))))
 		exit_message_failure(10);
 	draw_env(&(env.scene), &env);
