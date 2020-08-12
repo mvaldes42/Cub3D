@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 16:04:35 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/06 22:58:58 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/12 16:55:29 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int		write_to_bmp(int *screen, int line_l,
 		return (0);
 	write(fd, &(bmp->f_hdr), 14);
 	write(fd, &(bmp->hdr), 40);
-	i = screen[1] + 1;
+	i = screen[1];
 	while (--i >= 0)
 		write(fd, &img_data[i * line_l], screen[0] * 4);
 	close(fd);

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:53:19 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/12 16:23:17 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/12 16:51:47 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,30 @@ static int		word_count(const char *s, char c)
 static void		cvt_screen_res(t_scene *scene_p, char *f_line)
 {
 	char		**str_array;
+	int			i;
+	int			nbr;
 
-	if (f_line[1] == '\0')
+	i = 1;
+	nbr = 0;
+	while(f_line[i])
+	{
+		while ((f_line[i]<= 47 || f_line[i] >= 58))
+		{
+			if (f_line[i] > 47 || f_line[i] < 58)
+				nbr++;
+			i++;
+		}
+		i++;
+	}
+	if (nbr != 2 || f_line[1] == '\0')
 		exit_message_failure(11);
-	str_array = (char **)malloc(sizeof(char *) * 3 + 1);
+	str_array = malloc(nbr * sizeof(char *));
+	f_line++;
 	str_array = ft_split(f_line, ' ');
-	if (word_count(f_line, ',') != 3 || !ft_isnum(str_array[1])
-	|| !ft_isnum(str_array[2]))
+	if (!ft_isnum(str_array[0]) || !ft_isnum(str_array[1]))
 		exit_message_failure(11);
-	scene_p->scrn.x = ft_atoi(str_array[1]);
-	scene_p->scrn.y = ft_atoi(str_array[2]);
+	scene_p->scrn.x = ft_atoi(str_array[0]);
+	scene_p->scrn.y = ft_atoi(str_array[1]);
 	if (scene_p->scrn.x < 0 || scene_p->scrn.y < 0)
 		exit_message_failure(11);
 	free(str_array);
