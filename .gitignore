@@ -5,4 +5,6 @@ norminette
 .vscode/
 *.o
 srcs/mandatory/cub3d.h.gch
-/Cub3D.dSYM/
+Cub3D.dSYM
+cub3D_tester
+cub3D_map_tester
