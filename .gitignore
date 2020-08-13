@@ -21,5 +21,5 @@ linux/cub3D_tester
 linux/cub3D_map_tester
 linux/cub3d-leaks-tester
 linux/src/core/render/utils_color_unused.c
-
+linux/tester_cub3d
 *.o
