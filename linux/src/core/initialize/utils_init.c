@@ -17,8 +17,12 @@ float	v_length(t_point vector)
 	return (sqrt((vector.x * vector.x) + (vector.y * vector.y)));
 }
 
-void	window_resize(t_scene *s_p)
+void	window_resize(t_env *env, t_scene *s_p)
 {
-	s_p->scrn.x = s_p->scrn.x > DISP_X ? DISP_X : s_p->scrn.x;
-	s_p->scrn.y = s_p->scrn.y > DISP_Y ? DISP_Y : s_p->scrn.y;
+	int x;
+	int y;
+
+	mlx_get_screen_size(env->mlx_ptr, &x, &y);
+	s_p->scrn.x = s_p->scrn.x > x ? y : s_p->scrn.x;
+	s_p->scrn.y = s_p->scrn.y > x ? y : s_p->scrn.y;
 }

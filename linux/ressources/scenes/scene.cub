@@ -1,4 +1,4 @@
-R    800 700
+R   2000 2000
 NO ./ressources/textures/redbrick.xpm
 SO ./ressources/textures/bookshelf.xpm
 WE ./ressources/textures/colorstone.xpm

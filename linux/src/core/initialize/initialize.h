@@ -16,11 +16,9 @@
 # include "../parse/parse.h"
 # include "../render/render.h"
 # include <math.h>
-# define DISP_X					2560
-# define DISP_Y					1440
 
 void			init_scene(t_env *env);
 float			v_length(t_point vector);
-void			window_resize(t_scene *s_p);
+void			window_resize(t_env *env, t_scene *s_p);
 
 #endif

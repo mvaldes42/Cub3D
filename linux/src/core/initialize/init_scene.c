@@ -36,9 +36,12 @@ static void		init_mlx(t_env *env)
 	if ((!(env->mlx_ptr = mlx_init())))
 		exit_message_failure(8);
 	if (env->save == 0)
+	{
+		window_resize(env, &env->scene);
 		if (!(env->mlx_win = mlx_new_window(env->mlx_ptr, env->scene.scrn.x,
 		env->scene.scrn.y, GAME_NAME)))
 			exit_message_failure(8);
+	}
 	if (!(env->mlx_img.addr = mlx_new_image(env->mlx_ptr, env->scene.scrn.x,
 	env->scene.scrn.y)) || !(env->mlx_img.data =
 	mlx_get_data_addr(env->mlx_img.addr, &env->mlx_img.bpp,
@@ -90,7 +93,5 @@ void			init_scene(t_env *env)
 {
 	init_camera(&env->scene);
 	init_sprites(&env->scene);
-	if (env->save == 0)
-		window_resize(&env->scene);
 	init_mlx(env);
 }

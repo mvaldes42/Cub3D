@@ -53,7 +53,7 @@ void			draw_pixel(t_env *env, int s_x, int pos_y, int color);
 void			draw_vert_line(t_scene *scene_p, t_env *env_p,
 				t_raycast *raycast_p, int i);
 void			draw_sprites(t_scene *s, t_env *env, t_sprite *sprt);
-void			window_resize(t_scene *scene_p);
+void			window_resize(t_env *env, t_scene *scene_p);
 int				create_trgb_shade(int t, t_rgb color, int d);
 
 #endif
