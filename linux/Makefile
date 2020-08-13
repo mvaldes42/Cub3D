@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-.PHONY: libft minilibx
+.PHONY: libft minilibx-linux
 
 SRCS =	./src/core/main.c\
 		./src/core/utils_general.c\
@@ -32,27 +32,25 @@ SRCS =	./src/core/main.c\
 		./src/libraries/get_next_line/get_next_line_utils.c\
 
 NAME = cub3D
-GCC_FLAG = -Wall -Werror -Wextra -g
-CC = gcc $(GCC_FLAG)
+CC_FLAG = -Wall -Werror -Wextra
+CC = clang $(CC_FLAG)
 LIBFT = src/libraries/libft
-MLX = src/libraries/minilibx/
+MLX = src/libraries/minilibx-linux
 
 OBJS = $(SRCS:.c=.o)
 
-all: libft minilibx $(NAME)
-
+all: libft minilibx-linux $(NAME)
 libft:
 	make -C $(LIBFT)
 
-minilibx:
+minilibx-linux:
 	make -C $(MLX)
 
 $(%.o): $(%.c)
-	$(CC) -o $@ -c $^
+	$(CC) -I/usr/include -Imlx_linux -O3 -o $@ -c $^
 
 $(NAME): $(OBJS)
-	$(CC) -o $@ $^ -L$(LIBFT) -lft -L$(MLX) -lmlx -framework OPENGL -framework Appkit
-	# -fsanitize=address
+	$(CC) -o $@ $^ -L. -L$(LIBFT) -L$(MLX) -lft -lmlx -lXext -lX11 -lm
 clean:
 	rm -f $(OBJS)
 	make -C $(LIBFT) clean

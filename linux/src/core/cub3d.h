@@ -16,7 +16,7 @@
 # include <stdio.h>
 # include "../libraries/get_next_line/get_next_line.h"
 # include "../libraries/libft/libft.h"
-# include "../libraries/minilibx/mlx.h"
+# include "../libraries/minilibx-linux/mlx.h"
 # include "error.h"
 
 # define GAME_NAME				"Cub3D"
