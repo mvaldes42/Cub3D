@@ -55,7 +55,6 @@ int				exit_hook(t_env *env)
 int				key_press(int keycode, t_env *env)
 {
 	mlx_clear_window(env->mlx_ptr, env->mlx_win);
-	printf("%d\n", keycode);
 	if (keycode == KEY_LEFT)
 		rotate(&(env->scene), 1);
 	if (keycode == KEY_RIGHT)
