@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 16:22:32 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/10 14:39:11 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/13 22:32:40 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	translate(t_scene *s, char f)
 		[(int)(s->plyr.pos.y)] == '0')
 			s->plyr.pos.x += -s->plyr.dir.y * t_speed;
 		if (s->map_a[(int)(s->plyr.pos.x)]
-		[(int)(s->plyr.pos.x + s->plyr.dir.x * t_speed)] == '0')
+		[(int)(s->plyr.pos.y + s->plyr.dir.x * t_speed)] == '0')
 			s->plyr.pos.y += s->plyr.dir.x * t_speed;
 	}
 	else if (f == 'r')
@@ -76,7 +76,7 @@ void	translate(t_scene *s, char f)
 		[(int)(s->plyr.pos.y)] == '0')
 			s->plyr.pos.x += s->plyr.dir.y * t_speed;
 		if (s->map_a[(int)(s->plyr.pos.x)]
-		[(int)(s->plyr.pos.x + -s->plyr.dir.x * t_speed)] == '0')
+		[(int)(s->plyr.pos.y + -s->plyr.dir.x * t_speed)] == '0')
 			s->plyr.pos.y += -s->plyr.dir.x * t_speed;
 	}
 }
