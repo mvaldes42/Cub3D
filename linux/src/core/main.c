@@ -37,8 +37,8 @@ int		main(int argc, char *argv[])
 			exit_message_failure(9);
 		exit_hook(&env);
 	}
-	mlx_hook(env.mlx_win, X_EVENT_KEY_PRESS, 0, &key_press, &env);
-	mlx_hook(env.mlx_win, X_EVENT_EXIT, 0, &exit_hook, &env);
+	mlx_hook(env.mlx_win, X_EVENT_KEY_PRESS, (1L << 0), &key_press, &env);
+	mlx_hook(env.mlx_win, X_EVENT_EXIT, (1L << 17), &exit_hook, &env);
 	mlx_loop(env.mlx_ptr);
 	return (0);
 }

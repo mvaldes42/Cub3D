@@ -35,7 +35,7 @@ void	move(t_scene *s, char f)
 {
 	double m_speed;
 
-	m_speed = 0.3;
+	m_speed = 0.1;
 	if (f == 'f')
 	{
 		if (s->map_a[(int)(s->plyr.pos.x + s->plyr.dir.x * m_speed)]
@@ -60,14 +60,14 @@ void	translate(t_scene *s, char f)
 {
 	double t_speed;
 
-	t_speed = 0.3;
+	t_speed = 0.1;
 	if (f == 'l')
 	{
 		if (s->map_a[(int)(s->plyr.pos.x + -s->plyr.dir.y * t_speed)]
 		[(int)(s->plyr.pos.y)] == '0')
 			s->plyr.pos.x += -s->plyr.dir.y * t_speed;
 		if (s->map_a[(int)(s->plyr.pos.x)]
-		[(int)(s->plyr.pos.x + s->plyr.dir.x * t_speed)] == '0')
+		[(int)(s->plyr.pos.y + s->plyr.dir.x * t_speed)] == '0')
 			s->plyr.pos.y += s->plyr.dir.x * t_speed;
 	}
 	else if (f == 'r')
@@ -76,7 +76,7 @@ void	translate(t_scene *s, char f)
 		[(int)(s->plyr.pos.y)] == '0')
 			s->plyr.pos.x += s->plyr.dir.y * t_speed;
 		if (s->map_a[(int)(s->plyr.pos.x)]
-		[(int)(s->plyr.pos.x + -s->plyr.dir.x * t_speed)] == '0')
+		[(int)(s->plyr.pos.y + -s->plyr.dir.x * t_speed)] == '0')
 			s->plyr.pos.y += -s->plyr.dir.x * t_speed;
 	}
 }

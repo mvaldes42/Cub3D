@@ -59,11 +59,11 @@ int				key_press(int keycode, t_env *env)
 		rotate(&(env->scene), 1);
 	if (keycode == KEY_RIGHT)
 		rotate(&(env->scene), -1);
-	if (keycode == KEY_W)
+	if (keycode == KEY_Z)
 		move(&(env->scene), 'f');
 	if (keycode == KEY_S)
 		move(&(env->scene), 'b');
-	if (keycode == KEY_A)
+	if (keycode == KEY_Q)
 		translate(&(env->scene), 'l');
 	if (keycode == KEY_D)
 		translate(&(env->scene), 'r');
