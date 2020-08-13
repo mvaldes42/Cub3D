@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:50:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/11 13:03:46 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/13 21:34:41 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,6 @@ t_map	*ft_lstlast_map(t_map *lst)
 
 void	ft_lstadd_back_map(t_map **alst, t_map *new)
 {
-	t_map	*tmp;
-
-	tmp = *alst;
 	if (*alst == NULL)
 		*alst = new;
 	else
