@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 18:11:43 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/12 23:12:58 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/13 22:01:55 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int		main(int argc, char *argv[])
 	t_env		env;
 
 	ft_bzero(&env, sizeof(env));
-	if (ft_strnstr(argv[2], "--save", ft_strlen(argv[2])))
+	if (argc > 2 && ft_strlen(argv[2]) == 6 &&
+	ft_strncmp(argv[2], "--save", 6) == 0)
 		env.save = 1;
 	if ((argc == 3 && env.save == 0) || argc > 3)
 		exit_message_failure(14);
@@ -36,8 +37,8 @@ int		main(int argc, char *argv[])
 			exit_message_failure(9);
 		exit_hook(&env);
 	}
-	mlx_hook(env.mlx_win, X_EVENT_KEY_PRESS, (1L << 0), &key_press, &env);
-	mlx_hook(env.mlx_win, X_EVENT_EXIT,(1L << 17), &exit_hook, &env);
+	mlx_hook(env.mlx_win, X_EVENT_KEY_PRESS, 0, &key_press, &env);
+	mlx_hook(env.mlx_win, X_EVENT_EXIT, 0, &exit_hook, &env);
 	mlx_loop(env.mlx_ptr);
 	return (0);
 }

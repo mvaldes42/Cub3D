@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:56:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/12 20:07:56 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/13 22:04:26 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ static void	create_map_lst(t_scene *scene_p, char *f_line, int fd, int ret)
 			exit_message_failure(10);
 		ft_lstadd_back_map(&(scene_p->map), tmp);
 		ret = get_next_line(fd, &f_line);
+	}
+	if (ret == 0 && f_line[0] != '\0')
+	{
+		if (!(tmp = ft_lstnew_map(ft_strdup(f_line))))
+			exit_message_failure(10);
+		ft_lstadd_back_map(&(scene_p->map), tmp);
 	}
 }
 

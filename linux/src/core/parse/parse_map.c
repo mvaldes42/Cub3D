@@ -6,20 +6,20 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:57:33 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/12 20:11:11 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/13 22:04:06 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 
-static int	is_border_closed(char **map_a, int i, int j)
+static int	is_border_closed(char **map_a, int i, int j, int size)
 {
 	char *no_wall;
 
 	no_wall = "02NSEW";
 	if (i == 0 && ft_strchr(no_wall, map_a[i][j]))
 		return (0);
-	if (map_a[i + 1] == NULL && ft_strchr(no_wall, map_a[i][j]))
+	if (i == size - 1 && ft_strchr(no_wall, map_a[i][j]))
 		return (0);
 	if ((ft_strchr(no_wall, map_a[i][0])) || (ft_strchr(no_wall, map_a[i][j])
 	&& map_a[i][j + 1] == '\0'))
@@ -27,29 +27,30 @@ static int	is_border_closed(char **map_a, int i, int j)
 	return (1);
 }
 
-static int	are_holes_closed(char **map, int i, int j, t_scene *s)
+static int	are_holes_closed(char **m, int i, int j, t_scene *s)
 {
-	char	*no_wall;
-	int		mx_line;
+	char	*n_w;
+	int		max;
+	int		sz;
 
-	mx_line = get_max_line(s->map);
-	no_wall = "02NSEW";
-	if ((i + 1) < ft_lstsize_map(s->map) && (j + 1) < mx_line)
+	sz = ft_lstsize_map(s->map) - 1;
+	max = get_max_line(s->map) - 1;
+	n_w = "02NSEW";
+	if (i <= sz && j <= max)
 	{
 		if (j != 0)
 		{
-			if ((ft_strchr(no_wall, map[i][j - 1])) || (i != 0 &&
-			ft_strchr(no_wall, map[i - 1][j - 1])) || (j < mx_line && (j - 1)
-			< (int)ft_strlen(map[i + 1]) && (map[i + 1][j - 1] != '\0'
-			&& ft_strchr(no_wall, map[i + 1][j - 1]))))
+			if ((ft_strchr(n_w, m[i][j - 1])) || (i != 0 && ft_strchr(n_w,
+			m[i - 1][j - 1])) || (i < sz && (m[i + 1][j - 1] != '\0' &&
+			ft_strchr(n_w, m[i + 1][j - 1]))))
 				return (0);
 		}
-		if ((ft_strchr(no_wall, map[i][j + 1])) || (i != 0 &&
-		ft_strchr(no_wall, map[i - 1][j + 1])) || (map[i + 1] != NULL && j + 1
-		< (int)ft_strlen(map[i + 1]) && ft_strchr(no_wall, map[i + 1][j + 1])))
+		if ((j + 1 <= max) && ((ft_strchr(n_w, m[i][j + 1])) || (i != 0 &&
+		ft_strchr(n_w, m[i - 1][j + 1])) || (i < sz && ft_strchr(n_w, m[i + 1]
+		[j + 1]))))
 			return (0);
-		if ((i != 0 && ft_strchr(no_wall, map[i - 1][j])) || (map[i + 1] != NULL
-		&& j < (int)ft_strlen(map[i + 1]) && ft_strchr(no_wall, map[i + 1][j])))
+		if ((i != 0 && ft_strchr(n_w, m[i - 1][j])) || (i < sz
+		&& ft_strchr(n_w, m[i + 1][j])))
 			return (0);
 	}
 	return (1);
@@ -61,13 +62,15 @@ int			is_map_closed(char **map_a, t_scene *s)
 	int		j;
 
 	i = 0;
-	while (i < ft_lstsize_map(s->map))
+	while (i <= ft_lstsize_map(s->map) - 1)
 	{
 		j = 0;
 		while (map_a[i][j])
 		{
-			if (!is_border_closed(map_a, i, j))
+			if (!is_border_closed(map_a, i, j, ft_lstsize_map(s->map)))
+			{
 				return (0);
+			}
 			if (map_a[i][j] == ' ' && !are_holes_closed(map_a, i, j, s))
 				return (0);
 			j++;

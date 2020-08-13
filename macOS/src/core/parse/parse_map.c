@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:57:33 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/13 20:55:55 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/13 22:08:57 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,9 @@ static int	are_holes_closed(char **m, int i, int j, t_scene *s)
 			ft_strchr(n_w, m[i + 1][j - 1]))))
 				return (0);
 		}
-		if ((j + 1 <= max) && ((ft_strchr(n_w, m[i][j + 1])) || (i != 0 && ft_strchr(n_w, m[i - 1]
-		[j + 1])) || (i < sz && ft_strchr(n_w, m[i + 1][j + 1]))))
+		if ((j + 1 <= max) && ((ft_strchr(n_w, m[i][j + 1])) || (i != 0 &&
+		ft_strchr(n_w, m[i - 1][j + 1])) || (i < sz && ft_strchr(n_w, m[i + 1]
+		[j + 1]))))
 			return (0);
 		if ((i != 0 && ft_strchr(n_w, m[i - 1][j])) || (i < sz
 		&& ft_strchr(n_w, m[i + 1][j])))
@@ -66,17 +67,14 @@ int			is_map_closed(char **map_a, t_scene *s)
 		j = 0;
 		while (map_a[i][j])
 		{
-			// printf("%c", map_a[i][j]);
 			if (!is_border_closed(map_a, i, j, ft_lstsize_map(s->map)))
 			{
-				// printf("hello\n");
 				return (0);
 			}
 			if (map_a[i][j] == ' ' && !are_holes_closed(map_a, i, j, s))
 				return (0);
 			j++;
 		}
-		// printf("\n");
 		i++;
 	}
 	return (1);
@@ -90,7 +88,6 @@ int			parse_map(char **map, t_scene *s)
 
 	position = 0;
 	i = 0;
-	// printf("size: %d\n", ft_lstsize_map(s->map));
 	while (i < ft_lstsize_map(s->map))
 	{
 		j = 0;
