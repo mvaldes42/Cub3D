@@ -20,3 +20,5 @@ linux/cub3d-leaks-tester
 linux/src/core/render/utils_color_unused.c
 linux/tester_cub3d
 *.o
+linux/cub3D
+linux/cub3d_snapshot.bmp
