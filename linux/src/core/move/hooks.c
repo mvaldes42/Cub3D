@@ -77,6 +77,6 @@ int				key_rel(int keycode, t_env *env)
 {
 	(void)keycode;
 	mlx_clear_window(env->mlx_ptr, env->mlx_win);
-		draw_env(&(env->scene), env);
+	draw_env(&(env->scene), env);
 	return (1);
 }
