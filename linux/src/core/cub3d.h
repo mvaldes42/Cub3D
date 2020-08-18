@@ -13,7 +13,6 @@
 #ifndef __CUB3D_H
 # define __CUB3D_H
 # include <fcntl.h>
-# include <stdio.h>
 # include "../libraries/get_next_line/get_next_line.h"
 # include "../libraries/libft/libft.h"
 # include "../libraries/minilibx-linux/mlx.h"
