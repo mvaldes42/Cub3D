@@ -18,7 +18,7 @@ void	rotate(t_scene *s, int f)
 	double old_dir_x;
 	double old_plane_x;
 
-	r_speed = 0.10;
+	r_speed = 0.05;
 	old_dir_x = s->plyr.dir.x;
 	s->plyr.dir.x = s->plyr.dir.x * cos(f * r_speed)
 	- s->plyr.dir.y * sin(f * r_speed);
@@ -35,7 +35,7 @@ void	move(t_scene *s, char f)
 {
 	double m_speed;
 
-	m_speed = 0.1;
+	m_speed = 0.08;
 	if (f == 'f')
 	{
 		if (s->map_a[(int)(s->plyr.pos.x + s->plyr.dir.x * m_speed)]
@@ -60,7 +60,7 @@ void	translate(t_scene *s, char f)
 {
 	double t_speed;
 
-	t_speed = 0.1;
+	t_speed = 0.08;
 	if (f == 'l')
 	{
 		if (s->map_a[(int)(s->plyr.pos.x + -s->plyr.dir.y * t_speed)]

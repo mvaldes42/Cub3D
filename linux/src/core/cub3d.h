@@ -145,6 +145,7 @@ void			cvt_lst_to_array(t_scene *scene_ptr, char *f_line, int fd,
 void			draw_env(t_scene *scene_p, t_env *env_p);
 
 int				key_press(int keycode, t_env *env);
+int				key_rel(int keycode, t_env *env);
 int				exit_hook(t_env *env);
 int				get_max_line(t_map *map);
 int				word_count(const char *s, char c);

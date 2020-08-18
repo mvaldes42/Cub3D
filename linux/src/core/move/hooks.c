@@ -57,18 +57,26 @@ int				key_press(int keycode, t_env *env)
 	mlx_clear_window(env->mlx_ptr, env->mlx_win);
 	if (keycode == KEY_LEFT)
 		rotate(&(env->scene), 1);
-	if (keycode == KEY_RIGHT)
+	else if (keycode == KEY_RIGHT)
 		rotate(&(env->scene), -1);
-	if (keycode == KEY_Z)
+	else if (keycode == KEY_Z)
 		move(&(env->scene), 'f');
-	if (keycode == KEY_S)
+	else if (keycode == KEY_S)
 		move(&(env->scene), 'b');
-	if (keycode == KEY_Q)
+	else if (keycode == KEY_Q)
 		translate(&(env->scene), 'l');
-	if (keycode == KEY_D)
+	else if (keycode == KEY_D)
 		translate(&(env->scene), 'r');
 	else if (keycode == KEY_ESC)
 		exit_hook(env);
 	draw_env(&(env->scene), env);
-	return (0);
+	return (1);
+}
+
+int				key_rel(int keycode, t_env *env)
+{
+	(void)keycode;
+	mlx_clear_window(env->mlx_ptr, env->mlx_win);
+		draw_env(&(env->scene), env);
+	return (1);
 }
