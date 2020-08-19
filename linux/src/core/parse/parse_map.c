@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:57:33 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/13 22:04:06 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/19 23:20:58 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,27 @@ static int	are_holes_closed(char **m, int i, int j, t_scene *s)
 	int		max;
 	int		sz;
 
-	sz = ft_lstsize_map(s->map) - 1;
-	max = get_max_line(s->map) - 1;
+	sz = s->map_s;
+	max = s->line_m;
 	n_w = "02NSEW";
-	if (i <= sz && j <= max)
+	if (i < sz && j < max)
 	{
 		if (j != 0)
 		{
 			if ((ft_strchr(n_w, m[i][j - 1])) || (i != 0 && ft_strchr(n_w,
-			m[i - 1][j - 1])) || (i < sz && (m[i + 1][j - 1] != '\0' &&
+			m[i - 1][j - 1])) || (i < sz - 1 && (m[i + 1][j - 1] != '\0' &&
 			ft_strchr(n_w, m[i + 1][j - 1]))))
 				return (0);
 		}
-		if ((j + 1 <= max) && ((ft_strchr(n_w, m[i][j + 1])) || (i != 0 &&
-		ft_strchr(n_w, m[i - 1][j + 1])) || (i < sz && ft_strchr(n_w, m[i + 1]
-		[j + 1]))))
+		if (
+			(j < max - 1) && 
+			((ft_strchr(n_w, m[i][j + 1])) ||
+			(i != 0 && ft_strchr(n_w, m[i - 1][j + 1])) ||
+			(i < (sz - 1) && ft_strchr(n_w, m[i + 1][j + 1]))))
 			return (0);
-		if ((i != 0 && ft_strchr(n_w, m[i - 1][j])) || (i < sz
+/* 		if ((i != 0 && ft_strchr(n_w, m[i - 1][j])) || (i < sz - 1
 		&& ft_strchr(n_w, m[i + 1][j])))
-			return (0);
+			return (0); */
 	}
 	return (1);
 }
@@ -62,19 +64,20 @@ int			is_map_closed(char **map_a, t_scene *s)
 	int		j;
 
 	i = 0;
-	while (i <= ft_lstsize_map(s->map) - 1)
+	
+	while (i < s->map_s)
 	{
 		j = 0;
 		while (map_a[i][j])
 		{
-			if (!is_border_closed(map_a, i, j, ft_lstsize_map(s->map)))
-			{
+			if (!is_border_closed(map_a, i, j, s->map_s))
 				return (0);
-			}
+			printf("%c",map_a[i][j] );
 			if (map_a[i][j] == ' ' && !are_holes_closed(map_a, i, j, s))
 				return (0);
 			j++;
 		}
+		printf("-\n");
 		i++;
 	}
 	return (1);
@@ -86,9 +89,10 @@ int			parse_map(char **map, t_scene *s)
 	int		j;
 	int		position;
 
+	printf("hello\n");
 	position = 0;
 	i = 0;
-	while (i < ft_lstsize_map(s->map))
+	while (i < s->map_s)
 	{
 		j = 0;
 		while (map[i][j])

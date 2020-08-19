@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:51:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/19 18:40:30 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/19 21:58:47 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "../libraries/libft/libft.h"
 # include "../libraries/minilibx-linux/mlx.h"
 # include "error.h"
+# include <stdio.h>
 
 # define GAME_NAME				"Cub3D"
 # define X_EVENT_EXIT			17
@@ -109,9 +110,9 @@ typedef struct	s_sprite
 typedef struct	s_scene
 {
 	t_point_ll	scrn;
-	t_map		*map;
-	t_map		*tmp;
-	t_map		*lline;
+	int			map_s;
+	int			line_m;
+	int			len_prms;
 	char		**map_a;
 	t_player	plyr;
 	t_camera	cam;
@@ -127,7 +128,8 @@ typedef struct	s_env
 	void	*mlx_win;
 	t_data	mlx_img;
 	t_scene	scene;
-	int		fd;
+	int		fd_prms;
+	int		fd_map;
 	int		save;
 }				t_env;
 
@@ -140,6 +142,7 @@ void			ft_lstadd_back_map(t_map **alst, t_map *new);
 void			ft_lstdelone_map(t_map *lst, void (*del)(void *));
 void			ft_lstclear_map(t_map **lst, void (*del)(void *));
 int				ft_lstsize_map(t_map *lst);
+void			map_size(t_scene *scene, int fd, int ret, char *f_line);
 
 void			cvt_lst_to_array(t_scene *scene_ptr, char *f_line, int fd,
 				int ret);

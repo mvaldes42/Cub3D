@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 13:36:31 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/12 23:12:39 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/19 19:55:05 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void		init_sprites(t_scene *scene)
 	scene->sprt.pos = malloc(scene->sprt.nbr * sizeof(t_point));
 	i = 0;
 	count = 0;
-	while (i < ft_lstsize_map(scene->map))
+	while (i < scene->map_s)
 	{
 		j = 0;
 		while (scene->map_a[i][j] && count < scene->sprt.nbr)

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 15:37:12 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/19 18:48:41 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/19 21:53:18 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,16 @@ static int		exit_game(t_env *env, int code)
 	if (env->mlx_win)
 		mlx_destroy_window(env->mlx_ptr, env->mlx_win);
 	i = 0;
-	while (i < ft_lstsize_map(env->scene.map))
+	while (i < env->scene.map_s)
 	{
 		free(env->scene.map_a[i]);
 		i++;
 	}
-	//ft_lstclear_map(&env->scene.tmp, free);
-	ft_lstclear_map(&env->scene.lline, free);
 	free_p(env->scene.map_a);
 	free_p(env->scene.cam.z_buffer);
 	free_p(env->scene.sprt.pos);
-	close(env->fd);
+	close(env->fd_map);
+	close(env->fd_prms);
 	exit(code);
 	return (code);
 }

@@ -6,57 +6,69 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:56:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/19 19:03:59 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/19 23:25:40 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 
-static void	create_map_lst(t_scene *scene_p, char *f_line, int fd, int ret)
+void		map_size(t_scene *scene, int fd, int ret, char *f_line)
 {
-	while (ret > 0 && f_line[0] == '\0')
-		ret = get_next_line(fd, &f_line);
-	while (ret > 0)
+	int		count;
+	int		res;
+	(void)ret;
+
+	count = 0;
+	while (((res = get_next_line(fd, &f_line)) > 0 &&
+	count < scene->len_prms) || f_line[0] == '\0')
+		count++;
+	while (res > 0)
 	{
-		if (f_line[0] == '\0')
-			exit_message_failure(12);
-		ft_lstadd_back_map(&(scene_p->map), f_line);
-		ft_putstr_fd(f_line, 1);
-		ret = get_next_line(fd, &f_line);
+		if ((int)ft_strlen(f_line) > scene->line_m)
+			scene->line_m = ft_strlen(f_line);
+		res = get_next_line(fd, &f_line);
+		scene->map_s++;
 	}
-	if (ret == 0 && f_line[0] != '\0')
-	{
-		scene_p->lline = ft_lstnew_map(f_line);
-		ft_lstadd_back_map(&(scene_p->map), scene_p->lline);
-	}
+	scene->map_s++;
 }
 
 void		cvt_lst_to_array(t_scene *scene_p, char *f_line, int fd, int ret)
 {
-	t_map	*current_line;
 	int		i;
 	int		j;
-	int		mx_line;
 
-	create_map_lst(scene_p, f_line, fd, ret);
-	//print_map(scene_p->map);
-	scene_p->map_a = malloc(ft_lstsize_map(scene_p->map) * sizeof(char*));
-	current_line = scene_p->map;
-	mx_line = get_max_line(scene_p->map);
+	while (ret > 0 && f_line[0] == '\0')
+		ret = get_next_line(fd, &f_line);
+	scene_p->map_a = malloc(scene_p->map_s * sizeof(char*));
 	i = -1;
-	while (current_line != NULL)
+	while (ret > 0)
 	{
 		j = -1;
-		scene_p->map_a[++i] = malloc((mx_line + 1) * sizeof(char));
-		while (++j < mx_line)
+		scene_p->map_a[++i] = malloc((scene_p->line_m + 1) * sizeof(char));
+		if (f_line[0] == '\0')
+			exit_message_failure(12);
+		while (++j < scene_p->line_m)
 		{
-			if (j < (int)ft_strlen(current_line->line))
-				scene_p->map_a[i][j] = current_line->line[j];
+			if (j < (int)ft_strlen(f_line))
+				scene_p->map_a[i][j] = f_line[j];
 			else
 				scene_p->map_a[i][j] = ' ';
 		}
-		scene_p->map_a[i][mx_line] = '\0';
-		current_line = current_line->next;
+		scene_p->map_a[i][j] = '\0';
+		ret = get_next_line(fd, &f_line);
 	}
-	//ft_lstclear_map(&current_line);
+	if (ret == 0 && f_line[0] != '\0')
+	{
+		i++;
+		j = -1;
+		scene_p->map_a[i] = malloc((scene_p->line_m + 1) * sizeof(char));
+		while (++j < scene_p->line_m)
+		{
+			if (j < (int)ft_strlen(f_line))
+				scene_p->map_a[i][j] = f_line[j];
+			else
+				scene_p->map_a[i][j] = ' ';
+		}
+		scene_p->map_a[i][j] = '\0';
+	}
 }
