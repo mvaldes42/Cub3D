@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:38:50 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/11 15:27:30 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/19 14:40:42 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ size_t	ft_strlen(const char *s)
 	i = 0;
 	if (s != NULL)
 	{
-		while (s[i] != '\0')
+		while (s[i])
 			i++;
 	}
 	return (i);

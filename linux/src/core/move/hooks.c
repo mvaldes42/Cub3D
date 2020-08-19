@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 15:37:12 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/19 14:08:43 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/19 18:48:41 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,16 @@ static void		free_p(void *p)
 static int		exit_game(t_env *env, int code)
 {
 	int i;
-	int mx_line;
 
-	mx_line = get_max_line(env->scene.map);
 	i = -1;
 	if (env->mlx_img.addr)
 		mlx_destroy_image(env->mlx_ptr, env->mlx_img.addr);
 	while (++i < 5)
+	{
 		if (env->scene.tex[i].img.addr)
 			mlx_destroy_image(env->mlx_ptr, env->scene.tex[i].img.addr);
+		free(env->scene.tex[i].path);
+	}
 	if (env->mlx_win)
 		mlx_destroy_window(env->mlx_ptr, env->mlx_win);
 	i = 0;
@@ -40,13 +41,9 @@ static int		exit_game(t_env *env, int code)
 		free(env->scene.map_a[i]);
 		i++;
 	}
+	//ft_lstclear_map(&env->scene.tmp, free);
+	ft_lstclear_map(&env->scene.lline, free);
 	free_p(env->scene.map_a);
-	i = 0;
-	while (env->scene.tex[i].path)
-	{
-		free_p(env->scene.tex[i].path);
-		i++;
-	}
 	free_p(env->scene.cam.z_buffer);
 	free_p(env->scene.sprt.pos);
 	close(env->fd);

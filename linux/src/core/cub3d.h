@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:51:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/12 23:14:29 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/19 18:40:30 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ typedef struct	s_scene
 {
 	t_point_ll	scrn;
 	t_map		*map;
+	t_map		*tmp;
+	t_map		*lline;
 	char		**map_a;
 	t_player	plyr;
 	t_camera	cam;
@@ -132,10 +134,11 @@ typedef struct	s_env
 void			print_map(t_map *map);
 int				ft_isnum(char *str);
 
-t_map			*ft_lstnew_map(char *line);
+t_map			*ft_lstnew_map(void *content);
 t_map			*ft_lstlast_map(t_map *lst);
 void			ft_lstadd_back_map(t_map **alst, t_map *new);
-void			ft_lstclear_map(t_map **lst);
+void			ft_lstdelone_map(t_map *lst, void (*del)(void *));
+void			ft_lstclear_map(t_map **lst, void (*del)(void *));
 int				ft_lstsize_map(t_map *lst);
 
 void			cvt_lst_to_array(t_scene *scene_ptr, char *f_line, int fd,

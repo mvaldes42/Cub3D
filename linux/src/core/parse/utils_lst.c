@@ -6,73 +6,78 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:50:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/13 22:07:05 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/19 18:55:09 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 
-t_map	*ft_lstnew_map(char *line)
+t_map	*ft_lstnew_map(void *content)
 {
-	t_map	*lst;
+	t_map	*list;
 
-	if (!(lst = malloc(sizeof(t_map))))
-		exit_message_failure(10);
-	lst->line = line;
-	lst->next = NULL;
-	return (lst);
+	if (!(list = (t_map *)malloc(sizeof(t_map))))
+		return (NULL);
+	list->line = content;
+	list->next = NULL;
+	return (list);
 }
 
 t_map	*ft_lstlast_map(t_map *lst)
 {
-	t_map	*tmp;
-
-	if (!lst)
+	if (lst == NULL)
 		return (NULL);
-	tmp = lst;
-	while (tmp->next)
-		tmp = tmp->next;
-	return (tmp);
+	while (lst->next != NULL)
+		lst = lst->next;
+	return (lst);
 }
 
 void	ft_lstadd_back_map(t_map **alst, t_map *new)
 {
-	if (*alst == NULL)
-		*alst = new;
-	else
-		(ft_lstlast_map(*alst))->next = new;
+	if (alst)
+	{
+		if (*alst == NULL)
+			*alst = new;
+		else
+			ft_lstlast_map(*alst)->next = new;
+	}
 }
 
-void	ft_lstclear_map(t_map **lst)
+void	ft_lstdelone_map(t_map *lst, void (*del)(void *))
+{
+	if (del && lst)
+	{
+		(*del)(lst->line);
+		free(lst);
+	}
+}
+
+void	ft_lstclear_map(t_map **lst, void (*del)(void *))
 {
 	t_map	*tmp;
-	t_map	*next;
 
-	if (!lst)
-		return ;
-	tmp = *lst;
-	while (tmp)
+	if (*lst)
 	{
-		next = tmp->next;
-		free(tmp);
-		tmp = next;
+		while ((*lst)->next)
+		{
+			tmp = *lst;
+			*lst = (*lst)->next;
+			ft_lstdelone_map(tmp, del);
+		}
+		ft_lstdelone_map(*lst, del);
+		*lst = NULL;
 	}
-	*lst = NULL;
 }
 
 int		ft_lstsize_map(t_map *lst)
 {
-	t_map	*tmp;
-	int		i;
+	int	size;
 
-	i = 0;
-	if (!lst)
-		return (i);
-	tmp = lst;
-	while (tmp)
+	size = 0;
+	while (lst)
 	{
-		tmp = tmp->next;
-		i++;
+		size++;
+		lst = lst->next;
 	}
-	return (i);
+	return (size);
 }
