@@ -106,12 +106,13 @@ void		parse_scene(t_scene *s, int fd)
 		if (!is_env_params(f_line[0]))
 			exit_message_failure(2);
 		parse_env_params(f_line, s);
+		free(f_line);
 	}
 	if (!are_params_found(s))
 		exit_message_failure(1);
 	cvt_lst_to_array(s, f_line, fd, ret);
+	free(f_line);
 	if ((!parse_map(s->map_a, s)) || (!(is_map_closed(s->map_a, s))))
 		exit_message_failure(6);
 	parse_player_pos(s);
-	free(f_line);
 }

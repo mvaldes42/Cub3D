@@ -15,7 +15,9 @@
 static void		free_p(void *p)
 {
 	if (p)
+	{
 		free(p);
+	}
 }
 
 static int		exit_game(t_env *env, int code)
@@ -41,7 +43,6 @@ static int		exit_game(t_env *env, int code)
 	free_p(env->scene.map_a);
 	free_p(env->scene.cam.z_buffer);
 	free_p(env->scene.sprt.pos);
-	free_p(env->scene.sprt.dst);
 	close(env->fd);
 	exit(code);
 	return (code);

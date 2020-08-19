@@ -21,11 +21,11 @@ static int		find_nbrs(char *f_line)
 	nbr = 0;
 	while (f_line[i] == ' ')
 		i++;
-	while (f_line[i] != '\0')
+	while (i < (int)ft_strlen(f_line))
 	{
-		while ((f_line[i] >= '0' && f_line[i] <= '9') && f_line[i] != '\0')
+		while ((f_line[i] >= '0' && f_line[i] <= '9'))
 		{
-			if (i == (int)ft_strlen(f_line)
+			if (i == (int)ft_strlen(f_line - 1)
 			|| (f_line[i + 1] < '0' || f_line[i + 1] > '9'))
 				nbr++;
 			i++;
@@ -43,7 +43,6 @@ static void		cvt_screen_res(t_scene *scene_p, char *f_line)
 	nbr = find_nbrs(f_line);
 	if (nbr != 2 || f_line[1] == '\0')
 		exit_message_failure(11);
-	str_array = malloc(nbr * sizeof(char *));
 	f_line++;
 	str_array = ft_split(f_line, ' ');
 	if (!ft_isnum(str_array[0]) || !ft_isnum(str_array[1]))
@@ -52,7 +51,7 @@ static void		cvt_screen_res(t_scene *scene_p, char *f_line)
 	scene_p->scrn.y = ft_atoi(str_array[1]);
 	if (scene_p->scrn.x < 0 || scene_p->scrn.y < 0)
 		exit_message_failure(11);
-	free(str_array);
+	free_prms(str_array);
 }
 
 static void		cvt_rgb(t_rgb *rgb, char *f_line)
@@ -62,7 +61,6 @@ static void		cvt_rgb(t_rgb *rgb, char *f_line)
 	int		g;
 	int		r;
 
-	str_array = (char **)malloc(sizeof(char *) * word_count(f_line, ',') + 1);
 	f_line++;
 	while (*f_line == ' ')
 		f_line++;
@@ -73,13 +71,13 @@ static void		cvt_rgb(t_rgb *rgb, char *f_line)
 	b = ft_atoi(str_array[2]);
 	g = ft_atoi(str_array[1]);
 	r = ft_atoi(str_array[0]);
+	free_prms(str_array);
 	if ((!((r <= 255 && r >= 0) && (g <= 255 && g >= 0) &&
 	(b <= 255 && b >= 0))))
 		exit_message_failure(5);
 	rgb->b = b;
 	rgb->g = g;
 	rgb->r = r;
-	free(str_array);
 }
 
 static void		cvt_text_path(char **text_path, char *f_line)

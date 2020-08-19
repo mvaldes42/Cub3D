@@ -110,4 +110,5 @@ void		draw_sprites(t_scene *s, t_env *env, t_sprite *sp)
 		while (++x < sp->end.x)
 			draw_sprt_pxl(env, s, sp, x);
 	}
+	free(sp->dst);
 }

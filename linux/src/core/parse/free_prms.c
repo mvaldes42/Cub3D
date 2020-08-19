@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.h                                            :+:      :+:    :+:   */
+/*   free_prms.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/06 21:18:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/19 11:36:50 by mvaldes          ###   ########.fr       */
+/*   Created: 2020/08/19 11:36:18 by mvaldes           #+#    #+#             */
+/*   Updated: 2020/08/19 11:36:36 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __PARSE_H
-# define __PARSE_H
-# include "../cub3d.h"
+#include "parse.h"
 
-int				parse_map(char **map, t_scene *s);
-int				is_map_closed(char **map_a, t_scene *s);
-void			parse_scene(t_scene *scene_ptr, int fd);
-void			parse_env_params(char *f_line, t_scene *scn);
-void			free_prms(char **ptr);
+void			free_prms(char **ptr)
+{
+	int i;
 
-#endif
+	i = 0;
+	while (ptr[i])
+	{
+		free(ptr[i]);
+		i++;
+	}
+	free(ptr);
+}
