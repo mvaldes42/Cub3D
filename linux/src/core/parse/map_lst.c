@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:56:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/13 22:04:26 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/19 14:14:21 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,20 @@ static void	create_map_lst(t_scene *scene_p, char *f_line, int fd, int ret)
 	{
 		if (f_line[0] == '\0')
 			exit_message_failure(12);
-		if (!(tmp = ft_lstnew_map(ft_strdup(f_line))))
+		if (!(tmp = ft_lstnew_map(f_line)))
 			exit_message_failure(10);
 		ft_lstadd_back_map(&(scene_p->map), tmp);
-		free(f_line);
+		//ft_lstclear_map(&tmp);
 		ret = get_next_line(fd, &f_line);
 	}
 	if (ret == 0 && f_line[0] != '\0')
 	{
-		if (!(tmp = ft_lstnew_map(ft_strdup(f_line))))
+		if (!(tmp = ft_lstnew_map(f_line)))
 			exit_message_failure(10);
 		ft_lstadd_back_map(&(scene_p->map), tmp);
 	}
 	free(f_line);
+//	ft_lstclear_map(&tmp);
 }
 
 void		cvt_lst_to_array(t_scene *scene_p, char *f_line, int fd, int ret)
@@ -63,4 +64,5 @@ void		cvt_lst_to_array(t_scene *scene_p, char *f_line, int fd, int ret)
 		scene_p->map_a[i][mx_line] = '\0';
 		current_line = current_line->next;
 	}
+	ft_lstclear_map(&current_line);
 }

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 15:37:12 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/12 23:31:20 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/19 14:08:43 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ static int		exit_game(t_env *env, int code)
 		i++;
 	}
 	free_p(env->scene.map_a);
+	i = 0;
+	while (env->scene.tex[i].path)
+	{
+		free_p(env->scene.tex[i].path);
+		i++;
+	}
 	free_p(env->scene.cam.z_buffer);
 	free_p(env->scene.sprt.pos);
 	close(env->fd);

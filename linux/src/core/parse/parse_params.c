@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:53:19 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/12 20:24:39 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/19 11:55:53 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,20 @@ static int		find_nbrs(char *f_line)
 {
 	int		i;
 	int		nbr;
+	int		len;
 
+	len = 0;
+	while (f_line[len])
+		len++;
 	i = 1;
 	nbr = 0;
-	while (f_line[i] == ' ')
+	while (i < len && f_line[i] == ' ')
 		i++;
-	while (i < (int)ft_strlen(f_line))
+	while (i < len)
 	{
 		while ((f_line[i] >= '0' && f_line[i] <= '9'))
 		{
-			if (i == (int)ft_strlen(f_line - 1)
+			if (i == len -1
 			|| (f_line[i + 1] < '0' || f_line[i + 1] > '9'))
 				nbr++;
 			i++;
