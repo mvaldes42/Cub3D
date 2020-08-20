@@ -12,31 +12,35 @@
 
 #include "parse.h"
 
-void map_size(t_scene *scene, int fd)
+void		find_map_size(t_env *e, t_scene *s, char *argv[])
 {
-	int count;
-	int res;
-	char *lline;
+	int		count;
+	int		res;
+	char	*lline;
 
 	count = 0;
-	while ((res = get_next_line(fd, &lline)) > 0)
+	e->fd_map_s = open(argv[1], O_RDONLY);
+	while ((res = get_next_line(e->fd_map_s, &lline) > 0))
 	{
-		if (count < scene->len_prms)
+		if (count < s->len_prms)
 			count++;
 		else
 		{
-			if ((int)ft_strlen(lline) > scene->line_m)
-				scene->line_m = ft_strlen(lline);
+			if ((int)ft_strlen(lline) > s->line_m)
+				s->line_m = ft_strlen(lline);
 			if (lline[0] != '\0')
-				scene->map_s++;
+				s->map_s++;
 		}
 		free(lline);
 	}
 	if (lline[0] != '\0')
-		scene->map_s++;
+		s->map_s++;
+	free(lline);
+	close(e->fd_map_s);
 }
 
-void lline_to_array(t_scene *scene_p, char *previous_l, int res, int i)
+static void	put_lst_line_to_array(t_scene *scene_p, char *previous_l, int res,
+int i)
 {
 	int j;
 
@@ -56,40 +60,46 @@ void lline_to_array(t_scene *scene_p, char *previous_l, int res, int i)
 	}
 }
 
-void cvt_lst_to_array(t_scene *scene_p, int fd)
+static void	put_line_to_array(t_scene *scene_p, int i, char *line)
 {
-	char *line;
-	int count;
-	int res;
-	int i;
 	int j;
 
-	count = 0;
-	res = 0;
-	line = NULL;
-	scene_p->map_a = malloc(scene_p->map_s * sizeof(char *));
-	i = -1;
-	while ((res = get_next_line(fd, &line) > 0))
+	j = -1;
+	while (++j < scene_p->line_m)
 	{
-		if (count < scene_p->len_prms)
+		if (j < (int)ft_strlen(line))
+			scene_p->map_a[i][j] = line[j];
+		else
+			scene_p->map_a[i][j] = ' ';
+	}
+	scene_p->map_a[i][j] = '\0';
+}
+
+void		cvt_fle_to_array(t_env *e, t_scene *s, char *argv[])
+{
+	char	*line;
+	int		count;
+	int		res;
+	int		i;
+
+	count = 0;
+	e->fd_map_a = open(argv[1], O_RDONLY);
+	s->map_a = malloc(s->map_s * sizeof(char *));
+	i = -1;
+	while ((res = get_next_line(e->fd_map_a, &line) > 0))
+	{
+		if (count < s->len_prms)
 			count++;
 		else
 		{
-			j = -1;
-			scene_p->map_a[++i] = malloc((scene_p->line_m + 1) * sizeof(char));
+			s->map_a[++i] = malloc((s->line_m + 1) * sizeof(char));
 			if (line[0] == '\0')
 				exit_message_failure(12);
-			while (++j < scene_p->line_m)
-			{
-				if (j < (int)ft_strlen(line))
-					scene_p->map_a[i][j] = line[j];
-				else
-					scene_p->map_a[i][j] = ' ';
-			}
-			scene_p->map_a[i][j] = '\0';
+			put_line_to_array(s, i, line);
 		}
 		free(line);
 	}
-	lline_to_array(scene_p, line, res, i);
+	put_lst_line_to_array(s, line, res, i);
 	free(line);
+	close(e->fd_map_a);
 }

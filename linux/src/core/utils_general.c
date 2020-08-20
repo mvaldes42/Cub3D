@@ -21,19 +21,6 @@ void		exit_message_failure(int error)
 	exit(EXIT_FAILURE);
 }
 
-void		print_map(t_map *map)
-{
-	t_map	*current_line;
-
-	current_line = map;
-	while (current_line != NULL)
-	{
-		write(1, current_line->line, ft_strlen(current_line->line));
-		write(1, "\n", 1);
-		current_line = current_line->next;
-	}
-}
-
 int			ft_isnum(char *str)
 {
 	int		i;
@@ -46,22 +33,6 @@ int			ft_isnum(char *str)
 		i++;
 	}
 	return (1);
-}
-
-int			get_max_line(t_map *map)
-{
-	int		max;
-	t_map	*current_line;
-
-	current_line = map;
-	max = 0;
-	while (current_line != NULL)
-	{
-		if ((int)ft_strlen(current_line->line) > max)
-			max = ft_strlen(current_line->line);
-		current_line = current_line->next;
-	}
-	return (max);
 }
 
 int			word_count(const char *s, char c)

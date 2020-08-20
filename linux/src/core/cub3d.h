@@ -129,30 +129,21 @@ typedef struct	s_env
 	t_data	mlx_img;
 	t_scene	scene;
 	int		fd_prms;
-	int		fd_map;
-	int		fd_mapp;
+	int		fd_map_s;
+	int		fd_map_a;
 	int		save;
 }				t_env;
 
-void			print_map(t_map *map);
 int				ft_isnum(char *str);
 
-t_map			*ft_lstnew_map(void *content);
-t_map			*ft_lstlast_map(t_map *lst);
-void			ft_lstadd_back_map(t_map **alst, t_map *new);
-void			ft_lstdelone_map(t_map *lst, void (*del)(void *));
-void			ft_lstclear_map(t_map **lst, void (*del)(void *));
-int				ft_lstsize_map(t_map *lst);
-void			map_size(t_scene *scene, int fd);
-
-void			cvt_lst_to_array(t_scene *scene_p, int fd);
+void			find_map_size(t_env *e, t_scene *scene, char *argv[]);
+void			cvt_fle_to_array(t_env *e, t_scene *s, char *argv[]);
 
 void			draw_env(t_scene *scene_p, t_env *env_p);
 
 int				key_press(int keycode, t_env *env);
 int				key_rel(int keycode, t_env *env);
 int				exit_hook(t_env *env);
-int				get_max_line(t_map *map);
 int				word_count(const char *s, char c);
 
 #endif

@@ -29,7 +29,7 @@ static int		find_nbrs(char *f_line)
 	{
 		while ((f_line[i] >= '0' && f_line[i] <= '9'))
 		{
-			if (i == len -1
+			if (i == len - 1
 			|| (f_line[i + 1] < '0' || f_line[i + 1] > '9'))
 				nbr++;
 			i++;
@@ -39,15 +39,11 @@ static int		find_nbrs(char *f_line)
 	return (nbr);
 }
 
-static void		cvt_screen_res(t_scene *scene_p, char *f_line)
+static void		cvt_screen_res(t_scene *scene_p, char *line)
 {
 	char	**str_array;
-	char	*line;
-	char	*ptr;
 	int		nbr;
 
-	line = ft_strdup(f_line);
-	ptr = line;
 	nbr = find_nbrs(line);
 	if (nbr != 2 || line[1] == '\0')
 		exit_message_failure(11);
@@ -60,20 +56,15 @@ static void		cvt_screen_res(t_scene *scene_p, char *f_line)
 	if (scene_p->scrn.x < 0 || scene_p->scrn.y < 0)
 		exit_message_failure(11);
 	free_prms(str_array);
-	free(ptr);
 }
 
-static void		cvt_rgb(t_rgb *rgb, char *f_line)
+static void		cvt_rgb(t_rgb *rgb, char *line)
 {
 	char	**str_array;
-	char	*line;
-	char	*ptr;
 	int		b;
 	int		g;
 	int		r;
 
-	line = ft_strdup(f_line);
-	ptr = line;
 	line++;
 	while (*line == ' ')
 		line++;
@@ -91,23 +82,16 @@ static void		cvt_rgb(t_rgb *rgb, char *f_line)
 	rgb->b = b;
 	rgb->g = g;
 	rgb->r = r;
-	free(ptr);
 }
 
-static void		cvt_text_path(char **text_path, char *f_line)
+static void		cvt_text_path(char **text_path, char *line)
 {
-	char	*line;
-	char	*ptr;
-
-	line = ft_strdup(f_line);
-	ptr = line;
 	while (*line == 'N' || *line == 'O' || *line == 'S' || *line == 'W'
 	|| *line == 'E' || *line == 'A' || *line == ' ')
 		line++;
 	if (!(*text_path = ft_strdup(line))
 	|| ft_strnstr(*text_path, "xpm", ft_strlen(*text_path)) == '\0')
 		exit_message_failure(4);
-	free(ptr);
 }
 
 void			parse_env_params(char *f_line, t_scene *scene_p)

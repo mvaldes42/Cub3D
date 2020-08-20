@@ -18,7 +18,6 @@ SRCS =	./src/core/main.c\
 		./src/core/parse/parse_scene.c\
 		./src/core/parse/parse_params.c\
 		./src/core/parse/map_lst.c\
-		./src/core/parse/utils_lst.c\
 		./src/core/parse/free_prms.c\
 		./src/core/initialize/init_scene.c\
 		./src/core/initialize/utils_init.c\

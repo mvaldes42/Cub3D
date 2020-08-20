@@ -11,9 +11,8 @@
 /* ************************************************************************** */
 
 #include "parse.h"
-#include <stdio.h>
 
-static int are_params_found(t_scene *s)
+static int	are_params_found(t_scene *s)
 {
 	int nbr;
 
@@ -24,14 +23,16 @@ static int are_params_found(t_scene *s)
 	nbr = s->tex[2].path != NULL ? nbr + 1 : nbr;
 	nbr = s->tex[3].path != NULL ? nbr + 1 : nbr;
 	nbr = s->tex[4].path != NULL ? nbr + 1 : nbr;
-	nbr = (s->col[0].r != 300 && s->col[0].g != 300 && s->col[0].b != 300) ? nbr + 1 : nbr;
-	nbr = (s->col[1].r != 300 && s->col[1].g != 300 && s->col[1].b != 300) ? nbr + 1 : nbr;
+	nbr = (s->col[0].r != 300 && s->col[0].g != 300 && s->col[0].b != 300) ?
+	nbr + 1 : nbr;
+	nbr = (s->col[1].r != 300 && s->col[1].g != 300 && s->col[1].b != 300) ?
+	nbr + 1 : nbr;
 	if (nbr == 8)
 		return (1);
 	return (0);
 }
 
-static int is_env_params(char c)
+static int	is_env_params(char c)
 {
 	if (c == 'R' || c == 'N' || c == 'S' || c == 'W' || c == 'E' || c == 'S' ||
 		c == 'F' || c == 'C' || c == '\0')
@@ -39,7 +40,7 @@ static int is_env_params(char c)
 	return (0);
 }
 
-static void cvt_player_orient(char c, t_scene *s)
+static void	cvt_player_orient(char c, t_scene *s)
 {
 	if (c == 'N')
 	{
@@ -63,7 +64,7 @@ static void cvt_player_orient(char c, t_scene *s)
 	}
 }
 
-static void parse_player_pos(t_scene *s)
+static void	parse_player_pos(t_scene *s)
 {
 	int i;
 	int j;
@@ -91,16 +92,14 @@ static void parse_player_pos(t_scene *s)
 	s->plyr.pos.y += 0.5;
 }
 
-void parse_scene(t_env *e, t_scene *s, char *argv[])
+void		parse_scene(t_env *e, t_scene *s, char *argv[])
 {
-	int ret;
-	char *f_line;
+	int		ret;
+	char	*f_line;
 
 	s->col[0] = (t_rgb){300, 300, 300};
 	s->col[1] = (t_rgb){300, 300, 300};
 	e->fd_prms = open(argv[1], O_RDONLY);
-	e->fd_map = open(argv[1], O_RDONLY);
-	e->fd_mapp = open(argv[1], O_RDONLY);
 	while ((ret = get_next_line(e->fd_prms, &f_line) > 0))
 	{
 		if (!are_params_found(s) || f_line[0] == '\0')
@@ -115,8 +114,8 @@ void parse_scene(t_env *e, t_scene *s, char *argv[])
 	free(f_line);
 	if (!are_params_found(s))
 		exit_message_failure(1);
-	map_size(s, e->fd_map);
-	cvt_lst_to_array(s, e->fd_mapp);
+	find_map_size(e, s, argv);
+	cvt_fle_to_array(e, s, argv);
 	if ((!parse_map(s->map_a, s)) || (!(is_map_closed(s->map_a, s))))
 		exit_message_failure(6);
 	parse_player_pos(s);

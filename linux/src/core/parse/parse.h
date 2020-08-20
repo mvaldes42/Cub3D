@@ -16,7 +16,7 @@
 
 int				parse_map(char **map, t_scene *s);
 int				is_map_closed(char **map_a, t_scene *s);
-void		    parse_scene(t_env *e, t_scene *s, char *argv[]);
+void			parse_scene(t_env *e, t_scene *s, char *argv[]);
 void			parse_env_params(char *f_line, t_scene *scn);
 void			free_prms(char **ptr);
 

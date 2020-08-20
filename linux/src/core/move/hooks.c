@@ -44,7 +44,6 @@ static int		exit_game(t_env *env, int code)
 	free_p(env->scene.map_a);
 	free_p(env->scene.cam.z_buffer);
 	free_p(env->scene.sprt.pos);
-	close(env->fd_map);
 	close(env->fd_prms);
 	exit(code);
 	return (code);
