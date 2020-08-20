@@ -12,37 +12,33 @@
 
 #include "parse.h"
 
-void		map_size(t_scene *scene, int fd)
+void map_size(t_scene *scene, int fd)
 {
-	int		count;
-	int		res;
-	char	*lline;
-	char	*mline;
+	int count;
+	int res;
+	char *lline;
 
-	lline = NULL;
-	mline = NULL;
 	count = 0;
-	while (((res = get_next_line(fd, &lline)) > 0 &&
-	count < scene->len_prms) || lline[0] == '\0')
+	while ((res = get_next_line(fd, &lline)) > 0)
 	{
-		count++;
+		if (count < scene->len_prms)
+			count++;
+		else
+		{
+			if ((int)ft_strlen(lline) > scene->line_m)
+				scene->line_m = ft_strlen(lline);
+			if (lline[0] != '\0')
+				scene->map_s++;
+		}
 		free(lline);
 	}
-	free(lline);
-	while ((res == get_next_line(fd, &mline)) > 0)
-	{
-		if ((int)ft_strlen(mline) > scene->line_m)
-			scene->line_m = ft_strlen(mline);
+	if (lline[0] != '\0')
 		scene->map_s++;
-		free(mline);
-	}
-	free(mline);
-	scene->map_s += 2;
 }
 
-void		lline_to_array(t_scene *scene_p, char *previous_l, int res, int i)
+void lline_to_array(t_scene *scene_p, char *previous_l, int res, int i)
 {
-	int		j;
+	int j;
 
 	i++;
 	if (res == 0 && previous_l[0] != '\0')
@@ -60,18 +56,18 @@ void		lline_to_array(t_scene *scene_p, char *previous_l, int res, int i)
 	}
 }
 
-void		cvt_lst_to_array(t_scene *scene_p, int fd)
+void cvt_lst_to_array(t_scene *scene_p, int fd)
 {
-	char	*line;
-	int		count;
-	int		res;
-	int		i;
-	int		j;
+	char *line;
+	int count;
+	int res;
+	int i;
+	int j;
 
 	count = 0;
 	res = 0;
 	line = NULL;
-	scene_p->map_a = malloc(scene_p->map_s * sizeof(char*));
+	scene_p->map_a = malloc(scene_p->map_s * sizeof(char *));
 	i = -1;
 	while ((res = get_next_line(fd, &line) > 0))
 	{
@@ -85,7 +81,7 @@ void		cvt_lst_to_array(t_scene *scene_p, int fd)
 				exit_message_failure(12);
 			while (++j < scene_p->line_m)
 			{
-				if (j < (int)ft_strlen(line))					
+				if (j < (int)ft_strlen(line))
 					scene_p->map_a[i][j] = line[j];
 				else
 					scene_p->map_a[i][j] = ' ';
