@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:51:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/19 21:58:47 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/20 12:58:49 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ typedef struct	s_env
 	t_scene	scene;
 	int		fd_prms;
 	int		fd_map;
+	int		fd_mapp;
 	int		save;
 }				t_env;
 
@@ -142,10 +143,9 @@ void			ft_lstadd_back_map(t_map **alst, t_map *new);
 void			ft_lstdelone_map(t_map *lst, void (*del)(void *));
 void			ft_lstclear_map(t_map **lst, void (*del)(void *));
 int				ft_lstsize_map(t_map *lst);
-void			map_size(t_scene *scene, int fd, int ret, char *f_line);
+void			map_size(t_scene *scene, int fd);
 
-void			cvt_lst_to_array(t_scene *scene_ptr, char *f_line, int fd,
-				int ret);
+void			cvt_lst_to_array(t_scene *scene_p, int fd);
 
 void			draw_env(t_scene *scene_p, t_env *env_p);
 

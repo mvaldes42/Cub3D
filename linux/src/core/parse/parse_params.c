@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:53:19 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/19 14:57:50 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/20 15:36:14 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,17 @@ static int		find_nbrs(char *f_line)
 static void		cvt_screen_res(t_scene *scene_p, char *f_line)
 {
 	char	**str_array;
+	char	*line;
+	char	*ptr;
 	int		nbr;
 
-	nbr = find_nbrs(f_line);
-	if (nbr != 2 || f_line[1] == '\0')
+	line = ft_strdup(f_line);
+	ptr = line;
+	nbr = find_nbrs(line);
+	if (nbr != 2 || line[1] == '\0')
 		exit_message_failure(11);
-	f_line++;
-	str_array = ft_split(f_line, ' ');
+	line++;
+	str_array = ft_split(line, ' ');
 	if (!ft_isnum(str_array[0]) || !ft_isnum(str_array[1]))
 		exit_message_failure(11);
 	scene_p->scrn.x = ft_atoi(str_array[0]);
@@ -56,20 +60,25 @@ static void		cvt_screen_res(t_scene *scene_p, char *f_line)
 	if (scene_p->scrn.x < 0 || scene_p->scrn.y < 0)
 		exit_message_failure(11);
 	free_prms(str_array);
+	free(ptr);
 }
 
 static void		cvt_rgb(t_rgb *rgb, char *f_line)
 {
 	char	**str_array;
+	char	*line;
+	char	*ptr;
 	int		b;
 	int		g;
 	int		r;
 
-	f_line++;
-	while (*f_line == ' ')
-		f_line++;
-	str_array = ft_split(f_line, ',');
-	if (word_count(f_line, ',') != 3 || !ft_isnum(str_array[0]) ||
+	line = ft_strdup(f_line);
+	ptr = line;
+	line++;
+	while (*line == ' ')
+		line++;
+	str_array = ft_split(line, ',');
+	if (word_count(line, ',') != 3 || !ft_isnum(str_array[0]) ||
 	!ft_isnum(str_array[1]) || !ft_isnum(str_array[2]))
 		exit_message_failure(5);
 	b = ft_atoi(str_array[2]);
@@ -82,16 +91,23 @@ static void		cvt_rgb(t_rgb *rgb, char *f_line)
 	rgb->b = b;
 	rgb->g = g;
 	rgb->r = r;
+	free(ptr);
 }
 
 static void		cvt_text_path(char **text_path, char *f_line)
 {
-	while (*f_line == 'N' || *f_line == 'O' || *f_line == 'S' || *f_line == 'W'
-	|| *f_line == 'E' || *f_line == 'A' || *f_line == ' ')
-		f_line++;
-	if (!(*text_path = ft_strdup(f_line))
+	char	*line;
+	char	*ptr;
+
+	line = ft_strdup(f_line);
+	ptr = line;
+	while (*line == 'N' || *line == 'O' || *line == 'S' || *line == 'W'
+	|| *line == 'E' || *line == 'A' || *line == ' ')
+		line++;
+	if (!(*text_path = ft_strdup(line))
 	|| ft_strnstr(*text_path, "xpm", ft_strlen(*text_path)) == '\0')
 		exit_message_failure(4);
+	free(ptr);
 }
 
 void			parse_env_params(char *f_line, t_scene *scene_p)

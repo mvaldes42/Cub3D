@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:51:10 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/19 22:25:12 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/20 16:08:41 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,23 +99,27 @@ void		parse_scene(t_env *e, t_scene *s, char *argv[])
 	int		ret;
 	char	*f_line;
 
-	f_line = NULL;
 	s->col[0] = (t_rgb){300, 300, 300};
 	s->col[1] = (t_rgb){300, 300, 300};
 	e->fd_prms = open(argv[1], O_RDONLY);
 	e->fd_map = open(argv[1], O_RDONLY);
-	while ((ret = get_next_line(e->fd_prms, &f_line)) > 0 && !are_params_found(s))
+	e->fd_mapp = open(argv[1], O_RDONLY);
+	while ((ret = get_next_line(e->fd_prms, &f_line) > 0)) 
 	{
-		if (!is_env_params(f_line[0]))
-			exit_message_failure(2);
-		parse_env_params(f_line, s);
-		s->len_prms++;
+		if (!are_params_found(s) || f_line[0] == '\0')
+		{
+			if (!is_env_params(f_line[0]))
+				exit_message_failure(2);
+			parse_env_params(f_line, s);
+			s->len_prms++;
+		}
 		free(f_line);
 	}
+	free(f_line);
 	if (!are_params_found(s))
 		exit_message_failure(1);
-	map_size(s, e->fd_map, ret, f_line);
-	cvt_lst_to_array(s, f_line, e->fd_prms, ret);
+	map_size(s, e->fd_map);
+	cvt_lst_to_array(s, e->fd_mapp);
 	if ((!parse_map(s->map_a, s)) || (!(is_map_closed(s->map_a, s))))
 		exit_message_failure(6);
 	parse_player_pos(s);
