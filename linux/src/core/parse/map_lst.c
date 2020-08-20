@@ -35,7 +35,8 @@ void		find_map_size(t_env *e, t_scene *s, char *argv[])
 	}
 	if (lline[0] != '\0')
 		s->map_s++;
-	free(lline);
+	if (lline)
+		free(lline);
 	close(e->fd_map_s);
 }
 
