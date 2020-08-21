@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 09:13:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/11 11:29:18 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/21 14:04:51 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 typedef struct	s_list
 {
-	void			*content;
+	void			*c;
 	struct s_list	*next;
 }				t_list;
 

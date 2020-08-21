@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 13:51:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/20 12:58:49 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/21 15:15:12 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ typedef struct	s_scene
 	t_texture	tex[5];
 	t_rgb		col[2];
 	t_sprite	sprt;
+	int			error;
 
 }				t_scene;
 

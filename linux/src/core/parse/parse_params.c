@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:53:19 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/20 15:36:14 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/21 15:59:59 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int		find_nbrs(char *f_line)
 	return (nbr);
 }
 
-static int	cvt_screen_res(t_scene *scene_p, char *line)
+static int		cvt_screen_res(t_scene *scene_p, char *line)
 {
 	char	**str_array;
 	int		nbr;
@@ -80,14 +80,13 @@ static int		cvt_rgb(t_rgb *rgb, char *line)
 	!ft_isnum(str_array[1]) || !ft_isnum(str_array[2]))
 	{
 		free_prms(str_array);
-		return(0);
+		return (0);
 	}
 	b = ft_atoi(str_array[2]);
 	g = ft_atoi(str_array[1]);
 	r = ft_atoi(str_array[0]);
 	free_prms(str_array);
-	if ((!((r <= 255 && r >= 0) && (g <= 255 && g >= 0) &&
-	(b <= 255 && b >= 0))))
+	if (!is_rgb(r, g, b))
 		return (0);
 	rgb->b = b;
 	rgb->g = g;
@@ -95,7 +94,7 @@ static int		cvt_rgb(t_rgb *rgb, char *line)
 	return (1);
 }
 
-static int	cvt_text_path(char **text_path, char *line)
+static int		cvt_text_path(char **text_path, char *line)
 {
 	while (*line == 'N' || *line == 'O' || *line == 'S' || *line == 'W'
 	|| *line == 'E' || *line == 'A' || *line == ' ')
@@ -106,30 +105,31 @@ static int	cvt_text_path(char **text_path, char *line)
 	return (1);
 }
 
-void			parse_env_params(t_env *e, char *f_line, t_scene *scene_p)
+void			parse_env_params(t_env *e, char *f_line, t_scene *s)
 {
+	(void)e;
 	if (f_line[0] == 'R')
-		if (!cvt_screen_res(scene_p, f_line))
-			exit_message_failure(3, e, 11, f_line);
+		if (!cvt_screen_res(s, f_line))
+			s->error = s->error != 0 ? s->error : 11;
 	if (f_line[0] == 'N' && f_line[1] == 'O')
-		if (!cvt_text_path(&(scene_p->tex[0].path), f_line))
-			exit_message_failure(3, e, 4, f_line);
+		if (!cvt_text_path(&(s->tex[0].path), f_line))
+			s->error = s->error != 0 ? s->error : 4;
 	if (f_line[0] == 'S' && f_line[1] == 'O')
-		if (!cvt_text_path(&(scene_p->tex[1].path), f_line))
-			exit_message_failure(3, e, 4, f_line);
+		if (!cvt_text_path(&(s->tex[1].path), f_line))
+			s->error = s->error != 0 ? s->error : 4;
 	if (f_line[0] == 'E' && f_line[1] == 'A')
-		if (!cvt_text_path(&(scene_p->tex[2].path), f_line))
-			exit_message_failure(3, e, 4, f_line);
+		if (!cvt_text_path(&(s->tex[2].path), f_line))
+			s->error = s->error != 0 ? s->error : 4;
 	if (f_line[0] == 'W' && f_line[1] == 'E')
-		if (!cvt_text_path(&(scene_p->tex[3].path), f_line))
-			exit_message_failure(3, e, 4, f_line);
+		if (!cvt_text_path(&(s->tex[3].path), f_line))
+			s->error = s->error != 0 ? s->error : 4;
 	if (f_line[0] == 'S' && f_line[1] == ' ')
-		if (!cvt_text_path(&(scene_p->tex[4].path), f_line))
-			exit_message_failure(3, e, 4, f_line);
+		if (!cvt_text_path(&(s->tex[4].path), f_line))
+			s->error = s->error != 0 ? s->error : 4;
 	if (f_line[0] == 'F')
-		if (!cvt_rgb(&(scene_p->col[1]), f_line))
-			exit_message_failure(3, e, 5, f_line);
+		if (!cvt_rgb(&(s->col[1]), f_line))
+			s->error = s->error != 0 ? s->error : 5;
 	if (f_line[0] == 'C')
-		if (!cvt_rgb(&(scene_p->col[0]), f_line))
-			exit_message_failure(3, e, 5, f_line);
+		if (!cvt_rgb(&(s->col[0]), f_line))
+			s->error = s->error != 0 ? s->error : 5;
 }

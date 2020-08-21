@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:51:10 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/20 16:08:41 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/21 16:15:19 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,23 +97,23 @@ void		parse_scene(t_env *e, t_scene *s, char *argv[])
 	int		ret;
 	char	*f_line;
 
-	s->col[0] = (t_rgb){300, 300, 300};
-	s->col[1] = (t_rgb){300, 300, 300};
+	init_col(s);
 	e->fd_prms = open(argv[1], O_RDONLY);
 	while ((ret = get_next_line(e->fd_prms, &f_line) > 0))
 	{
 		if (!are_params_found(s) || f_line[0] == '\0')
 		{
-			if (!is_env_params(f_line[0]))
-				exit_message_failure(3, e, 2, f_line);
+			if (!is_env_params(f_line[0]) && f_line[0] != '1'
+			&& f_line[0] != '0' && f_line[0] != ' ')
+				s->error = 1;
 			parse_env_params(e, f_line, s);
 			s->len_prms++;
 		}
 		free(f_line);
 	}
 	free(f_line);
-	if (!are_params_found(s))
-		exit_message_failure(2, e, 1);
+	if (s->error != 0 || (!are_params_found(s) && ((s->error = 1))))
+		exit_message_failure(2, e, s->error);
 	find_map_size(e, s, argv);
 	cvt_fle_to_array(e, s, argv);
 	if ((!parse_map(e, s->map_a, s)) || (!(is_map_closed(s->map_a, s))))

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 15:05:57 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/04/21 12:17:05 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/21 15:54:44 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdio.h>
 
 int			get_next_line(int fd, char **line);
 int			find_index(const char *s, int c);

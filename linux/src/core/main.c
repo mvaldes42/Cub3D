@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 18:11:43 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/19 21:49:49 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/21 15:52:26 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,17 @@ int			main(int argc, char *argv[])
 	ft_strncmp(argv[2], "--save", 6) == 0)
 		env.save = 1;
 	if ((argc == 3 && env.save == 0) || argc > 3)
-		exit_message_failure(2, env, 14);
+		exit_message_failure(2, &env, 14);
 	parse_scene(&env, &env.scene, argv);
 	init_scene(&env);
 	if (!(env.scene.cam.z_buffer = malloc(env.scene.scrn.x * sizeof(double))))
-		exit_message_failure(2, env, 10);
+		exit_message_failure(2, &env, 10);
 	draw_env(&(env.scene), &env);
 	if (env.save == 1)
 	{
 		if (!save_img_to_bmp(env.scene.scrn.x, env.scene.scrn.y,
 		env.mlx_img.data, env.mlx_img.bpp))
-			exit_message_failure(2, env, 9);
+			exit_message_failure(2, &env, 9);
 		exit_hook(&env);
 	}
 	mlx_do_loop(&env);

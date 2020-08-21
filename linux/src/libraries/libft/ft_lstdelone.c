@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 12:14:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/04/15 12:14:50 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/21 14:04:34 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
 	if (lst && del)
 	{
-		del(lst->content);
+		del(lst->c);
 		free(lst);
 	}
 }

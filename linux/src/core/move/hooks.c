@@ -6,13 +6,13 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 15:37:12 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/19 21:53:18 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/21 15:55:33 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "move.h"
 
-void		exit_sequence(t_env *env)
+void			exit_sequence(t_env *env)
 {
 	int i;
 

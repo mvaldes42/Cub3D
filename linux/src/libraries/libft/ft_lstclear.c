@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 12:12:37 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/04/15 12:12:41 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/21 14:04:44 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void*))
 	while (tmp)
 	{
 		next = tmp->next;
-		del(tmp->content);
+		del(tmp->c);
 		free(tmp);
 		tmp = next;
 	}

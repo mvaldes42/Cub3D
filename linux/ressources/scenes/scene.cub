@@ -1,4 +1,4 @@
-R  1920   1080
+R 1920    1080
 NO ressources/textures/redbrick.xpm
 SO ./ressources/textures/bookshelf.xpm
 
@@ -9,9 +9,6 @@ S    ressources/textures/barrel.xpm
 F 255, 202, 212
 
 C          200, 231 ,         255
-
-
-
 
         11111111111 1111111111111
         10000000001 1000000000111
