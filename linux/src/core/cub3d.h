@@ -18,6 +18,7 @@
 # include "../libraries/minilibx-linux/mlx.h"
 # include "error.h"
 # include <stdio.h>
+# include <stdarg.h>
 
 # define GAME_NAME				"Cub3D"
 # define X_EVENT_EXIT			17
@@ -144,6 +145,11 @@ void			draw_env(t_scene *scene_p, t_env *env_p);
 int				key_press(int keycode, t_env *env);
 int				key_rel(int keycode, t_env *env);
 int				exit_hook(t_env *env);
+void			exit_sequence(t_env *env);
+
 int				word_count(const char *s, char c);
+
+void			free_p(void *p);
+void			close_fd(int fd);
 
 #endif

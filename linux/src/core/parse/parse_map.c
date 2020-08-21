@@ -74,7 +74,7 @@ int				is_map_closed(char **map_a, t_scene *s)
 	return (1);
 }
 
-int				parse_map(char **map, t_scene *s)
+int				parse_map(t_env *e, char **map, t_scene *s)
 {
 	int i;
 	int j;
@@ -88,7 +88,7 @@ int				parse_map(char **map, t_scene *s)
 		while (map[i][j])
 		{
 			if (!ft_strrchr("012NSEW ", map[i][j]))
-				exit_message_failure(2);
+				exit_message_failure(2, e, 2);
 			if (ft_strrchr("NSEW", map[i][j]))
 				position++;
 			j++;
@@ -96,6 +96,6 @@ int				parse_map(char **map, t_scene *s)
 		i++;
 	}
 	if (position != 1)
-		exit_message_failure(13);
+		exit_message_failure(2, e, 13);
 	return (1);
 }

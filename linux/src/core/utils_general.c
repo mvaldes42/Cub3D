@@ -13,11 +13,33 @@
 #include "error.h"
 #include "cub3d.h"
 
-void		exit_message_failure(int error)
+void		free_p(void *p)
 {
-	(void)error;
+	if (p)
+		free(p);
+}
+
+void		close_fd(int fd)
+{
+	if (fd)
+		close(fd);
+}
+
+void		exit_message_failure(int count, ...)
+{
+	va_list	args;
+	void	*ptr;
+	int		error;
+
+	va_start(args, count);
+	exit_sequence(va_arg(args, t_env *));
+	error = va_arg(args, int);
+	printf("%d\n", error);
+	if (count > 2 && (ptr = va_arg(args, void *)))
+		free_p(ptr);
 	ft_putstr_fd("Error\n", 1);
 	write(1, error[g_errorm].msg, ft_strlen(error[g_errorm].msg));
+	va_end(args);
 	exit(EXIT_FAILURE);
 }
 

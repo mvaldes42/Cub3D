@@ -57,6 +57,6 @@ static const	t_errordesc g_errorm[] =
 	{E_ARG_S, "Invalid option. Use \"--save\" for snapshot"},
 };
 
-void			exit_message_failure(int error);
+void			exit_message_failure(int count, ...);
 
 #endif

@@ -28,7 +28,9 @@ void		find_map_size(t_env *e, t_scene *s, char *argv[])
 		{
 			if ((int)ft_strlen(lline) > s->line_m)
 				s->line_m = ft_strlen(lline);
-			if (lline[0] != '\0')
+			if (lline[0] == '\0')
+				exit_message_failure(3, e, 12, lline);
+			else
 				s->map_s++;
 		}
 		free(lline);
@@ -37,7 +39,6 @@ void		find_map_size(t_env *e, t_scene *s, char *argv[])
 		s->map_s++;
 	if (lline)
 		free(lline);
-	close(e->fd_map_s);
 }
 
 static void	put_lst_line_to_array(t_scene *scene_p, char *previous_l, int res,
@@ -95,12 +96,11 @@ void		cvt_fle_to_array(t_env *e, t_scene *s, char *argv[])
 		{
 			s->map_a[++i] = malloc((s->line_m + 1) * sizeof(char));
 			if (line[0] == '\0')
-				exit_message_failure(12);
+				exit_message_failure(3, e, 12, line);
 			put_line_to_array(s, i, line);
 		}
 		free(line);
 	}
 	put_lst_line_to_array(s, line, res, i);
 	free(line);
-	close(e->fd_map_a);
 }

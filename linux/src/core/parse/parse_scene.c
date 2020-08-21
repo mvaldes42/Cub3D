@@ -105,18 +105,18 @@ void		parse_scene(t_env *e, t_scene *s, char *argv[])
 		if (!are_params_found(s) || f_line[0] == '\0')
 		{
 			if (!is_env_params(f_line[0]))
-				exit_message_failure(2);
-			parse_env_params(f_line, s);
+				exit_message_failure(3, e, 2, f_line);
+			parse_env_params(e, f_line, s);
 			s->len_prms++;
 		}
 		free(f_line);
 	}
 	free(f_line);
 	if (!are_params_found(s))
-		exit_message_failure(1);
+		exit_message_failure(2, e, 1);
 	find_map_size(e, s, argv);
 	cvt_fle_to_array(e, s, argv);
-	if ((!parse_map(s->map_a, s)) || (!(is_map_closed(s->map_a, s))))
-		exit_message_failure(6);
+	if ((!parse_map(e, s->map_a, s)) || (!(is_map_closed(s->map_a, s))))
+		exit_message_failure(2, e, 6);
 	parse_player_pos(s);
 }

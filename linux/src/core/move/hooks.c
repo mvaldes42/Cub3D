@@ -12,15 +12,7 @@
 
 #include "move.h"
 
-static void		free_p(void *p)
-{
-	if (p)
-	{
-		free(p);
-	}
-}
-
-static int		exit_game(t_env *env, int code)
+void		exit_sequence(t_env *env)
 {
 	int i;
 
@@ -31,12 +23,12 @@ static int		exit_game(t_env *env, int code)
 	{
 		if (env->scene.tex[i].img.addr)
 			mlx_destroy_image(env->mlx_ptr, env->scene.tex[i].img.addr);
-		free(env->scene.tex[i].path);
+		free_p(env->scene.tex[i].path);
 	}
 	if (env->mlx_win)
 		mlx_destroy_window(env->mlx_ptr, env->mlx_win);
 	i = 0;
-	while (i < env->scene.map_s)
+	while (env->scene.map_a && i < env->scene.map_s && env->scene.map_a[i])
 	{
 		free(env->scene.map_a[i]);
 		i++;
@@ -44,7 +36,14 @@ static int		exit_game(t_env *env, int code)
 	free_p(env->scene.map_a);
 	free_p(env->scene.cam.z_buffer);
 	free_p(env->scene.sprt.pos);
-	close(env->fd_prms);
+	close_fd(env->fd_prms);
+	close_fd(env->fd_map_a);
+	close_fd(env->fd_map_s);
+}
+
+static int		exit_game(t_env *env, int code)
+{
+	exit_sequence(env);
 	exit(code);
 	return (code);
 }

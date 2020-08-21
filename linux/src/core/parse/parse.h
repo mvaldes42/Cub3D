@@ -14,10 +14,10 @@
 # define __PARSE_H
 # include "../cub3d.h"
 
-int				parse_map(char **map, t_scene *s);
+int				parse_map(t_env *e, char **map, t_scene *s);
 int				is_map_closed(char **map_a, t_scene *s);
 void			parse_scene(t_env *e, t_scene *s, char *argv[]);
-void			parse_env_params(char *f_line, t_scene *scn);
+void			parse_env_params(t_env *e, char *f_line, t_scene *scene_p);
 void			free_prms(char **ptr);
 
 #endif

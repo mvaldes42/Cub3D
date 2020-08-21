@@ -26,7 +26,7 @@ static void		load_game_textures(t_env *env, t_scene *scene)
 			text->img.data = mlx_get_data_addr(text->img.addr, &text->img.bpp,
 			&text->img.line_len, &text->img.endian);
 		else
-			exit_message_failure(9);
+			exit_message_failure(2, env, 9);
 		i++;
 	}
 }
@@ -34,19 +34,19 @@ static void		load_game_textures(t_env *env, t_scene *scene)
 static void		init_mlx(t_env *env)
 {
 	if ((!(env->mlx_ptr = mlx_init())))
-		exit_message_failure(8);
+		exit_message_failure(2, env, 8);
 	if (env->save == 0)
 	{
 		window_resize(env, &env->scene);
 		if (!(env->mlx_win = mlx_new_window(env->mlx_ptr, env->scene.scrn.x,
 		env->scene.scrn.y, GAME_NAME)))
-			exit_message_failure(8);
+			exit_message_failure(2, env, 8);
 	}
 	if (!(env->mlx_img.addr = mlx_new_image(env->mlx_ptr, env->scene.scrn.x,
 	env->scene.scrn.y)) || !(env->mlx_img.data =
 	mlx_get_data_addr(env->mlx_img.addr, &env->mlx_img.bpp,
 	&env->mlx_img.line_len, &env->mlx_img.endian)))
-		exit_message_failure(8);
+		exit_message_failure(2, env, 8);
 	load_game_textures(env, &(env->scene));
 }
 

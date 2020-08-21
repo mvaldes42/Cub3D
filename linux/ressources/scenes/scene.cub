@@ -1,8 +1,8 @@
 R  1920   1080
 NO ressources/textures/redbrick.xpm
 SO ./ressources/textures/bookshelf.xpm
-EA ./ressources/textures/mossy.xpm
 
+EA ./ressources/textures/mossy.xpm
 WE ./ressources/textures/colorstone.xpm
 
 S    ressources/textures/barrel.xpm
