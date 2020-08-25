@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 15:37:12 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/21 15:55:33 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/25 12:11:28 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int				exit_hook(t_env *env)
 
 int				key_press(int keycode, t_env *env)
 {
-	mlx_clear_window(env->mlx_ptr, env->mlx_win);
+	ft_bzero(env->mlx_img.data, sizeof(env->mlx_img.data));
 	if (keycode == KEY_LEFT)
 		rotate(&(env->scene), 1);
 	else if (keycode == KEY_RIGHT)
@@ -77,7 +77,7 @@ int				key_press(int keycode, t_env *env)
 int				key_rel(int keycode, t_env *env)
 {
 	(void)keycode;
-	mlx_clear_window(env->mlx_ptr, env->mlx_win);
+	ft_bzero(env->mlx_img.data, sizeof(env->mlx_img.data));
 	draw_env(&(env->scene), env);
 	return (1);
 }
