@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 18:11:43 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/25 11:46:20 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/25 14:09:40 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int			main(int argc, char *argv[])
 	t_env		env;
 
 	ft_bzero(&env, sizeof(env));
+	if (!ft_strnstr(argv[1], ".cub", ft_strlen(argv[1])))
+		exit_message_failure(2, &env, 0);
 	if (argc > 2 && ft_strlen(argv[2]) == 6 &&
 	ft_strncmp(argv[2], "--save", 6) == 0)
 		env.save = 1;

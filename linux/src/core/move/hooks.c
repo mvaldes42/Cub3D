@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 15:37:12 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/25 12:11:28 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/25 14:04:28 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void			exit_sequence(t_env *env)
 	i = -1;
 	if (env->mlx_img.addr)
 		mlx_destroy_image(env->mlx_ptr, env->mlx_img.addr);
-	while (++i < 5)
+	while (++i < 5 && env->scene.tex[i].path)
 	{
 		if (env->scene.tex[i].img.addr)
 			mlx_destroy_image(env->mlx_ptr, env->scene.tex[i].img.addr);
