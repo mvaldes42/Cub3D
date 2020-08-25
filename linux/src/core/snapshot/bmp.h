@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 21:52:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/21 18:03:09 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/25 11:46:30 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <fcntl.h>
 # include "../cub3d.h"
 
-int 	save_img_to_bmp(int screen_x, int screen_y, char *img_data,
-					int bpp, t_env *e);
+int		save_img_to_bmp(int screen_x, int screen_y, t_data *mlx_img);
 
 #endif

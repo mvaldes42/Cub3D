@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 18:11:43 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/21 18:03:29 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/25 11:46:20 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int			main(int argc, char *argv[])
 	if (env.save == 1)
 	{
 		if (!save_img_to_bmp(env.scene.scrn.x, env.scene.scrn.y,
-		env.mlx_img.data, env.mlx_img.bpp, &env))
+		&env.mlx_img))
 			exit_message_failure(2, &env, 9);
 		exit_hook(&env);
 	}

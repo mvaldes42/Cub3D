@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 18:02:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2020/08/12 20:24:17 by mvaldes          ###   ########.fr       */
+/*   Updated: 2020/08/25 11:55:02 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void		exit_message_failure(int count, ...)
 	va_start(args, count);
 	exit_sequence(va_arg(args, t_env *));
 	error = va_arg(args, int);
-	printf("%d\n", error);
 	if (count > 2 && (ptr = va_arg(args, void *)))
 		free_p(ptr);
 	ft_putstr_fd("Error\n", 1);
